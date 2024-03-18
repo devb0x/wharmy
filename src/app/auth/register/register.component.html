@@ -1,0 +1,25 @@
+<section>
+	<form [formGroup]="form" (ngSubmit)="onRegisterUser()" method="post">
+<!--			<label for="username">-->
+<!--				username-->
+<!--			</label>-->
+<!--			<input id="username" type="text" formControlName="username" placeholder="username">-->
+		
+		<label for="email">
+			email
+		</label>
+		<input id="email" type="email" formControlName="email" placeholder="your@mail.com" name="email">
+		<label for="password">
+			password
+		</label>
+		<input id="password" type="password" formControlName="password" name="password">
+<!--		<label for="pwdConfirm">-->
+<!--			confirm password-->
+<!--		</label>-->
+<!--		<input id="pwdConfirm" type="password" formControlName="pwdConfirm">-->
+		<button type="submit">
+			Register
+		</button>
+	</form>
+</section>
+
