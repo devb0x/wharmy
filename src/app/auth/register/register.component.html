@@ -1,25 +1,72 @@
 <section>
-	<form [formGroup]="form" (ngSubmit)="onRegisterUser()" method="post">
-<!--			<label for="username">-->
-<!--				username-->
-<!--			</label>-->
-<!--			<input id="username" type="text" formControlName="username" placeholder="username">-->
-		
+	<div *ngIf="isLoading">
+		<h1>LOADING..</h1>
+	</div>
+	<form *ngIf="!isLoading" [formGroup]="form" (ngSubmit)="onRegisterUser()" method="post" >
 		<label for="email">
 			email
 		</label>
-		<input id="email" type="email" formControlName="email" placeholder="your@mail.com" name="email">
-		<label for="password">
+		<input
+			id="email"
+			type="email"
+			formControlName="email"
+			name="email"
+			required
+			email
+			placeholder="your@mail.com"
+		>
+		<div *ngIf="email" >
+			<small *ngIf="email.value === null && (email.touched || email.dirty)" class="error-message">
+				This field is required
+			</small>
+			<small *ngIf="email.value !== null && email.errors && (email.touched || email.dirty) " class="error-message" >
+				email wrong pattern
+			</small>
+			<small *ngIf="userExist" class="error-message">
+				user already exist
+			</small>
+		</div>
+		
+		<label for="pwd">
 			password
 		</label>
-		<input id="password" type="password" formControlName="password" name="password">
-<!--		<label for="pwdConfirm">-->
-<!--			confirm password-->
-<!--		</label>-->
-<!--		<input id="pwdConfirm" type="password" formControlName="pwdConfirm">-->
-		<button type="submit">
+		<input
+			id="pwd"
+			type="password"
+			formControlName="pwd"
+			name="pwd"
+			required
+			(blur)="onBlurEvent()"
+		>
+		<div *ngIf="pwd">
+			<small *ngIf="pwd.value === null && (pwd.touched || pwd.dirty)" class="error-message">
+				This field is required
+			</small>
+		</div>
+		
+		<label for="pwdConfirm">
+			confirm password
+		</label>
+		<input
+			id="pwdConfirm"
+			type="password"
+			formControlName="pwdConfirm"
+			name="pwdConfirm"
+			required
+			(blur)="onBlurEvent()"
+		>
+		<div *ngIf="pwdConfirm">
+			<small *ngIf="pwdConfirm.value === null && (pwdConfirm.touched || pwdConfirm.dirty)" class="error-message">
+				This field is required<br>
+			</small>
+			<small *ngIf="pwd && pwd.value !== null && (pwd.touched || pwd.dirty) && !pwdIdentical " class="error-message">
+				The passwords should be identical
+			</small>
+		</div>
+		<button *ngIf="!this.isLoading" type="submit" [disabled]="!form.valid">
 			Register
 		</button>
 	</form>
+
 </section>
 

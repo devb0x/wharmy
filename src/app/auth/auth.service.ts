@@ -17,13 +17,18 @@ export class AuthService {
 
 	createUser(email: string, password: string) {
 		const authData: AuthDataModel = {email: email, password: password}
-		console.log(authData.password)
 		this.http
 			.post(BACKEND_URL + "signup", authData)
 			.subscribe({
 				next: () => this.router.navigate(['/']),
-				error: () => this.authStatusListener.next(false)
+				error: () => {
+					this.authStatusListener.next(false)
+				}
 			})
+	}
+
+	isUserExist(email: string) {
+		return this.http.get<any>(BACKEND_URL + `userExist?email=${email}`);
 	}
 
 	getAuthStatusListener() {

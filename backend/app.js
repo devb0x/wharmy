@@ -32,5 +32,6 @@ app.use((req, res, next) => {
 })
 
 app.use("/api/user", userRoutes)
+app.get("/api/user/dummy")
 
 module.exports = app

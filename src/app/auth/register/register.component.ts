@@ -1,14 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { Subscription } from "rxjs"
+import { Component, OnInit } from '@angular/core'
+import { NgIf } from "@angular/common"
+import {Subject, Subscription} from "rxjs"
 
-import {FormBuilder, FormGroup, FormControl, ReactiveFormsModule, Validators, NgForm} from "@angular/forms";
-// import {HttpClient} from "@angular/common/http";
+import {
+	FormGroup,
+	FormControl,
+	ReactiveFormsModule,
+	Validators
+} from "@angular/forms";
 import {AuthService} from "../auth.service";
+import {response} from "express";
 
 @Component({
 	selector: 'app-register',
 	standalone: true,
 	imports: [
+		NgIf,
 		ReactiveFormsModule
 	],
 	providers: [
@@ -18,65 +25,84 @@ import {AuthService} from "../auth.service";
 	styleUrl: './register.component.css'
 })
 
-// export class RegisterComponent implements OnInit {
-// 	form!: FormGroup
-//
-// 	constructor(
-// 		private formBuilder: FormBuilder,
-// 		public authService: AuthService,
-// 	) {}
-//
-// 	ngOnInit() {
-// 		console.log('uh')
-// 		this.form = new FormGroup({
-// 			email: new FormControl(null, {
-// 				validators: [Validators.required]
-// 			}),
-// 			password: new FormControl(null, {
-// 				validators: [Validators.required]
-// 			})
-// 		})
-// 	}
-//
-// 	onRegisterUser() {
-// 		console.log('i dont know')
-// 		// this.authService.createUser(this.form.value.email, this.form.value.password)
-// 	}
-// }
-
 export class RegisterComponent implements OnInit {
 	form!: FormGroup
 	isLoading = false
+	pwdIdentical = true
+	userExist = false
 	private authStatusSub!: Subscription
 
 	constructor(private authService: AuthService) {}
 
-	ngOnInit() {
+	ngOnInit(): void {
 		this.authStatusSub = this.authService.getAuthStatusListener().subscribe(
 			authStatus => {
 				this.isLoading = false
 			}
 		)
-		console.log('from ng init')
-		console.log(this.isLoading)
 		this.form = new FormGroup({
 			email: new FormControl(null, {
+					updateOn: 'change',
+					validators: [
+						Validators.required,
+						Validators.email,
+						Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
+					]
+				}),
+			pwd: new FormControl(null, {
+				updateOn: 'change',
 				validators: [Validators.required]
 			}),
-			password: new FormControl(null, {
+			pwdConfirm: new FormControl(null, {
+				updateOn: 'change',
 				validators: [Validators.required]
 			})
 		})
+		this.isLoading = false
 	}
-	onRegisterUser() {
-		// console.log(this.form.value.email + ' ' + this.form.value.password)
 
-		console.log(this.form.value.password)
-		this.authService.createUser(this.form.value.email, this.form.value.password)
+	get email() {
+		return this.form.get('email');
 	}
-	//
-	// onRegisterUser() {
-	// 	console.log('ok bro')
-	// 	// this.authService.createUser(this.form.value.email, this.form.value.password)
-	// }
+
+	get pwd() {
+		return this.form.get('pwd')
+	}
+
+	get pwdConfirm() {
+		return this.form.get('pwdConfirm')
+	}
+
+	onRegisterUser() {
+		this.isLoading = true
+
+		if (this.form.invalid) {
+			alert("The form is invalid")
+			return
+		}
+
+		if (this.form.value.pwd !== this.form.value.pwdConfirm) {
+			alert("The passwords should be identical")
+			this.pwdIdentical = false
+			return
+		}
+
+		this.isLoading = false
+
+		this.authService
+			.isUserExist(this.form.value.email)
+			.subscribe(response =>
+				this.userExist = response.exists
+			)
+		this.authService.createUser(this.form.value.email, this.form.value.pwd)
+	}
+
+	onBlurEvent() {
+		this.pwdIdentical = this.form.value.pwd === this.form.value.pwdConfirm;
+	}
+
+	ngOnDestroy() {
+		this.authStatusSub.unsubscribe()
+	}
+
 }
