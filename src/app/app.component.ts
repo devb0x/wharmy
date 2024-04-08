@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core'
 import {RouterLink, RouterLinkActive, RouterModule, RouterOutlet} from '@angular/router'
 
 import { HeaderComponent } from "./header/header.component"
-import {HttpClientModule} from "@angular/common/http";
+import { HttpClientModule } from "@angular/common/http"
+
+import { AuthService } from "./auth/auth.service";
 
 @Component({
 	selector: 'app-root',
@@ -19,10 +21,10 @@ import {HttpClientModule} from "@angular/common/http";
 export class AppComponent implements OnInit {
 	title = 'wharmy';
 
-	// constructor(private authService: AuthService) {}
+	constructor(private authService: AuthService) {}
 
 	ngOnInit() {
-		// this.authService.autoAuthUser()
+		this.authService.autoAuthUser()
 	}
 
 }
