@@ -19,8 +19,8 @@ export class AuthService {
 
 	constructor(private http: HttpClient, private router: Router) {}
 
-	createUser(email: string, password: string) {
-		const authData: AuthDataModel = {email: email, password: password}
+	createUser(email: string, username: string, password: string) {
+		const authData: AuthDataModel = {email: email, username: username, password: password}
 		this.http
 			.post(BACKEND_URL + "signup", authData)
 			.subscribe({
@@ -118,7 +118,14 @@ export class AuthService {
 	}
 
 	getIsAuth() {
-		return this.isAuthenticated
+		const token = localStorage.getItem("token")
+		const userId = localStorage.getItem("userId")
+
+		if (!token && !userId) {
+			this.clearAuthData()
+		}
+
+		return !!token && !!userId
 	}
 }
 

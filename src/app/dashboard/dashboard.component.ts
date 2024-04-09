@@ -1,10 +1,9 @@
 import { Component } from '@angular/core'
-import { HttpClient } from "@angular/common/http"
 
 import { DashboardService } from "./dashboard.service"
 import {AuthService} from "../auth/auth.service";
-import {takeUntil} from "rxjs";
-import {response} from "express";
+import { Subject, Subscription, takeUntil } from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
 	selector: 'app-dashboard',
@@ -16,31 +15,48 @@ import {response} from "express";
 export class DashboardComponent {
 	// TODO create userdata model
 	userData: any
+	private sub!: Subscription;
+	private destroy$: Subject<void> = new Subject<void>();
 
 	constructor(
 		private dashboardService: DashboardService,
 		private authService: AuthService,
-		private http: HttpClient
+		private router: Router
 	) {}
 
 	ngOnInit() {
-		this.userData = this.dashboardService
+		if (!this.authService.getIsAuth()) {
+			this.router.navigate(['/login']);
+			return;
+		}
+		this.sub = this.dashboardService
 			.getUserInformation()
-			.subscribe(response => {
-				if (!response.exists) {
-					return
+			.pipe(takeUntil(this.destroy$))
+			.subscribe({
+				next: response => {
+					if (!response.exists) {
+						console.log("User information not found.");
+						return;
+					}
+					this.userData = response.user;
+				},
+				error: err => {
+					console.error("Error fetching user information:", err);
 				}
-				this.userData = response.user
-			})
-
+			});
 	}
+
 
 	logout() {
 		this.authService.logout()
 	}
 
-	// ngOnDestroy() {
-	// 	this.userData = null
-	// }
+	ngOnDestroy() {
+		this.destroy$.next();
+		this.destroy$.complete();
+		if (this.sub) {
+			this.sub.unsubscribe();
+		}
+	}
 
 }

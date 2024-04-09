@@ -49,6 +49,12 @@ export class RegisterComponent implements OnInit {
 						Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
 					]
 				}),
+			username: new FormControl(null, {
+				updateOn: 'change',
+				validators: [
+					Validators.required
+				]
+			}),
 			pwd: new FormControl(null, {
 				updateOn: 'change',
 				validators: [Validators.required]
@@ -63,6 +69,10 @@ export class RegisterComponent implements OnInit {
 
 	get email() {
 		return this.form.get('email');
+	}
+
+	get username() {
+		return this.form.get('username')
 	}
 
 	get pwd() {
@@ -94,7 +104,7 @@ export class RegisterComponent implements OnInit {
 			.subscribe(response =>
 				this.userExist = response.exists
 			)
-		this.authService.createUser(this.form.value.email, this.form.value.pwd)
+		this.authService.createUser(this.form.value.email, this.form.value.username, this.form.value.pwd)
 	}
 
 	onBlurEvent() {

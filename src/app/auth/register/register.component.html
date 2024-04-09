@@ -27,6 +27,23 @@
 			</small>
 		</div>
 		
+		<label for="username">
+			Username
+		</label>
+		<input
+			id="username"
+			type="text"
+			formControlName="username"
+			name="username"
+			required
+			(blur)="onBlurEvent()"
+		>
+		<div *ngIf="username">
+			<small *ngIf="username.value === null && (username.touched || username.dirty)" class="error-message">
+				This field is required
+			</small>
+		</div>
+		
 		<label for="pwd">
 			password
 		</label>
@@ -63,6 +80,7 @@
 				The passwords should be identical
 			</small>
 		</div>
+		
 		<button *ngIf="!this.isLoading" type="submit" [disabled]="!form.valid">
 			Register
 		</button>

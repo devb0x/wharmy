@@ -8,6 +8,7 @@ exports.createUser = (req, res, next) => {
 		.then(hash => {
 			const user = new User({
 				email: req.body.email,
+				username: req.body.username,
 				password: hash
 			})
 			user.save()
@@ -47,7 +48,6 @@ exports.checkUserExists = async (req, res) => {
 }
 
 exports.loginUser = (req, res, next) => {
-	let fetchedUser
 	User
 		.findOne({ email: req.body.email })
 		.then(user => {
@@ -56,28 +56,27 @@ exports.loginUser = (req, res, next) => {
 					message: "Login failed"
 				})
 			}
-			fetchedUser = user
 			return bcrypt.compare(req.body.password, user.password)
-		})
-		.then(result => {
-			if (!result) {
-				return res.status(401).json({
-					message: "Login failed"
+				.then(result => {
+					if (!result) {
+						return res.status(401).json({
+							message: "Login failed"
+						})
+					}
+					const token = jwt.sign(
+						{email: user.email, userId: user._id},
+						process.env.JWT_KEY,
+						{expiresIn: "1h"}
+					)
+					res.status(201).json({
+						token: token,
+						expiresIn: 3600,
+						userId: user._id
+					})
 				})
-			}
-			const token = jwt.sign(
-				{ email: fetchedUser.email, userId: fetchedUser._id },
-				process.env.JWT_KEY,
-				{ expiresIn: "1h"}
-			)
-			res.status(201).json({
-				token: token,
-				expiresIn: 3600,
-				userId: fetchedUser._id
 			})
-		})
 		.catch(err => {
-			return res.status(401).json({
+			return res.status(500).json({
 				message: "Invalid Authentication Credentials"
 			})
 		})
@@ -90,7 +89,6 @@ exports.getUserInformation = async (req, res, next) => {
 
 		if (user) {
 			// User with the provided email exists
-			console.log(user)
 			res.status(200).json({ exists: true, user });
 		} else {
 			// User with the provided email does not exist
