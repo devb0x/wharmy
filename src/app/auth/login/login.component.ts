@@ -1,5 +1,7 @@
 import { Component } from '@angular/core'
+import { NgIf } from "@angular/common"
 import {FormsModule, NgForm} from "@angular/forms"
+
 import {AuthService} from "../auth.service";
 import {Subscription} from "rxjs";
 
@@ -7,6 +9,7 @@ import {Subscription} from "rxjs";
 	selector: 'app-login',
 	standalone: true,
 	imports: [
+		NgIf,
 		FormsModule
 	],
 	templateUrl: './login.component.html',

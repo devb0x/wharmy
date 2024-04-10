@@ -42,8 +42,25 @@ exports.checkUserExists = async (req, res) => {
 		}
 	} catch (error) {
 		// Handle any errors
-		console.error('Error checking user existence:', error);
+		console.error('Error checking user existence: ', error);
 		res.status(500).json({ error: 'Internal server error' });
+	}
+}
+
+exports.checkUsernameTaken = async (req, res) => {
+	try {
+		const { username } = req.query
+
+		const user = await User.findOne({ username })
+
+		if (user) {
+			res.status(200).json({ taken: true, user })
+		} else {
+			res.status(200).json({ taken: false })
+		}
+	} catch (error) {
+		console.error('Error checking username taken: ', error)
+		res.status(500).json({ error: 'Internal server error' })
 	}
 }
 

@@ -15,6 +15,11 @@ router.get(
 )
 
 router.get(
+	'/usernameTaken',
+	UserController.checkUsernameTaken
+)
+
+router.get(
 	'/getUserInformation',
 	checkAuth,
 	UserController.getUserInformation

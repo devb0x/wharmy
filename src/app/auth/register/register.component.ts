@@ -30,6 +30,7 @@ export class RegisterComponent implements OnInit {
 	isLoading = false
 	pwdIdentical = true
 	userExist = false
+	usernameTaken: boolean = false
 	private authStatusSub!: Subscription
 
 	constructor(private authService: AuthService) {}
@@ -97,14 +98,28 @@ export class RegisterComponent implements OnInit {
 			return
 		}
 
-		this.isLoading = false
-
 		this.authService
 			.isUserExist(this.form.value.email)
-			.subscribe(response =>
+			.subscribe(response => {
 				this.userExist = response.exists
-			)
-		this.authService.createUser(this.form.value.email, this.form.value.username, this.form.value.pwd)
+
+				if (!this.userExist) {
+					this.authService
+						.isUsernameTaken(this.form.value.username)
+						.subscribe(usernameResponse => {
+							this.usernameTaken = usernameResponse.taken
+							if (!this.usernameTaken) {
+								this.authService.createUser(
+									this.form.value.email,
+									this.form.value.username,
+									this.form.value.pwd
+								)
+							}
+						})
+				}
+			})
+
+		this.isLoading = false
 	}
 
 	onBlurEvent() {

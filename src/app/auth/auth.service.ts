@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core"
 import { HttpClient } from "@angular/common/http"
-import { Subject } from "rxjs"
+import {catchError, Observable, Subject, throwError} from "rxjs"
 import { Router } from "@angular/router"
 
 import { AuthDataModel } from "./auth-data.model"
@@ -16,6 +16,7 @@ export class AuthService {
 	private tokenTimer: any
 	private userId!: string | null
 	private authStatusListener = new Subject<boolean>()
+	public loginError: boolean = false
 
 	constructor(private http: HttpClient, private router: Router) {}
 
@@ -35,10 +36,21 @@ export class AuthService {
 		return this.http.get<any>(BACKEND_URL + `userExist?email=${email}`)
 	}
 
+	isUsernameTaken(username: string) {
+		return this.http.get<any>(BACKEND_URL + `usernameTaken?username=${username}`)
+	}
+
 	login(email: string, password: string) {
 		const authData: AuthDataModel = {email: email, password: password}
 		this.http
 			.post<{token: string, expiresIn: number, userId: string}>(BACKEND_URL + "login", authData)
+			.pipe(
+				catchError(error => {
+					this.loginError = true
+					// console.error('Login error: ', error)
+					return throwError(error)
+				})
+			)
 			.subscribe(response => {
 				this.token = response.token
 				if (this.token) {
