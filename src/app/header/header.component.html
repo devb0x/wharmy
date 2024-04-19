@@ -2,11 +2,11 @@
 	<span>header</span>
 	<ul>
 		<li>
-			<a routerLink="/" routerLinkActive="active" class="link">
+			<a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="link">
 				homepage
 			</a>
 		</li>
-		<li>
+		<li *ngIf="!userIsAuth">
 			<a routerLink="/login" routerLinkActive="active" class="link">
 				login
 			</a>
@@ -16,7 +16,7 @@
 				register
 			</a>
 		</li>
-		<li>
+		<li *ngIf="userIsAuth">
 			<a routerLink="/dashboard" routerLinkActive="active" class="link">
 				dashboard
 			</a>

@@ -12,8 +12,11 @@ li {
 }
 
 .link {
-	outline: 1px solid red;
 	color: black;
 	text-decoration: none;
 	margin: 2rem;
+}
+
+.link.active {
+	outline: 1px solid red;
 }

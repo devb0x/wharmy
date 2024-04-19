@@ -1,14 +1,16 @@
 import { Component } from '@angular/core'
+import { Router, RouterLink } from "@angular/router"
 
 import { DashboardService } from "./dashboard.service"
 import {AuthService} from "../auth/auth.service";
 import { Subject, Subscription, takeUntil } from "rxjs";
-import {Router} from "@angular/router";
 
 @Component({
 	selector: 'app-dashboard',
 	standalone: true,
-	imports: [],
+	imports: [
+		RouterLink
+	],
 	templateUrl: './dashboard.component.html',
 	styleUrl: './dashboard.component.css'
 })
@@ -42,6 +44,7 @@ export class DashboardComponent {
 				},
 				error: err => {
 					console.error("Error fetching user information:", err);
+					return this.router.navigate(['/login'])
 				}
 			});
 	}
