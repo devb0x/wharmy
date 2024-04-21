@@ -13,7 +13,7 @@ import { AuthService } from "./auth/auth.service";
 		RouterModule,
 		RouterOutlet,
 		HeaderComponent,
-		HttpClientModule
+		HttpClientModule,
 	],
 	templateUrl: './app.component.html',
 	styleUrl: './app.component.css'

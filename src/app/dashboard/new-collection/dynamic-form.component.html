@@ -1,0 +1,50 @@
+<div class="form-container">
+	<form (ngSubmit)="onSubmit()" [formGroup]="form">
+		
+		<div *ngFor="let question of questions" class="form-row">
+			<div *ngIf="step === question.step">
+				<app-question [question]="question" [form]="form" />
+				
+				<button
+					type="button"
+					(click)="onPreviousStep()"
+				>
+					Previous Step
+				</button>
+				<button
+					type="button"
+					(click)="onNextStep()"
+					[disabled]="this.form.value === ''"
+				>
+					Next Step
+				</button>
+			</div>
+		</div>
+		
+		
+
+
+		
+		
+		<div class="form-row">
+			<button type="submit" [disabled]="!form.valid">Save</button>
+		</div>
+	
+	</form>
+	
+	<footer class="footer">
+		<div *ngFor="let question of questions">
+			<div
+				[ngClass]="question.step <= step ? 'form-step form-step-done' : 'form-step'"
+				(click)="step = question.step"
+			>
+			</div>
+		</div>
+	</footer>
+	
+	<div *ngIf="payLoad" class="form-row">
+		<strong>Saved the following values</strong><br>{{payLoad}}
+	</div>
+</div>
+
+<!--[disabled]="questions[step - 1].value === null "-->

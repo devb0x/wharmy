@@ -1,0 +1,37 @@
+.form-row {
+	/*outline: 1px solid blue;*/
+	/*display: flex;*/
+	/*flex-direction: row;*/
+	gap: 8px;
+	/*width: 325px;*/
+}
+
+.form-container > form {
+	display: flex;
+	/*flex-direction: column;*/
+}
+
+.footer	{
+	display: flex;
+	margin-top: 100px;
+	gap: 10px;
+	width: fit-content;
+	margin-inline: auto;
+}
+
+.form-step {
+	width: 50px;
+	height: 14px;
+	background-color: #D9D9D9;
+	display: flex;
+	margin-block: 30px;
+	border-radius: 2px;
+}
+.form-step:hover {
+	background-color: #E98C00;
+	cursor: pointer;
+}
+
+.form-step-done {
+	background-color: #a96500;
+}
