@@ -1,50 +1,66 @@
 <div class="form-container">
 	<form (ngSubmit)="onSubmit()" [formGroup]="form">
+		<h1 class="form-title">Create a new collection</h1>
 		
 		<div *ngFor="let question of questions" class="form-row">
 			<div *ngIf="step === question.step">
-				<app-question [question]="question" [form]="form" />
+				<div>
+					<app-question [question]="question" [form]="form" />
+				</div>
 				
-				<button
-					type="button"
-					(click)="onPreviousStep()"
-				>
-					Previous Step
-				</button>
-				<button
-					type="button"
-					(click)="onNextStep()"
-					[disabled]="this.form.value === ''"
-				>
-					Next Step
-				</button>
+				
+
+				
 			</div>
 		</div>
-		
-		
-
-
-		
-		
-		<div class="form-row">
-			<button type="submit" [disabled]="!form.valid">Save</button>
+<!--		end loop questions-->
+		<div class="form-row-buttons">
+			<button
+				*ngIf="questions && step > 1"
+				type="button"
+				(click)="onPreviousStep()"
+			>
+				<img
+					class="arrow-previous"
+					src="../../../assets/icons/right-arrow-next.svg"
+					alt="arrow next"
+				>
+			</button>
+			<button
+				*ngIf="questions && step < questions.length"
+				type="button"
+				(click)="onNextStep()"
+				[disabled]="!isCurrentQuestionAnswered()"
+			>
+				<img
+					class="arrow-next"
+					src="../../../assets/icons/right-arrow-next.svg"
+					alt="arrow next"
+				>
+			</button>
+			<button
+				class="submit"
+				*ngIf="questions && step === questions.length"
+				type="submit"
+				[disabled]="!form.valid"
+			>
+				Save
+			</button>
 		</div>
 	
+		<footer class="footer">
+			<div *ngFor="let question of questions">
+				<div
+					[ngClass]="question.step <= step ? 'form-step form-step-done' : 'form-step'"
+					(click)="step = question.step"
+				></div>
+			</div>
+		</footer>
+		
 	</form>
 	
-	<footer class="footer">
-		<div *ngFor="let question of questions">
-			<div
-				[ngClass]="question.step <= step ? 'form-step form-step-done' : 'form-step'"
-				(click)="step = question.step"
-			>
-			</div>
-		</div>
-	</footer>
 	
 	<div *ngIf="payLoad" class="form-row">
 		<strong>Saved the following values</strong><br>{{payLoad}}
 	</div>
 </div>
-
-<!--[disabled]="questions[step - 1].value === null "-->

@@ -40,21 +40,36 @@ export class DynamicFormComponent implements OnInit {
 	}
 
 	onNextStep() {
-		// console.log(this.form.value)
-		console.log(Object.values(Object.values(this.form?[12]: 'zz') ))
-		// console.log(this.questions?[this.step - 1] : 'ok')
-		// console.log(this.questions)
-		// console.log(this.questions?[0] : '')
 		if (this.step === this.questionService.maxStep) {
 			return
 		}
 		this.step = this.step + 1
 	}
 
+	isCurrentQuestionAnswered(): boolean {
+		if (!this.questions) {
+			return false
+		}
+
+		// // Get the current question based on the current step
+		const currentQuestion = this.questions.find(question => question.step === this.step)
+
+		if (!currentQuestion) {
+			return false
+		}
+		const key = currentQuestion.key
+
+		return this.form.value.hasOwnProperty(key) && this.form.value[key] !== ''
+	}
+
+
+
+
 	onSubmit() {
 		console.log('form submit, link src = ')
 		console.log('https://stackblitz.com/run?file=src%2Fapp%2Fapp.component.ts')
 		this.payLoad = JSON.stringify(this.form.getRawValue());
+		console.log(this.form.value)
 	}
 
 }

@@ -2,8 +2,8 @@ import { Injectable } from "@angular/core"
 
 import { QuestionBase } from "./question-base"
 import { DropdownQuestion } from "./question-dropdown"
+import { TextboxQuestion } from "./question-textbox"
 import { of } from "rxjs"
-import {TextboxQuestion} from "./question-textbox";
 
 @Injectable()
 export class QuestionService {

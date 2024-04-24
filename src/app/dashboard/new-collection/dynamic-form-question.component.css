@@ -1,4 +1,11 @@
 .question {
 	/*outline: 1px solid red;*/
 	width: 325px;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+.label {
+	font-size: 1rem;
 }

@@ -1,15 +1,49 @@
-.form-row {
-	/*outline: 1px solid blue;*/
+.form-container {
+	width: 343px;
+	height: 430px;
+	outline: 1px solid red;
+	margin: auto;
 	/*display: flex;*/
-	/*flex-direction: row;*/
-	gap: 8px;
-	/*width: 325px;*/
+	/*flex-direction: column;*/
 }
 
 .form-container > form {
-	display: flex;
+	/*display: flex;*/
 	/*flex-direction: column;*/
+	/*justify-content: space-between;*/
+	height: 100%;
+	display: grid;
 }
+
+.form-title {
+	/*display: flex;*/
+	/*margin-inline: auto;*/
+	height: 83px;
+	font-size: 20px;
+	width: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-block: 0;
+	border-bottom: 1px solid orange;
+	font-weight: 500;
+	letter-spacing: 1px;
+}
+
+.form-row {
+	max-width: 230px;
+	margin-inline: auto;
+	/*position: absolute;*/
+	/*top: 300px;*/
+	position: relative;
+}
+
+.form-row-buttons {
+	/*display: flex;*/
+	gap: 16px;
+}
+
+
 
 .footer	{
 	display: flex;
@@ -17,21 +51,57 @@
 	gap: 10px;
 	width: fit-content;
 	margin-inline: auto;
+	/*align-items: center;*/
+	height: 14px;
+	margin-block: auto 30px;
 }
 
 .form-step {
 	width: 50px;
 	height: 14px;
 	background-color: #D9D9D9;
-	display: flex;
-	margin-block: 30px;
+	/*display: flex;*/
+	/*margin-block: 30px;*/
 	border-radius: 2px;
 }
 .form-step:hover {
 	background-color: #E98C00;
 	cursor: pointer;
 }
+.form-step:not(.form-step-done) {
+	pointer-events: none;
+}
 
 .form-step-done {
 	background-color: #a96500;
+}
+
+.form {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: repeat(3, 1fr) repeat(2, 2fr) repeat(3, 1fr);
+	grid-column-gap: 0px;
+	grid-row-gap: 0px;
+}
+
+.form { grid-area: 1 / 1 / 9 / 4; }
+.form-title { grid-area: 1 / 1 / 3 / 4; }
+.footer { grid-area: 7 / 1 / 9 / 4; }
+.form-row { grid-area: 3 / 1 / 7 / 4; }
+.form-row-buttons { grid-area: 7 / 1 / 7 / 4; }
+
+.form-row-buttons {
+	display: flex;
+	max-width: 230px;
+	margin-inline: auto;
+	margin-top: auto;
+	margin-bottom: 50px;
+}
+
+.arrow-next {
+	height: 36px;
+}
+.arrow-previous {
+	height: 36px;
+	rotate: 180deg;
 }
