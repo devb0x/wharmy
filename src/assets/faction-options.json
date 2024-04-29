@@ -1,0 +1,15 @@
+{
+	"age of sigmar": [
+		{ "key": "stormcast_eternals", "value": "Stormcast Eternals" },
+		{ "key": "nighthaunt", "value": "Nighthaunt" },
+		{ "key": "nighthaunt 2", "value": "Nighthaunt 2" }
+	],
+	"warhammer 40k": [
+		{ "key": "space_marine", "value": "Space Marine" },
+		{ "key": "orks", "value": "Orks" }
+	],
+	"middle-earth": [
+		{ "key":  "good", "value":  "Good" },
+		{ "key":  "evil", "value":  "Evil" }
+	]
+}

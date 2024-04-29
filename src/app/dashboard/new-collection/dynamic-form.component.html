@@ -7,16 +7,23 @@
 				<div>
 					<app-question [question]="question" [form]="form" />
 				</div>
-				
-				
-
-				
 			</div>
 		</div>
 <!--		end loop questions-->
+		
+		<div class="form-row-value">
+			<div *ngIf="form.value.category && step > 1">
+				{{ form.value.category }}
+			</div>
+			<div *ngIf="form.value.subCategory && step > 2">
+				{{ form.value.subCategory }}
+			</div>
+		</div>
+		
 		<div class="form-row-buttons">
 			<button
 				*ngIf="questions && step > 1"
+				class="button"
 				type="button"
 				(click)="onPreviousStep()"
 			>
@@ -28,6 +35,7 @@
 			</button>
 			<button
 				*ngIf="questions && step < questions.length"
+				class="button"
 				type="button"
 				(click)="onNextStep()"
 				[disabled]="!isCurrentQuestionAnswered()"
@@ -39,7 +47,7 @@
 				>
 			</button>
 			<button
-				class="submit"
+				class="button-submit"
 				*ngIf="questions && step === questions.length"
 				type="submit"
 				[disabled]="!form.valid"

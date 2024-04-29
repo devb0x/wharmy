@@ -24,4 +24,19 @@ export class DashboardService {
 			)
 	}
 
+	createNewArmy(category: string, subCategory: string, name: string) {
+		const token = localStorage.getItem("token")
+
+		const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+		const data = {
+			category: category,
+			subCategory: subCategory,
+			name: name
+		}
+		return this.http
+			.post(
+				'http://localhost:3000/api/army/new-army', data, { headers }
+			)
+	}
+
 }

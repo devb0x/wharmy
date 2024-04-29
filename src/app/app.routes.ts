@@ -20,12 +20,12 @@ export const routes: Routes = [
 	{
 		path: 'dashboard',
 		component: DashboardComponent,
-		canActivate: [AuthGuard]
-	},
+		canActivate: [AuthGuard],
+		},
 	{
 		path: 'dashboard/new-collection',
 		component: NewCollectionComponent,
-		canActivate: [AuthGuard]
+		canActivate: [AuthGuard],
 	},
 	{
 		path: 'sandbox',

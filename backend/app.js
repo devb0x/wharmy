@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const bodyParser = require("body-parser")
 
 const userRoutes = require('./routes/user')
+const armyRoutes = require('./routes/army')
 
 mongoose
 	.connect(`mongodb+srv://devb0x:${process.env.MONGO_ATLAS_PW}@cluster0.uhohovv.mongodb.net/node-angular?retryWrites=true&w=majority&appName=Cluster0`)
@@ -34,6 +35,7 @@ app.use((req, res, next) => {
 })
 
 app.use("/api/user", userRoutes)
+app.use("/api/army", armyRoutes)
 app.get("/api/user/dummy")
 
 module.exports = app

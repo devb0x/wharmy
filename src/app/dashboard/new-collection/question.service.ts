@@ -1,14 +1,23 @@
 import { Injectable } from "@angular/core"
+import { HttpClient } from "@angular/common/http"
 
 import { QuestionBase } from "./question-base"
 import { DropdownQuestion } from "./question-dropdown"
 import { TextboxQuestion } from "./question-textbox"
-import { of } from "rxjs"
+
+import {map, Observable, of} from "rxjs"
+
+interface FactionOption {
+	key: string;
+	value: string;
+}
 
 @Injectable()
 export class QuestionService {
 	step = 1
 	public maxStep = 0
+
+	constructor(private http: HttpClient) {}
 
 	getQuestions() {
 
@@ -28,12 +37,9 @@ export class QuestionService {
 			}),
 
 			new DropdownQuestion({
-				key: 'faction',
-				label: 'Faction Label',
-				options: [
-					{key: 'space marine', value: 'Space Marine'},
-					{key: 'xenos armies', value: 'Xenos Armies'}
-				],
+				key: 'subCategory',
+				label: 'Faction',
+				options: [],
 				required: true,
 				order: 2,
 				step: 2
@@ -51,6 +57,16 @@ export class QuestionService {
 		this.maxStep = questions.length
 
 		return of(questions.sort((a, b) => a.order - b.order))
+	}
+
+	getFactionOptions(category: string): Observable<FactionOption[]> {
+		return this.http.get<{ [key: string]: FactionOption[] }>('../../assets/faction-options.json')
+			.pipe(
+				map(options => {
+					const lowercaseCategory = category.toLowerCase();
+					return options[lowercaseCategory] || [];
+				})
+			)
 	}
 
 	getMaxStep() {

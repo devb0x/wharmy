@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, ElementRef, Input} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {QuestionBase} from "./question-base";
@@ -20,4 +20,12 @@ export class DynamicFormQuestionComponent {
 	get isValid() {
 		return this.form.controls[this.question.key].valid
 	}
+
+	isInvalid(controlName: string): boolean {
+		const control = this.form.get(controlName);
+		return !control || (control?.invalid && (control?.dirty || control?.touched)) || false;
+	}
+
+
+
 }
