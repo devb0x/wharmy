@@ -132,12 +132,15 @@ export class AuthService {
 	getIsAuth() {
 		const token = localStorage.getItem("token")
 		const userId = localStorage.getItem("userId")
+		const expirationDate = localStorage.getItem("expirationDate")
 
-		if (!token && !userId) {
+		if (!token || !userId || !expirationDate) {
 			this.clearAuthData()
+			return false
 		}
 
-		return !!token && !!userId
+		const expirationDateObj = new Date(expirationDate)
+		return expirationDateObj.getTime() > Date.now()
 	}
 }
 

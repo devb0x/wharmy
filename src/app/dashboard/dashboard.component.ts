@@ -4,12 +4,14 @@ import { Router, RouterLink } from "@angular/router"
 import { DashboardService } from "./dashboard.service"
 import {AuthService} from "../auth/auth.service";
 import { Subject, Subscription, takeUntil } from "rxjs";
+import {ArmyCardComponent} from "./army-card/army-card.component";
 
 @Component({
 	selector: 'app-dashboard',
 	standalone: true,
 	imports: [
-		RouterLink
+		RouterLink,
+		ArmyCardComponent
 	],
 	templateUrl: './dashboard.component.html',
 	styleUrl: './dashboard.component.css'

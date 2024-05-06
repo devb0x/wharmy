@@ -1,41 +1,8 @@
-<!--<section>-->
-<!--	<div class="container">-->
-<!--		<header class="header">-->
-<!--			<h1>Create a new collection</h1>-->
-<!--		</header>-->
-<!--		<form-->
-<!--			class="form"-->
-<!--			method="post"-->
-<!--		>-->
-<!--			<label-->
-<!--				class="form-label"-->
-<!--				for="category"-->
-<!--			>-->
-<!--				Category :-->
-<!--			</label>-->
-<!--			<select id="category">-->
-<!--				<option value="">Select One</option>-->
-<!--				<option value="Age of Sigmar">Age of Sigmar</option>-->
-<!--				<option value="Warhammer 40K">Warhammer 40K</option>-->
-<!--			</select>-->
-<!--		</form>-->
-<!--		<footer class="footer">-->
-<!--			<div class="form-step"></div>-->
-<!--			<div class="form-step"></div>-->
-<!--			<div class="form-step"></div>-->
-<!--			<div class="form-step"></div>-->
-<!--		</footer>-->
-<!--	</div>-->
-<!--</section>-->
-
 <section>
 	<div>
-		<app-dynamic-form [questions]="questions$ | async" />
-<!--		<footer class="footer">-->
-<!--			<div class="form-step"></div>-->
-<!--			<div class="form-step"></div>-->
-<!--			<div class="form-step"></div>-->
-<!--			<div class="form-step"></div>-->
-<!--		</footer>-->
+		<a routerLink="/dashboard" class="cancel-link">
+			Cancel
+		</a>
 	</div>
+	<app-dynamic-form [questions]="questions$ | async" />
 </section>

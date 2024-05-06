@@ -1,5 +1,5 @@
 <div class="form-container">
-	<form (ngSubmit)="onSubmit()" [formGroup]="form">
+	<form (ngSubmit)="onSubmit()" [formGroup]="form" *ngIf="!isLoading">
 		<h1 class="form-title">Create a new collection</h1>
 		
 		<div *ngFor="let question of questions" class="form-row">
@@ -50,7 +50,7 @@
 				class="button-submit"
 				*ngIf="questions && step === questions.length"
 				type="submit"
-				[disabled]="!form.valid"
+				[disabled]="!form.valid || submitted"
 			>
 				Save
 			</button>
@@ -70,5 +70,9 @@
 	
 	<div *ngIf="payLoad" class="form-row">
 		<strong>Saved the following values</strong><br>{{payLoad}}
+	</div>
+	
+	<div *ngIf="isLoading">
+		<h2>Loading..</h2>
 	</div>
 </div>

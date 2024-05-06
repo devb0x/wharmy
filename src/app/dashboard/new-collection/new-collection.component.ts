@@ -6,11 +6,13 @@ import {DynamicFormComponent} from "./dynamic-form.component";
 import {QuestionBase} from "./question-base";
 import {QuestionService} from "./question.service";
 import {Observable} from "rxjs";
+import {RouterLink} from "@angular/router";
 
 @Component({
 	selector: 'app-new-collection',
 	standalone: true,
 	imports: [
+		RouterLink,
 		AsyncPipe,
 		DynamicFormComponent
 	],

@@ -1,0 +1,29 @@
+.card {
+	height: 130px;
+	width: 702px;
+	background-color: #F2F2F2;
+	display: flex;
+	border-radius: 8px;
+}
+
+.card-thumbnail {
+	/*overflow: hidden;*/
+	/*outline: 1px solid red;*/
+	width: 35%;
+}
+
+.card-text {
+	padding: 26px 50px;
+}
+
+.card-text__title {
+	margin: 0 0 12px;
+	font-size: 24px;
+	font-weight: 500;
+}
+
+.card-text__infos {
+	display: flex;
+	gap: 35px;
+	color: rgba(0, 0, 0, 0.5);
+}

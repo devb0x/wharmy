@@ -29,6 +29,8 @@ export class DynamicFormComponent implements OnInit {
 	form!: FormGroup
 	payLoad = ''
 	step = this.questionService.getStep()
+	submitted: boolean = false
+	isLoading: boolean = false
 
 	constructor(
 		private qcs: QuestionControlService,
@@ -104,12 +106,10 @@ export class DynamicFormComponent implements OnInit {
 	}
 
 	onSubmit() {
-		// console.log('form submit, link src = ')
-		// console.log('https://stackblitz.com/run?file=src%2Fapp%2Fapp.component.ts')
+		this.isLoading = true
+		this.submitted = true
 		this.payLoad = JSON.stringify(this.form.getRawValue());
-		// console.log(this.form.value)
 		const userId: string | null = localStorage.getItem('userId')
-		console.log(userId)
 		if (userId) {
 			this.dashboardService
 				// TODO change faction to subcategory
@@ -127,6 +127,14 @@ export class DynamicFormComponent implements OnInit {
 					}
 				)
 		}
+		setTimeout(() => {
+			this.isLoading = false
+			this.router.navigate(['/dashboard']).then(() => {
+				this.form.reset()
+				this.step = 1
+			})
+			this.submitted = false
+		}, 1000)
 	}
 
 }

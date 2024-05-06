@@ -1,0 +1,28 @@
+.dashboard-header {
+	margin-top: 90px;
+	margin-bottom: 35px;
+	outline: 1px solid black;
+	display: flex;
+	gap: 20px;
+	flex-direction: column;
+}
+
+.dashboard-title {
+	font-size: 48px;
+	font-weight: 600;
+	margin: 0;
+}
+
+.dashboard-create__link {
+	outline: 1px solid hsl(36, 100%, 30%);
+	background-color: #ffc970;
+	width: fit-content;
+	border-radius: 8px;
+	text-decoration: none;
+	text-transform: capitalize;
+	letter-spacing: .4px;
+	color: black;
+	font-size: 13px;
+	font-weight: 500;
+	padding: 10px;
+}

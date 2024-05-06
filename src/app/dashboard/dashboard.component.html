@@ -5,12 +5,16 @@
 			logout
 		</button>
 	</div>
-	<div>
-		<h1>{{ userData?.username }} 's Dashboard</h1>
-	</div>
-	<div>
-		<a routerLink="/dashboard/new-collection">
-			New collection
+	
+	<header class="dashboard-header">
+		<div>
+			<h1 class="dashboard-title">{{ userData?.username }} 's Dashboard</h1>
+		</div>
+		<a routerLink="/dashboard/new-collection" class="dashboard-create__link">
+			create collection
 		</a>
-	</div>
+	</header>
+	<div>another div styling purpose</div>
+	<hr>
+	<app-army-card></app-army-card>
 </section>
