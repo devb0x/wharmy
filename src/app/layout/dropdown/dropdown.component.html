@@ -1,0 +1,11 @@
+<div
+	class="dropdown"
+>
+	<div class="header" (click)="clickHandler($event)">
+		<ng-content select=".header"></ng-content>
+	</div>
+<!--	collapse content -->
+	<div class="content">
+		<ng-content select=".content"></ng-content>
+	</div>
+</div>

@@ -1,0 +1,15 @@
+.dropdown .content {
+	max-height: fit-content;
+	overflow: hidden;
+	/*transition: max-height 0.3s ease-in-out;*/
+}
+
+.dropdown.collapsed > .content {
+	max-height: 0;
+	height: auto;
+	width: auto;
+}
+
+.header {
+	outline: 2px solid red;
+}

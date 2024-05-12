@@ -5,6 +5,7 @@ import { LoginComponent } from "./auth/login/login.component"
 import { RegisterComponent } from "./auth/register/register.component"
 import { DashboardComponent } from "./dashboard/dashboard.component"
 import { NewCollectionComponent } from "./dashboard/new-collection/new-collection.component"
+import { ArmyComponent } from "./army/army.component"
 
 import { SandboxComponent } from "./sandbox/sandbox.component"
 //
@@ -54,6 +55,10 @@ export const routes: Routes = [
 				component: NewCollectionComponent
 			}
 		]
+	},
+	{
+		path: 'army/:id',
+		component: ArmyComponent
 	},
 	{
 		path: 'sandbox',

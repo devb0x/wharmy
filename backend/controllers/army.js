@@ -1,9 +1,6 @@
 const Army = require('../models/army')
 
 exports.createNewArmy = (req, res, next) => {
-	console.log("create collection from node called")
-	console.log(req.userData.userId)
-	console.log(req.body)
 	const army = new Army({
 		ownerId: req.userData.userId,
 		category: req.body.category,
@@ -20,6 +17,48 @@ exports.createNewArmy = (req, res, next) => {
 		.catch(err => {
 			res.status(500).json({
 				message: 'Invalid arguments'
+			})
+		})
+}
+
+exports.getUserArmies = (req, res, next) => {
+	const ownerId = req.query.userId
+
+	if (!ownerId) {
+		return res.status(400).json({ message: 'Missing ownerId parameter' });
+	}
+
+	Army
+		.find({ownerId: ownerId})
+		.then(armies => {
+			if (armies && armies.length > 0) {
+				res.status(200).json(armies)
+			} else {
+				res.status(404).json({ message: 'Armies not found '})
+			}
+		})
+		.catch(error => {
+			res.status(500).json({
+				message: "Fetching Armies failed!"
+			})
+		})
+}
+
+exports.getArmy = (req, res, next) => {
+	const id = req.params.id
+
+	Army
+		.findById(id)
+		.then(army => {
+			if (army) {
+				res.status(200).json(army)
+			} else {
+				res.status(404).json({ message: 'Army not found '})
+			}
+		})
+		.catch(error => {
+			res.status(500).json({
+				message: "Fetching Army failed!"
 			})
 		})
 }

@@ -10,4 +10,15 @@ router.post(
 	ArmyController.createNewArmy
 )
 
+router.get(
+	"/armies",
+	checkAuth,
+	ArmyController.getUserArmies
+)
+
+router.get(
+	"/:id",
+	ArmyController.getArmy
+)
+
 module.exports = router
