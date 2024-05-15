@@ -4,6 +4,12 @@
 			<h1 class="army-title">{{ army$.name }}</h1>
 			<span>{{ army$.category }}</span>
 			<span>Author: {{ army$.ownerId }}</span>
+			<div *ngIf="editLink">
+				<a
+					routerLink="/army/edit/{{army$._id}}"
+					[state]="{armyData: army$}"
+				>edit army</a>
+			</div>
 		</header>
 		
 		<app-dropdown>
@@ -20,8 +26,8 @@
 				<h2 class="article-title">Lore</h2>
 			</header>
 			<div class="content">
-				<span>Accusamus adipisci animi, aperiam asperiores blanditiis culpa debitis deserunt dolores, ducimus est ex excepturi facilis harum in incidunt iste nihil nobis nulla odit pariatur repudiandae saepe sapiente similique voluptas voluptatum?</span>
-				<span>Accusamus adipisci animi, aperiam asperiores blanditiis culpa debitis deserunt dolores, ducimus est ex excepturi facilis harum in incidunt iste nihil nobis nulla odit pariatur repudiandae saepe sapiente similique voluptas voluptatum?</span>
+				<p>Accusamus adipisci animi, aperiam asperiores blanditiis culpa debitis deserunt dolores, ducimus est ex excepturi facilis harum in incidunt iste nihil nobis nulla odit pariatur repudiandae saepe sapiente similique voluptas voluptatum?</p>
+				<p>Accusamus adipisci animi, aperiam asperiores blanditiis culpa debitis deserunt dolores, ducimus est ex excepturi facilis harum in incidunt iste nihil nobis nulla odit pariatur repudiandae saepe sapiente similique voluptas voluptatum?</p>
 			</div>
 		</app-dropdown>
 		

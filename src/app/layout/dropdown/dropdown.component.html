@@ -1,8 +1,15 @@
 <div
-	class="dropdown"
+	class="dropdown collapsed"
 >
 	<div class="header" (click)="clickHandler($event)">
 		<ng-content select=".header"></ng-content>
+		<span class="header-icon">
+			<img
+				class="header-icon__img"
+				src="../../../assets/icons/shield.svg"
+				alt="shield icon"
+			>
+		</span>
 	</div>
 <!--	collapse content -->
 	<div class="content">
