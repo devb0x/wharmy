@@ -31,7 +31,6 @@ export class ArmyListComponent {
 			.getUserArmies(userId)
 			.subscribe(
 				(armies: any) => {
-					console.log(armies)
 					this.armies = armies
 				},
 				(error: HttpErrorResponse) => {

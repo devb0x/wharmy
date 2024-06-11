@@ -1,4 +1,52 @@
-<p>army-edit works!</p>
-<div>
-	{{ army?.name}}
-</div>
+<section>
+	<div *ngIf="army$">
+		<header class="army-container__header">
+			<h1 class="army-title">{{ army$.name }}</h1>
+			<span>{{ army$.category }}</span>
+			<span>Author: {{ army$.ownerId }}</span>
+		</header>
+		
+		<form [formGroup]="armyForm" (submit)="formSubmit()">
+			<app-dropdown>
+				<header class="header">
+					<h2 class="article-title">Description</h2>
+				</header>
+				<div class="content">
+					<textarea
+						formControlName="description"
+						rows="8"
+						[placeholder]="army$.description || 'Enter some description'"
+					>
+					</textarea>
+				</div>
+			</app-dropdown>
+			
+			<app-dropdown>
+				<header class="header">
+					<h2 class="article-title">Lore</h2>
+				</header>
+				<div class="content">
+					<textarea
+						formControlName="lore"
+						rows="8"
+						[placeholder]="army$.lore || 'Enter some lore'"
+					>
+					</textarea>
+				</div>
+			</app-dropdown>
+			
+			<button type="button" (click)="cancelEditHandler()">Cancel</button>
+			<button type="submit">Save</button>
+		
+		</form>
+		
+		<hr>
+	
+	</div>
+	
+	<hr>
+	
+	<app-image-upload></app-image-upload>
+	
+</section>
+

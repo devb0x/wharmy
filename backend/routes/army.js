@@ -21,4 +21,15 @@ router.get(
 	ArmyController.getArmy
 )
 
+router.put(
+	"/edit/:id",
+	checkAuth,
+	ArmyController.updateArmy
+)
+
+router.post(
+	"/upload-image",
+	ArmyController.uploadImage
+)
+
 module.exports = router

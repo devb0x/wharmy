@@ -7,6 +7,7 @@ import {NgIf} from "@angular/common";
 import {Army} from "../models/army.interface";
 
 import { DropdownComponent } from "../layout/dropdown/dropdown.component"
+import {ImageUploadComponent} from "./army-edit/image-upload/image-upload.component";
 
 @Component({
 	selector: 'app-army',
@@ -14,7 +15,8 @@ import { DropdownComponent } from "../layout/dropdown/dropdown.component"
 	imports: [
 		NgIf,
 		DropdownComponent,
-		RouterLink
+		RouterLink,
+		ImageUploadComponent
 	],
 	templateUrl: './army.component.html',
 	styleUrl: './army.component.css'
@@ -38,6 +40,7 @@ export class ArmyComponent {
 				.subscribe(
 					(army: any) => {
 						this.army$ = army
+						console.log(this.army$)
 						if (army.ownerId === userId) {
 							this.editLink = true
 						}

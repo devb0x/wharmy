@@ -19,7 +19,15 @@ const armySchema = mongoose.Schema({
 	},
 	miniatures: {
 		type: [],
+	},
+	description: {
+		type: String,
+		default: ''
+	},
+	lore: {
+		type: String,
+		default: ''
 	}
-})
+}, { timestamps: true })
 
 module.exports = mongoose.model("Army", armySchema)

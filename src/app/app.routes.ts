@@ -12,6 +12,9 @@ import { ArmyEditComponent } from "./army/army-edit/army-edit.component"
 
 import { SandboxComponent } from "./sandbox/sandbox.component"
 import {ArmyResolver} from "./resolvers/army.resolver";
+import {AppComponent} from "./app.component";
+import * as path from "path";
+import {HomepageComponent} from "./homepage/homepage.component";
 //
 // export const routes: Routes = [
 // 	{
@@ -38,6 +41,11 @@ import {ArmyResolver} from "./resolvers/army.resolver";
 // 	}
 // ]
 export const routes: Routes = [
+	{
+		path: '',
+		component: HomepageComponent,
+		pathMatch: 'full'
+	},
 	{
 		path: 'login',
 		component: LoginComponent
@@ -80,6 +88,6 @@ export const routes: Routes = [
 	},
 	{
 		path: '**',
-		redirectTo: '/404'
+		redirectTo: '/404',
 	}
 ];

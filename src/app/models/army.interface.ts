@@ -5,4 +5,6 @@ export interface Army {
 	category: string
 	subCategory: string
 	miniatures: []
+	lore: string
+	description: string
 }

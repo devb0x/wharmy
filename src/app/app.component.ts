@@ -5,6 +5,7 @@ import { HeaderComponent } from "./header/header.component"
 import { HttpClientModule } from "@angular/common/http"
 
 import { AuthService } from "./auth/auth.service";
+import {ImageUploadComponent} from "./army/army-edit/image-upload/image-upload.component";
 
 @Component({
 	selector: 'app-root',
@@ -14,6 +15,7 @@ import { AuthService } from "./auth/auth.service";
 		RouterOutlet,
 		HeaderComponent,
 		HttpClientModule,
+		ImageUploadComponent
 	],
 	templateUrl: './app.component.html',
 	styleUrl: './app.component.css'
