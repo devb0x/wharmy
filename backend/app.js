@@ -2,12 +2,9 @@ const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require("body-parser")
 
-const AWS = require('aws-sdk')
-
 const userRoutes = require('./routes/user')
 const armyRoutes = require('./routes/army')
-const multer = require("multer")
-const fs = require('fs')
+const uploadRoutes = require('./routes/upload')
 
 mongoose
 	.connect(`mongodb+srv://devb0x:${process.env.MONGO_ATLAS_PW}@cluster0.uhohovv.mongodb.net/node-angular?retryWrites=true&w=majority&appName=Cluster0`)
@@ -38,37 +35,9 @@ app.use((req, res, next) => {
 	next()
 })
 
-
-const s3 = new AWS.S3({
-	accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-	secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-	region: process.env.AWS_REGION,
-});
-
-const upload = multer({ dest: 'uploads/' });
-
-app.post('/upload', upload.single('file'), (req, res) => {
-	const fileContent = fs.readFileSync(req.file.path);
-
-	const params = {
-		Bucket: 'wharmy/army-images',
-		Key: req.file.originalname,
-		Body: fileContent
-	};
-
-	s3.upload(params, (err, data) => {
-		if (err) {
-			console.error('Error uploading to S3:', err)
-			return res.status(500).send(err);
-		}
-		res.status(200).send(data);
-	});
-});
-
-
-
 app.use("/api/user", userRoutes)
 app.use("/api/army", armyRoutes)
+app.use("/api", uploadRoutes)
 app.get("/api/user/dummy")
 
 module.exports = app

@@ -111,7 +111,6 @@ export class ArmyEditComponent {
 
 		const formData = new FormData();
 		formData.append('image', this.selectedFile, this.selectedFile.name);
-		formData.append('armyId', this.armyId)
 
 		const token = localStorage.getItem('token');
 		const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -128,22 +127,6 @@ export class ArmyEditComponent {
 				}
 			);
 	}
-
-		// const testingStuff = {
-		// 	Body: "hello world",
-		// 	Bucket: "wharmy",
-		// 	Key: "my-file.txt"
-		// }
-		// this.http.post('http://localhost:3000/api/army/upload-image', testingStuff)
-		// 	.subscribe(
-		// 		response => {
-		// 			console.log(response)
-		// 			console.log('File uploaded successfully', response);
-		// 		},
-		// 		error => {
-		// 			console.error('Error uploading file', error);
-		// 		}
-		// 	);
 
 
 }

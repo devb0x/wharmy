@@ -27,9 +27,4 @@ router.put(
 	ArmyController.updateArmy
 )
 
-router.post(
-	"/upload-image",
-	ArmyController.uploadImage
-)
-
 module.exports = router
