@@ -48,7 +48,7 @@ exports.getArmy = (req, res, next) => {
 	const id = req.params.id
 
 	Army
-		.findById(id)
+		.findById(id).populate('miniatures')
 		.then(army => {
 			if (army) {
 				res.status(200).json(army)

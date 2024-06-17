@@ -9,8 +9,14 @@ const UploadController = require("../controllers/upload")
 router.post(
 	"/upload",
 	checkAuth,
-	upload.single('file'),
+	upload.array('files'),
 	UploadController.upload
+)
+
+router.delete(
+	"/delete/:miniatureId",
+	checkAuth,
+	UploadController.delete
 )
 
 module.exports = router

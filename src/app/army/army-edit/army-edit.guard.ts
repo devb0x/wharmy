@@ -25,6 +25,8 @@ export class ArmyEditGuard implements CanActivate {
 			return of(this.router.createUrlTree(['/login']));
 		}
 
+		this.authService.getAuthStatusListener()
+
 		const armyId = next.paramMap.get('id');
 		if (!armyId) {
 			console.log('404')
@@ -54,3 +56,5 @@ export class ArmyEditGuard implements CanActivate {
 	);
 	}
 }
+
+// http://localhost:4200/army/edit/666ea34694cc070dae0c33f4

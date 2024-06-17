@@ -30,5 +30,15 @@
 			</div>
 		</app-dropdown>
 		
+		<hr>
+		
+		<div *ngIf="army$.miniatures && army$.miniatures.length > 0">
+			<h3>Miniatures</h3>
+			<div *ngFor="let miniature of army$.miniatures">
+				<a [href]="miniature.fileUrl" target="_blank">
+					<img [src]="miniature.fileUrl" [alt]="miniature.fileName" style="width: 200px; height: auto;">
+				</a>
+			</div>
+		</div>
 	</div>
 </section>

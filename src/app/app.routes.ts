@@ -75,7 +75,7 @@ export const routes: Routes = [
 	{
 		path:'army/edit/:id',
 		component: ArmyEditComponent,
-		canActivate: [ArmyEditGuard],
+		canActivate: [AuthGuard, ArmyEditGuard],
 		resolve: { armyData: ArmyResolver }
 	},
 	{

@@ -39,14 +39,42 @@
 			<button type="submit">Save</button>
 		
 		</form>
-		
-		<hr>
 	
 	</div>
 	
 	<hr>
 	
-	<app-image-upload></app-image-upload>
+	<app-image-upload
+		*ngIf="army$"
+		[armyId]="army$._id"
+		(fileUploaded)="fetchArmyData()"
+	>
+	</app-image-upload>
+	
+	<hr>
+	
+	<article *ngIf="army$">
+		<h2>Gallery</h2>
+		<div *ngIf="army$.miniatures && army$.miniatures.length > 0">
+			<h3>Miniatures</h3>
+			<div *ngFor="let miniature of army$.miniatures">
+				<a [href]="miniature.fileUrl" target="_blank">
+					<img [src]="miniature.fileUrl" [alt]="miniature.fileName" style="width: 200px; height: auto;">
+				</a>
+				<span (click)="showDeleteModal(miniature._id)">
+					delete
+				</span>
+			</div>
+		</div>
+	</article>
+	
+	<app-confirmation-modal
+		*ngIf="miniatureIdToDelete"
+		[message]="'Are you sure you want to delete this miniature?'"
+		(confirmed)="onDeleteConfirm(miniatureIdToDelete)"
+		(cancelled)="onDeleteCancel()"
+	>
+	</app-confirmation-modal>
 	
 </section>
 

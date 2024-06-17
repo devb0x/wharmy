@@ -17,9 +17,10 @@ const armySchema = mongoose.Schema({
 		type: String,
 		required: true
 	},
-	miniatures: {
-		type: [],
-	},
+	miniatures: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Miniature'
+	}],
 	description: {
 		type: String,
 		default: ''

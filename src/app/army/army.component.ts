@@ -3,7 +3,7 @@ import {ParamMap, Route, Router, RouterLink} from "@angular/router";
 import {switchMap} from "rxjs";
 import {ArmyService} from "../dashboard/army-list/army.service";
 import {HttpErrorResponse} from "@angular/common/http";
-import {NgIf} from "@angular/common";
+import {NgFor, NgIf} from "@angular/common";
 import {Army} from "../models/army.interface";
 
 import { DropdownComponent } from "../layout/dropdown/dropdown.component"
@@ -14,6 +14,7 @@ import {ImageUploadComponent} from "./army-edit/image-upload/image-upload.compon
 	standalone: true,
 	imports: [
 		NgIf,
+		NgFor,
 		DropdownComponent,
 		RouterLink,
 		ImageUploadComponent

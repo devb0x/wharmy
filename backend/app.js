@@ -5,6 +5,7 @@ const bodyParser = require("body-parser")
 const userRoutes = require('./routes/user')
 const armyRoutes = require('./routes/army')
 const uploadRoutes = require('./routes/upload')
+const cors = require("cors")
 
 mongoose
 	.connect(`mongodb+srv://devb0x:${process.env.MONGO_ATLAS_PW}@cluster0.uhohovv.mongodb.net/node-angular?retryWrites=true&w=majority&appName=Cluster0`)
@@ -34,6 +35,8 @@ app.use((req, res, next) => {
 	)
 	next()
 })
+
+app.options('*', cors())
 
 app.use("/api/user", userRoutes)
 app.use("/api/army", armyRoutes)
