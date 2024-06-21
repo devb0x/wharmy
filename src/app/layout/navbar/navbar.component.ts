@@ -4,10 +4,10 @@ import { CommonModule } from "@angular/common"
 
 import { Subscription } from "rxjs"
 
-import { AuthService } from "../auth/auth.service"
+import { AuthService } from "../../auth/auth.service"
 
 @Component({
-	selector: 'app-header',
+	selector: 'app-navbar',
 	standalone: true,
 	imports: [
 		CommonModule,
@@ -15,10 +15,10 @@ import { AuthService } from "../auth/auth.service"
 		RouterLink,
 		RouterLinkActive
 	],
-	templateUrl: './header.component.html',
-	styleUrl: './header.component.css'
+	templateUrl: './navbar.component.html',
+	styleUrl: './navbar.component.css'
 })
-export class HeaderComponent {
+export class NavbarComponent {
 	userIsAuth = false
 	private authListenerSubs!: Subscription
 
@@ -36,6 +36,5 @@ export class HeaderComponent {
 	ngOnDestroy() {
 		this.authListenerSubs.unsubscribe()
 	}
-
 
 }

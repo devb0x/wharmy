@@ -15,5 +15,7 @@ body {
 main {
 	width: 90%;
 	margin: auto;
-	max-width: 1180px;
+	max-width: 1124px;
+
+	/*background-color: #ff9e9e;*/
 }

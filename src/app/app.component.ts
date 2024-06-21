@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core'
 import {RouterLink, RouterLinkActive, RouterModule, RouterOutlet} from '@angular/router'
 
-import { HeaderComponent } from "./header/header.component"
 import { HttpClientModule } from "@angular/common/http"
 
 import { AuthService } from "./auth/auth.service";
+
+import {NavbarComponent} from "./layout/navbar/navbar.component";
 import {ImageUploadComponent} from "./army/army-edit/image-upload/image-upload.component";
 
 @Component({
@@ -13,7 +14,7 @@ import {ImageUploadComponent} from "./army/army-edit/image-upload/image-upload.c
 	imports: [
 		RouterModule,
 		RouterOutlet,
-		HeaderComponent,
+		NavbarComponent,
 		HttpClientModule,
 		ImageUploadComponent
 	],
