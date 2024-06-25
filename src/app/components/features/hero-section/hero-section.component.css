@@ -1,11 +1,10 @@
 .hero-section {
 	width: fit-content;
 	display: flex;
-	margin-top: 170px;
+	margin-block: 170px;
 	margin-inline: auto;
 	column-gap: 85px;
 	height: 387px;
-
 }
 
 .hero-section__img {

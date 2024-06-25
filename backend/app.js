@@ -5,6 +5,8 @@ const bodyParser = require("body-parser")
 const userRoutes = require('./routes/user')
 const armyRoutes = require('./routes/army')
 const uploadRoutes = require('./routes/upload')
+const miniatureRoutes = require('./routes/miniature')
+
 const cors = require("cors")
 
 mongoose
@@ -41,6 +43,8 @@ app.options('*', cors())
 app.use("/api/user", userRoutes)
 app.use("/api/army", armyRoutes)
 app.use("/api", uploadRoutes)
+app.use("/api", miniatureRoutes)
+
 app.get("/api/user/dummy")
 
 module.exports = app

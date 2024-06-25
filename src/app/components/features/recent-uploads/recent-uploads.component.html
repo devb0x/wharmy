@@ -1,0 +1,13 @@
+<section class="recent-section">
+	<div>
+		<h2>Recent Uploads</h2>
+		<div *ngIf="miniatures$" class="recent-wrapper">
+				<img
+					*ngFor="let miniature of miniatures$"
+					class="recent-picture"
+					src="{{miniature.fileUrl}}"
+					alt="{{ miniature.fileName }}"
+				>
+		</div>
+	</div>
+</section>

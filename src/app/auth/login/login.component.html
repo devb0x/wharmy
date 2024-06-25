@@ -1,4 +1,3 @@
-<p>login works!</p>
 <section>
 	<form
 		method="post"
@@ -25,6 +24,11 @@
 			Login
 		</button>
 	</form>
+	
+	<div>
+		<h3>Not having an account yet?</h3>
+		<a href="/register" class="link">Create One</a>
+	</div>
 	
 	<div *ngIf="authService.loginError">
 		Login failed

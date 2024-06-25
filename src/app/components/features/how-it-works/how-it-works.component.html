@@ -1,0 +1,9 @@
+<section class="how-it-works">
+	<div class="steps-wrapper">
+		<div *ngFor="let step of steps" class="card">
+			<h3 class="card-title">{{ step.title }}</h3>
+			<div class="card-divider"></div>
+			<p class="card-text">{{ step.description }}</p>
+		</div>
+	</div>
+</section>

@@ -1,12 +1,37 @@
-header {
+.site-header {
 	display: flex;
 	flex-direction: row;
+	background-color: transparent;
+	padding: 1em;
+	position: relative;
+	margin: auto auto 4em;
+	width: 1124px;
+}
+
+.navbar::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 3px;
+	background-size: 100%;
+}
+
+.navbar-logo {
+	display: flex;
+}
+
+.navbar-list {
+	display: flex;
+	margin: 1em auto;
+	justify-content: flex-start;
+	align-items: center;
 }
 
 ul {
-	display: flex;
+	padding: 0;
 }
-
 li {
 	list-style: none;
 }
@@ -14,9 +39,34 @@ li {
 .link {
 	color: black;
 	text-decoration: none;
-	margin: 2rem;
+	text-transform: capitalize;
+	font-weight: 700;
+	padding: .5em 2rem;
+	display: block;
+	position: relative;
+	width: fit-content;
 }
 
-.link.active {
-	outline: 1px solid red;
+.logo-link {
+	margin-right: auto;
+	display: flex;
 }
+
+.link.active:not(.logo-link)::after {
+	border-bottom: 2px solid #f9ce62;
+	position: absolute;
+	content: '';
+	display: block;
+	/*
+		left and right value are equal to the padding-inline
+		of .link for matching the width of the text
+	*/
+	left: 2em;
+	right: 2em;
+	top: calc(100% + 8px);
+}
+
+.navbar-list .link.link-border__left {
+	border-left: 1px solid #8f8f8f;
+}
+

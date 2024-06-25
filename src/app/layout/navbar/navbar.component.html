@@ -1,29 +1,34 @@
-<header>
-	<ul>
-		<li>
-			<a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="link">
-				homepage
-			</a>
-		</li>
-		<li *ngIf="!userIsAuth">
-			<a routerLink="/login" routerLinkActive="active" class="link">
-				login
-			</a>
-		</li>
-		<li>
-			<a routerLink="/register" routerLinkActive="active" class="link">
-				register
-			</a>
-		</li>
-		<li *ngIf="userIsAuth">
-			<a routerLink="/dashboard" routerLinkActive="active" class="link">
-				dashboard
-			</a>
-		</li>
-		<li>
-			<a routerLink="/sandbox" routerLinkActive="active" class="link">
-				sandbox
-			</a>
-		</li>
-	</ul>
-</header>
+<div class="site-header">
+	<a
+		routerLink="/"
+		routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+		class="link logo-link"
+	>
+		<img
+			class="navbar-logo"
+			src="../../../assets/icons/logo_wharmy.svg"
+			alt="wharmy sword"
+		>
+	</a>
+	<nav class="navbar">
+		<ul class="navbar-list">
+			<li>
+			</li>
+			<li *ngIf="!userIsAuth">
+				<a routerLink="/login" routerLinkActive="active" class="link">
+					login
+				</a>
+			</li>
+			<li *ngIf="userIsAuth">
+				<a routerLink="/dashboard" routerLinkActive="active" class="link">
+					dashboard
+				</a>
+			</li>
+			<li>
+				<a routerLink="/sandbox" routerLinkActive="active" class="link link-border__left">
+					sandbox
+				</a>
+			</li>
+		</ul>
+	</nav>
+</div>

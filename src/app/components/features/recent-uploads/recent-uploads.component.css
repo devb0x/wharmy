@@ -1,0 +1,20 @@
+.recent-section {
+	outline: 1px solid red;
+	margin-block: 170px;
+}
+
+.recent-wrapper {
+	display: flex;
+	position: relative;
+	height: 400px;
+}
+
+.recent-picture {
+	outline: 1px solid green;
+	position: absolute;
+	left: 0;
+	right: 0;
+	width: 350px;
+	object-fit: contain;
+	margin: auto;
+}

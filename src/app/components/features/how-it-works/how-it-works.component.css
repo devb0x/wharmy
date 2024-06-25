@@ -1,0 +1,30 @@
+.steps-wrapper {
+	display: flex;
+	justify-content: center;
+	column-gap: 130px;
+}
+
+.card {
+	width: 227px;
+	display: flex;
+	flex-direction: column;
+	gap: 36px;
+}
+
+.card-title {
+	font-size: 22px;
+	font-weight: 600;
+	margin: 0;
+}
+
+.card-divider {
+	height: 1px;
+	width: 100%;
+	background-color: #E98C00;
+}
+
+.card-text {
+	font-size: 20px;
+	text-align: justify;
+	margin: 0;
+}
