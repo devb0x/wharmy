@@ -1,0 +1,13 @@
+footer {
+	background-color: #252525;
+	color: white;
+	width: 100%;
+	border-top: 3px solid #E98C00;
+	padding-block: 3em;
+	margin-top: 170px;
+}
+
+.footer {
+	width: 1124px;
+	margin-inline: auto;
+}

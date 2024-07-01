@@ -6,6 +6,7 @@
 
 * {
 	font-family: 'Petrona', serif;
+	box-sizing: border-box;
 }
 
 body {

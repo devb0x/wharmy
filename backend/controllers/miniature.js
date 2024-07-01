@@ -5,7 +5,7 @@ exports.getRecentMiniatures = (req, res, next) => {
 		.find({})
 		.sort({ uploadDate: -1 })
 		.limit(5)
-		.select('_id fileName fileUrl uploadDate')
+		.select('_id fileName fileUrl uploadDate armyId')
 		.then(miniatures => {
 			if (miniatures && miniatures.length > 0) {
 				res.status(200).json(miniatures)

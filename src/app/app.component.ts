@@ -6,7 +6,7 @@ import { HttpClientModule } from "@angular/common/http"
 import { AuthService } from "./auth/auth.service";
 
 import {NavbarComponent} from "./layout/navbar/navbar.component";
-import {ImageUploadComponent} from "./army/army-edit/image-upload/image-upload.component";
+import {FooterComponent} from "./layout/footer/footer.component";
 
 @Component({
 	selector: 'app-root',
@@ -14,9 +14,9 @@ import {ImageUploadComponent} from "./army/army-edit/image-upload/image-upload.c
 	imports: [
 		RouterModule,
 		RouterOutlet,
-		NavbarComponent,
 		HttpClientModule,
-		ImageUploadComponent
+		NavbarComponent,
+		FooterComponent
 	],
 	templateUrl: './app.component.html',
 	styleUrl: './app.component.css'
