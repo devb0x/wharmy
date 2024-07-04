@@ -10,12 +10,11 @@
 			alt="wharmy sword"
 		>
 	</a>
+<!--	desktop navbar -->
 	<nav class="navbar">
 		<ul class="navbar-list">
-			<li>
-			</li>
 			<li *ngIf="!userIsAuth">
-				<a routerLink="/login" routerLinkActive="active" class="link">
+				<a routerLink="/login" routerLinkActive="active" class="link" >
 					login
 				</a>
 			</li>
@@ -30,5 +29,35 @@
 				</a>
 			</li>
 		</ul>
+	</nav>
+<!--	 mobile navbar -->
+	<div
+		(click)="toggleMobileNav()"
+		class="nav-icon"
+	>
+		icon
+	</div>
+
+	<nav
+		class="mobile-navbar"
+		[ngClass]="{'display': mobileMenuOpen, 'hidden': !mobileMenuOpen }"
+	>
+			<ul class="mobile-navbar-list" (click)="$event.stopPropagation()">
+				<li *ngIf="!userIsAuth" >
+					<a routerLink="/login" routerLinkActive="active" class="link mobile-link" (click)="toggleMobileNav()">
+						login
+					</a>
+				</li>
+				<li *ngIf="userIsAuth">
+					<a routerLink="/dashboard" routerLinkActive="active" class="link mobile-link" (click)="toggleMobileNav()">
+						dashboard
+					</a>
+				</li>
+				<li>
+					<a routerLink="/sandbox" routerLinkActive="active" class="link mobile-link" (click)="toggleMobileNav()">
+						sandbox
+					</a>
+				</li>
+			</ul>
 	</nav>
 </div>

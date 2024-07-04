@@ -1,3 +1,74 @@
+@media screen and (max-width: 390px) {
+	.site-header {
+		max-width: 90%;
+	}
+	.navbar {
+		display: none;
+	}
+	.mobile-navbar {
+		position: fixed;
+		inset: 84px 0;
+		width: 100vw;
+		background-color: #ffffff;
+		display: none;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		height: calc(100vh - 84px); /* Ensure it covers the full viewport height */
+		z-index: 3; /* Ensure it is above other elements */
+	}
+
+	.mobile-navbar.display {
+		display: flex;
+		background-color: #000000c9;
+		backdrop-filter: blur(8px) brightness(60%);
+		height: 90vh;
+		margin: 0;
+		padding: 0;
+		right: 0;
+		flex-direction: row;
+		transform: translateX(0);
+	}
+	.mobile-navbar.hidden {
+		display: none;
+	}
+	.nav-icon {
+		align-content: center;
+		outline: 1px solid black;
+		padding: 6px;
+		z-index: 10;
+	}
+	.nav-icon:hover {
+		cursor: pointer;
+		z-index: 99;
+	}
+
+	.mobile-navbar-list {
+		background-color: #FFFFFF;
+		height: 100%;
+		width: 63vw;
+		margin-left: auto;
+		display: flex;
+		flex-direction: column;
+		gap: 3em;
+		padding-top: 8vh;
+		transform: translateX(100vw);
+	}
+	.mobile-link {
+		color: white;
+		text-decoration: none;
+	}
+	.translate {
+		transform: translateX(0);
+		transition: transform .6s ease;
+	}
+}
+
+@media screen and (min-width: 1190px) {
+	.mobile-navbar, .nav-icon {
+		display: none;
+	}
+}
 .site-header {
 	display: flex;
 	flex-direction: row;
@@ -8,18 +79,9 @@
 	width: 1124px;
 }
 
-.navbar::after {
-	content: '';
-	position: absolute;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	height: 3px;
-	background-size: 100%;
-}
-
 .navbar-logo {
 	display: flex;
+	z-index: 2;
 }
 
 .navbar-list {
@@ -50,8 +112,10 @@ li {
 .logo-link {
 	margin-right: auto;
 	display: flex;
+	padding-left: 0;
 }
 
+.mobile-link.active:not(.logo-link)::after,
 .link.active:not(.logo-link)::after {
 	border-bottom: 2px solid #f9ce62;
 	position: absolute;
@@ -69,4 +133,9 @@ li {
 .navbar-list .link.link-border__left {
 	border-left: 1px solid #8f8f8f;
 }
+
+.hidden {
+	outline: 6px solid red;
+}
+
 
