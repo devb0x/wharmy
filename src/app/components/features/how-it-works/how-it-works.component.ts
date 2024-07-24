@@ -13,19 +13,19 @@ import {NgFor} from "@angular/common";
 export class HowItWorksComponent {
 	steps = [
 		{
-			title: 'Save',
+			title: 'Organize your collection',
 			description: 'Keep track of all your Warhammer miniatures in one place.',
-			icon: 'save-icon'
+			icon: `../../../assets/icons/game-icons_jigsaw-box.svg`
 		},
 		{
-			title: 'Manage',
+			title: 'Showcase Your Armies',
 			description: 'Share your beautifully painted armies with the community.',
-			icon: 'manage-icon'
+			icon: `../../../assets/icons/game-icons_lovers.svg`
 		},
 		{
-			title: 'Share',
+			title: 'Secure Storage',
 			description: 'Safely store images and details of your collection.',
-			icon: 'share-icon'
+			icon: `../../../assets/icons/game-icons_shield-echoes.svg`
 		}
 	]
 }

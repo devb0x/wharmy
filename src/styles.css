@@ -2,6 +2,8 @@
 
 :root {
 	--font-petrona: 'Petrona', serif;
+	--lightOrange: hsl(36, 100%, 46%, 0.5);
+	--darkOrange: hsl(36, 100%, 30%, 1);
 }
 
 * {
@@ -14,9 +16,14 @@ body {
 }
 
 main {
-	width: 90%;
+	/*width: 90%;*/
 	margin: auto;
 	max-width: 1124px;
 
 	/*background-color: #ff9e9e;*/
 }
+
+@media (max-width: 575.98px) {
+
+}
+

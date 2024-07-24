@@ -4,7 +4,7 @@ const router = express.Router()
 const MiniatureController = require('../controllers/miniature')
 
 router.get(
-	'/recent-uploads-miniatures',
+	'/recent-uploads',
 	MiniatureController.getRecentMiniatures
 )
 
