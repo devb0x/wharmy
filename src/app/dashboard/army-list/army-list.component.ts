@@ -32,6 +32,7 @@ export class ArmyListComponent {
 			.subscribe(
 				(armies: any) => {
 					this.armies = armies
+					console.log(this.armies)
 				},
 				(error: HttpErrorResponse) => {
 					console.error(error)

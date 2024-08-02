@@ -8,7 +8,6 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {ImageUploadComponent} from "./image-upload/image-upload.component";
 import {ConfirmationModalComponent} from "../../layout/confirmation-modal/confirmation-modal.component";
-// import { ChangeDetectorRef } from '@angular/core';
 
 
 const BACKEND_URL = `${environment.apiUrl}/army/`
@@ -169,5 +168,27 @@ export class ArmyEditComponent {
 			this.army$.miniatures = [...this.army$.miniatures, ...newMiniatures]
 			// this.cdr.detectChanges()
 		}
+	}
+
+	setAsThumbnail(miniatureId: any, armyId: string) {
+		const thumbnail: string = miniatureId
+
+		const token = localStorage.getItem("token")
+		const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`)
+
+		this.http
+			.put(
+				BACKEND_URL + `edit/thumbnail/${armyId}`,
+				{ thumbnail },
+				{ headers }
+			)
+			.subscribe(
+				response => {
+					console.log('Set as thumbnail success', response)
+				},
+				error => {
+					console.log(error)
+				}
+			)
 	}
 }

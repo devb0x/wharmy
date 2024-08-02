@@ -1,37 +1,59 @@
-<section>
+<div class="container">
+	<h1 class="auth-title">Log in</h1>
 	<form
 		method="post"
 		(submit)="onLogin(loginForm)"
 		#loginForm="ngForm"
+		class="auth-form"
 	>
+		<label for="email">
+			Email Address
+		</label>
 		<input
+			class="input"
 			type="email"
 			id="email"
 			name="email"
 			ngModel
-			placeholder="Email Address"
 			required
 		>
+		<label for="password">
+			Password
+		</label>
 		<input
+			class="input"
 			type="password"
 			id="password"
 			name="password"
 			ngModel
-			placeholder="password"
 			required
 		>
-		<button type="submit">
-			Login
+		<button
+			type="submit"
+			class="submit"
+		>
+			Log in
 		</button>
 	</form>
-	
-	<div>
-		<h3>Not having an account yet?</h3>
-		<a href="/register" class="link">Create One</a>
-	</div>
 	
 	<div *ngIf="authService.loginError">
 		Login failed
 	</div>
 	
-</section>
+	<div class="wrapper-links">
+		<div>
+			<p>Not having an account yet?</p>
+			<span>
+				<a routerLink="/register" class="link">Create one here.</a>
+			</span>
+		</div>
+		<div>
+			<p>Password forgotten?</p>
+			<span>
+				<a routerLink="" class="link">Retrieve it.</a>
+			</span>
+		</div>
+	</div>
+	
+	
+</div>

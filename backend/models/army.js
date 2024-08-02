@@ -21,6 +21,10 @@ const armySchema = mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Miniature'
 	}],
+	thumbnailUrl: {
+		type: String,
+		default: ''
+	},
 	description: {
 		type: String,
 		default: ''

@@ -2,12 +2,18 @@ footer {
 	background-color: #252525;
 	color: white;
 	width: 100%;
-	border-top: 3px solid #E98C00;
-	padding-block: 3em;
-	margin-top: 170px;
+	border-top: 2px solid var(--lightOrange);
+	margin-top: 80px;
+	min-height: 42px;
+	display: flex;
 }
 
 .footer {
-	width: 1124px;
+	width: 90%;
+	padding-block: 2em;
 	margin-inline: auto;
+	font-size: 11px;
+	color: var(--lightWhite);
+	margin-block: auto;
+	margin-left: 5%;
 }

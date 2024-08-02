@@ -2,7 +2,9 @@
 
 :root {
 	--font-petrona: 'Petrona', serif;
-	--lightOrange: hsl(36, 100%, 46%, 0.5);
+	--lightWhite: hsl(0, 0%, 100%, .7);
+	--lightOrange: hsl(36, 100%, 46%, .5);
+	--lightOrangeHover: hsl(36, 100%, 46%, .25);
 	--darkOrange: hsl(36, 100%, 30%, 1);
 }
 
@@ -11,19 +13,46 @@
 	box-sizing: border-box;
 }
 
-body {
+html, body, app-root {
+	height: 100%;
 	margin: 0;
 }
 
-main {
-	/*width: 90%;*/
-	margin: auto;
-	max-width: 1124px;
-
-	/*background-color: #ff9e9e;*/
+body {
+	display: flex;
+	flex-direction: column;
 }
+
+app-root {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+}
+
+
 
 @media (max-width: 575.98px) {
-
+	main {
+		padding: 0 1em;
+		width: 100vw;
+	}
 }
+
+main {
+	margin: auto;
+	max-width: 1124px;
+	flex: auto;
+}
+
+/*
+ style for dropdown <ng-content>
+*/
+
+.dropdown-title {
+	margin-left: 12px;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+
 

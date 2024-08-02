@@ -112,7 +112,6 @@ export class DynamicFormComponent implements OnInit {
 		const userId: string | null = localStorage.getItem('userId')
 		if (userId) {
 			this.dashboardService
-				// TODO change faction to subcategory
 				.createNewArmy(
 					this.form.value.category,
 					this.form.value.subCategory,

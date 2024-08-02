@@ -27,4 +27,10 @@ router.put(
 	ArmyController.updateArmy
 )
 
+router.put(
+	"/edit/thumbnail/:id",
+	checkAuth,
+	ArmyController.updateThumbnail
+)
+
 module.exports = router

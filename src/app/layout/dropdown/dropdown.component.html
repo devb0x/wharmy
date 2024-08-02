@@ -1,18 +1,23 @@
 <div
 	class="dropdown collapsed"
 >
-	<div class="header" (click)="clickHandler($event)">
-		<ng-content select=".header"></ng-content>
-		<span class="header-icon">
-			<img
-				class="header-icon__img"
-				src="../../../assets/icons/shield.svg"
-				alt="shield icon"
-			>
-		</span>
+	<div class="dropdown-header" (click)="clickHandler($event)">
+		<img
+			class="header-icon"
+			[src]="iconUrl"
+			alt="icon"
+		>
+		<ng-content select=".dropdown-title"></ng-content>
+		<img
+			class="header-icon__arrow"
+			src="../../../assets/icons/game-icons_spiral-arrow.svg"
+			alt="icon"
+		>
 	</div>
+	
 <!--	collapse content -->
 	<div class="content">
 		<ng-content select=".content"></ng-content>
 	</div>
 </div>
+

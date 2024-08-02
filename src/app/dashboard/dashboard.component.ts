@@ -5,6 +5,7 @@ import { DashboardService } from "./dashboard.service"
 import {AuthService} from "../auth/auth.service";
 import { Subject, Subscription, takeUntil } from "rxjs";
 
+import { DropdownComponent } from "../layout/dropdown/dropdown.component"
 import { ArmyListComponent } from "./army-list/army-list.component"
 
 @Component({
@@ -13,6 +14,7 @@ import { ArmyListComponent } from "./army-list/army-list.component"
 	imports: [
 		RouterLink,
 		ArmyListComponent,
+		DropdownComponent
 	],
 	templateUrl: './dashboard.component.html',
 	styleUrl: './dashboard.component.css'

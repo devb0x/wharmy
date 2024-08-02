@@ -4,13 +4,15 @@ import {FormsModule, NgForm} from "@angular/forms"
 
 import {AuthService} from "../auth.service";
 import {Subscription} from "rxjs";
+import {RouterLink} from "@angular/router";
 
 @Component({
 	selector: 'app-login',
 	standalone: true,
 	imports: [
 		NgIf,
-		FormsModule
+		FormsModule,
+		RouterLink
 	],
 	templateUrl: './login.component.html',
 	styleUrl: './login.component.css'

@@ -1,4 +1,5 @@
 const Army = require('../models/army')
+const Miniature = require("../models/miniature")
 
 exports.createNewArmy = (req, res, next) => {
 	const army = new Army({
@@ -71,6 +72,27 @@ exports.updateArmy = (req, res, next) => {
 
 	Army
 		.updateOne({_id: req.params.id}, updatedData)
+		.then(result => {
+			if (result.modifiedCount > 0) {
+				res.status(200).json({ message: 'Army document updated successfully' })
+			} else {
+				res.status(404).json({ message: 'No army document was updated' })
+			}
+		})
+		.catch(error => {
+			console.error('Error updating army document:', error)
+			res.status(500).json({ message: 'Internal server error' })
+		})
+}
+
+exports.updateThumbnail = async (req, res, next) => {
+	const miniature = await Miniature.findById(req.body.thumbnail)
+	const thumbnailUrl = {
+		thumbnailUrl: miniature.fileUrl
+	}
+
+	Army
+		.updateOne({_id: req.params.id}, thumbnailUrl)
 		.then(result => {
 			if (result.modifiedCount > 0) {
 				res.status(200).json({ message: 'Army document updated successfully' })

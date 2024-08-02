@@ -10,13 +10,15 @@ import {
 } from "@angular/forms";
 import {AuthService} from "../auth.service";
 import {response} from "express";
+import {RouterLink} from "@angular/router";
 
 @Component({
 	selector: 'app-register',
 	standalone: true,
 	imports: [
 		NgIf,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		RouterLink
 	],
 	providers: [
 		AuthService
@@ -88,13 +90,17 @@ export class RegisterComponent implements OnInit {
 		this.isLoading = true
 
 		if (this.form.invalid) {
+			this.isLoading = false
 			alert("The form is invalid")
+			// this.isLoading = false
 			return
 		}
 
 		if (this.form.value.pwd !== this.form.value.pwdConfirm) {
+			this.isLoading = false
 			alert("The passwords should be identical")
 			this.pwdIdentical = false
+			// this.isLoading = false
 			return
 		}
 
@@ -123,7 +129,7 @@ export class RegisterComponent implements OnInit {
 	}
 
 	onBlurEvent() {
-		this.pwdIdentical = this.form.value.pwd === this.form.value.pwdConfirm;
+		this.pwdIdentical = this.form.value.pwd === this.form.value.pwdConfirm
 	}
 
 	ngOnDestroy() {

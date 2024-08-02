@@ -1,8 +1,14 @@
-<section>
+<div>
 	<div *ngIf="isLoading">
 		<h1>LOADING..</h1>
 	</div>
-	<form *ngIf="!isLoading" [formGroup]="form" (ngSubmit)="onRegisterUser()" method="post" >
+	<form
+		*ngIf="!isLoading"
+		method="post"
+		[formGroup]="form"
+		(ngSubmit)="onRegisterUser()"
+		class="auth-form"
+	>
 		<label for="email">
 			email
 		</label>
@@ -20,10 +26,10 @@
 				This field is required
 			</small>
 			<small *ngIf="email.value !== null && email.errors && (email.touched || email.dirty) " class="error-message" >
-				email wrong pattern
+				Wrong email address
 			</small>
 			<small *ngIf="userExist" class="error-message">
-				user already exist
+				This email already exist
 			</small>
 		</div>
 		
@@ -77,17 +83,26 @@
 		>
 		<div *ngIf="pwdConfirm">
 			<small *ngIf="pwdConfirm.value === null && (pwdConfirm.touched || pwdConfirm.dirty)" class="error-message">
-				This field is required<br>
+				This field is required.<br>
 			</small>
 			<small *ngIf="pwd && pwd.value !== null && (pwd.touched || pwd.dirty) && !pwdIdentical " class="error-message">
 				The passwords should be identical
 			</small>
 		</div>
 		
-		<button *ngIf="!this.isLoading" type="submit" [disabled]="!form.valid">
+		<button *ngIf="!this.isLoading" type="submit" class="submit" [disabled]="!form.valid">
 			Register
 		</button>
 	</form>
+	
+	<div class="wrapper-links">
+		<div>
+			<p>Back to </p>
+			<span>
+				<a routerLink="/login" class="link">login.</a>
+			</span>
+		</div>
+	</div>
 
-</section>
+</div>
 

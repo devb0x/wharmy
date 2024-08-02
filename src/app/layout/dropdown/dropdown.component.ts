@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core'
 
 @Component({
 	selector: 'app-dropdown',
@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
 	styleUrl: './dropdown.component.css'
 })
 export class DropdownComponent {
+	@Input() iconUrl: string = '../../../assets/icons/game-icons_spiral-arrow.svg'
 
 	clickHandler(event: any) {
 		const parentDiv = event.currentTarget.parentNode as HTMLElement
