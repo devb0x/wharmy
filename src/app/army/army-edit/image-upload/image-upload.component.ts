@@ -14,10 +14,10 @@ const BACKEND_URL = `${environment.apiUrl}/`
 
 interface UploadResponse {
 	message: string
-	data: Miniature[]
+	data: Picture[]
 }
 
-interface Miniature {
+interface Picture {
 	_id: string
 	ownerId: string
 	armyId: string
@@ -35,7 +35,7 @@ interface Miniature {
 })
 export class ImageUploadComponent {
 	@ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
-	@Output() fileUploaded = new EventEmitter<Miniature[]>() // Emit the array of new miniatures
+	@Output() fileUploaded = new EventEmitter<Picture[]>() // Emit the array of new miniatures
 	@Input() armyId!: string
 	selectedFiles: File[] = [];
 

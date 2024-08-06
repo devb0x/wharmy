@@ -1,4 +1,5 @@
-import { Miniature } from "./miniature.interface"
+import { PictureInterface } from "./picture.interface"
+import { MiniatureInterface } from "./miniature.interface"
 
 export interface Army {
 	_id: string
@@ -7,7 +8,8 @@ export interface Army {
 	category: string
 	subCategory: string
 	thumbnailUrl: string
-	miniatures: Miniature[]
+	pictures: PictureInterface[]
+	miniatures: MiniatureInterface[]
 	lore: string
 	description: string
 }

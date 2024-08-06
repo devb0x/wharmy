@@ -1,5 +1,5 @@
 const Army = require('../models/army')
-const Miniature = require("../models/miniature")
+const Miniature = require("../models/picture")
 
 exports.createNewArmy = (req, res, next) => {
 	const army = new Army({
@@ -32,6 +32,7 @@ exports.getUserArmies = (req, res, next) => {
 	Army
 		.find({ownerId: ownerId})
 		.then(armies => {
+			console.log(armies)
 			if (armies && armies.length > 0) {
 				res.status(200).json(armies)
 			} else {
@@ -49,7 +50,7 @@ exports.getArmy = (req, res, next) => {
 	const id = req.params.id
 
 	Army
-		.findById(id).populate('miniatures')
+		.findById(id).populate('pictures')
 		.then(army => {
 			if (army) {
 				res.status(200).json(army)

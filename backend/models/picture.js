@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const miniatureSchema = new mongoose.Schema({
+const pictureSchema = new mongoose.Schema({
 	ownerId: {
 		type: String,
 		required: true
@@ -24,9 +24,9 @@ const miniatureSchema = new mongoose.Schema({
 })
 
 // Create a unique index on the combination of ownerId, armyId, and fileName
-miniatureSchema.index(
+pictureSchema.index(
 	{ ownerId: 1, armyId: 1, fileName: 1 },
 	{ unique: true }
 )
 
-module.exports = mongoose.model("Miniature", miniatureSchema)
+module.exports = mongoose.model("Picture", pictureSchema)

@@ -4,7 +4,7 @@ import { HttpClient, HttpErrorResponse } from "@angular/common/http"
 
 import { environment } from "../../../../environments/environment"
 
-import { Miniature } from "../../../models/miniature.interface"
+import { PictureInterface } from "../../../models/picture.interface"
 
 const BACKEND_URL = `${environment.apiUrl}/`
 
@@ -20,7 +20,7 @@ const BACKEND_URL = `${environment.apiUrl}/`
 	styleUrl: './recent-uploads.component.css'
 })
 export class RecentUploadsComponent {
-	miniatures$: Miniature[] = []
+	miniatures$: PictureInterface[] = []
 
 	constructor(private http: HttpClient) {}
 

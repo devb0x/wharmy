@@ -8,6 +8,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {ImageUploadComponent} from "./image-upload/image-upload.component";
 import {ConfirmationModalComponent} from "../../layout/confirmation-modal/confirmation-modal.component";
+import {NewMiniatureComponent} from "../../dashboard/new-miniature/new-miniature.component";
 
 
 const BACKEND_URL = `${environment.apiUrl}/army/`
@@ -21,7 +22,8 @@ const BACKEND_URL = `${environment.apiUrl}/army/`
 		NgIf,
 		NgFor,
 		ImageUploadComponent,
-		ConfirmationModalComponent
+		ConfirmationModalComponent,
+		NewMiniatureComponent
 	],
 	templateUrl: './army-edit.component.html',
 	styleUrl: '../army.component.css'
@@ -32,7 +34,7 @@ export class ArmyEditComponent {
 	armyForm!: FormGroup
 
 	selectedFile: File | null = null
-	miniatureIdToDelete: string | null = null;
+	pictureIdToDelete: string | null = null;
 
 	constructor(
 		// private cdr: ChangeDetectorRef,
@@ -139,23 +141,23 @@ export class ArmyEditComponent {
 				response => {
 					console.log('Deletion success', response)
 					if (this.army$) {
-						this.army$.miniatures = this.army$.miniatures
+						this.army$.pictures = this.army$.pictures
 							.filter(miniature => miniature._id !== miniatureId)
 					}
 				},
 				error => {
 					console.log(error)
-					this.miniatureIdToDelete = null
+					this.pictureIdToDelete = null
 				}
 			)
-		this.miniatureIdToDelete = null
+		this.pictureIdToDelete = null
 	}
 
 	showDeleteModal(miniatureId: string): void {
-		this.miniatureIdToDelete = miniatureId;
+		this.pictureIdToDelete = miniatureId;
 	}
 	onDeleteCancel(): void {
-		this.miniatureIdToDelete = null;
+		this.pictureIdToDelete = null;
 	}
 	onDeleteConfirm(miniatureId: string): void {
 		this.onDeleteSubmit(miniatureId)
@@ -165,7 +167,7 @@ export class ArmyEditComponent {
 	handleFileUpload(newMiniatures: any[]): void {
 		if (this.army$) {
 			// this.army$.miniatures.push(...newMiniatures)
-			this.army$.miniatures = [...this.army$.miniatures, ...newMiniatures]
+			this.army$.pictures = [...this.army$.pictures, ...newMiniatures]
 			// this.cdr.detectChanges()
 		}
 	}

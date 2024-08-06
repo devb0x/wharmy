@@ -1,13 +1,13 @@
 const s3 = require('../config/aws-config')
 const Army = require('../models/army')
-const Miniature = require('../models/miniature')
+const Picture = require('../models/picture')
 
 exports.upload = async (req, res) => {
 	try {
 		const ownerId = req.userData.userId;
 		const armyId = req.body.armyId;
 		const files = req.files; // This will be an array of files
-		const newMiniatures = []
+		const newPictures = []
 
 		if (!ownerId) {
 			return res.status(400).send({ message: 'Owner ID is required' });
@@ -28,7 +28,7 @@ exports.upload = async (req, res) => {
 				const fileName = file.originalname
 				const fileContent = file.buffer // Use file buffer from Multer
 				// Check if file already exists in the database based on file name
-				const existingMiniature = await Miniature.findOne({
+				const existingMiniature = await Picture.findOne({
 					fileName,
 					ownerId,
 					armyId
@@ -56,7 +56,7 @@ exports.upload = async (req, res) => {
 				console.log(`File uploaded to S3: ${fileName}`)
 
 				// Create a new file record
-				const newMiniature = new Miniature({
+				const newPicture = new Picture({
 					ownerId: ownerId,
 					armyId: armyId,
 					fileName: fileName,
@@ -66,9 +66,9 @@ exports.upload = async (req, res) => {
 
 				console.log(`Saving file metadata to MongoDB: ${fileName}`)
 				// Save the file record to MongoDB
-				await newMiniature.save()
+				await newPicture.save()
 				console.log(`File metadata saved to MongoDB: ${fileName}`)
-				newMiniatures.push(newMiniature._id)
+				newPictures.push(newPicture._id)
 			} catch (fileError) {
 				console.error(`Error processing file: ${file.originalname}`, fileError);
 				// If needed, you can choose to return an error response or continue processing other files
@@ -76,15 +76,15 @@ exports.upload = async (req, res) => {
 			}
 		}
 
-		// Update the Army document by pushing the new miniature ObjectIds to the miniatures array
+		// Update the Army document by pushing the new picture ObjectIds to the pictures array
 		await Army.findByIdAndUpdate(
 			armyId,
-			{$push: {miniatures: {$each: newMiniatures}}}, // Ensure correct syntax
+			{$push: {pictures: {$each: newPictures}}}, // Ensure correct syntax
 			{new: true, useFindAndModify: false}
 		)
 		res.status(200).send({
 			message: 'Files uploaded and metadata saved',
-			data: newMiniatures
+			data: newPictures
 		});
 	} catch (err) {
 		console.error('Error uploading to S3 or saving to mongoDB', err);
@@ -106,7 +106,7 @@ exports.delete = async (req, res) => {
 		}
 
 		// Delete miniature from the Miniature collection
-		const miniature = await Miniature.findByIdAndDelete(miniatureId);
+		const miniature = await Picture.findByIdAndDelete(miniatureId);
 
 		if (!miniature) {
 			return res.status(404).json({message: 'Miniature not found'});

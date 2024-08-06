@@ -1,7 +1,7 @@
-const Miniature = require('../models/miniature')
+const Picture = require('../models/picture')
 
 exports.getRecentMiniatures = (req, res, next) => {
-	Miniature
+	Picture
 		.find({})
 		.sort({ uploadDate: -1 })
 		.limit(5)

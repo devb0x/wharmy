@@ -5,7 +5,7 @@ const bodyParser = require("body-parser")
 const userRoutes = require('./routes/user')
 const armyRoutes = require('./routes/army')
 const uploadRoutes = require('./routes/upload')
-const miniatureRoutes = require('./routes/miniature')
+const pictureRoutes = require('./routes/picture')
 
 const cors = require("cors")
 
@@ -43,7 +43,7 @@ app.options('*', cors())
 app.use("/api/user", userRoutes)
 app.use("/api/army", armyRoutes)
 app.use("/api", uploadRoutes)
-app.use("/api", miniatureRoutes)
+app.use("/api", pictureRoutes)
 
 app.get("/api/user/dummy")
 

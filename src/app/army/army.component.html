@@ -2,8 +2,11 @@
 	<div *ngIf="army$" class="army-container">
 		<header class="army-container__header">
 			<h1 class="army-title">{{ army$.name }}</h1>
-			<span>{{ army$.category }}</span>
-			<span>Author: {{ army$.ownerId }}</span>
+			<div>
+				<span class="army-category">{{ army$.category }} - </span>
+				<span class="army-subcategory">{{ army$.subCategory }}</span>
+			</div>
+			<span>Owner: {{ army$.ownerId }}</span>
 			<div *ngIf="editLink">
 				<a
 					routerLink="/army/edit/{{army$._id}}"
@@ -12,31 +15,33 @@
 			</div>
 		</header>
 		
-		<app-dropdown>
-			<header class="header">
-				<h2 class="article-title">Description</h2>
-			</header>
+		<app-dropdown
+			[iconUrl]="'../../../assets/icons/game-icons_feather.svg'"
+		>
+			<h2 class="dropdown-title">Description</h2>
 			<div class="content">
 				{{ army$.description }}
 			</div>
 		</app-dropdown>
 		
-		<app-dropdown>
-			<header class="header">
-				<h2 class="article-title">Lore</h2>
-			</header>
+		<app-dropdown
+			[iconUrl]="'../../../assets/icons/game-icons_spell-book.svg'"
+		>
+			<h2 class="dropdown-title">Lore</h2>
 			<div class="content">
 				{{ army$.lore }}
 			</div>
 		</app-dropdown>
 		
-		<hr>
-		
-		<div *ngIf="army$.miniatures && army$.miniatures.length > 0">
+		<div *ngIf="army$.pictures && army$.pictures.length > 0">
 			<h3>Miniatures</h3>
-			<div *ngFor="let miniature of army$.miniatures">
-				<a [href]="miniature.fileUrl" target="_blank">
-					<img [src]="miniature.fileUrl" [alt]="miniature.fileName" style="width: 200px; height: auto;">
+			<div *ngFor="let picture of army$.pictures">
+				<a [href]="picture.fileUrl" target="_blank">
+					<img
+						[src]="picture.fileUrl"
+						[alt]="picture.fileName"
+						class="miniature-img"
+					>
 				</a>
 			</div>
 		</div>

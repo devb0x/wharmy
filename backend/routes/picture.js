@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const MiniatureController = require('../controllers/miniature')
+const MiniatureController = require('../controllers/picture')
 
 router.get(
 	'/recent-uploads',

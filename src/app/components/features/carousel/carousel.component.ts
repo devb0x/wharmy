@@ -2,7 +2,7 @@ import { Component } from '@angular/core'
 import { HttpClient, HttpErrorResponse } from "@angular/common/http"
 import {NgIf, NgFor, NgClass, NgStyle} from "@angular/common"
 
-import { Miniature } from "../../../models/miniature.interface"
+import { PictureInterface } from "../../../models/picture.interface"
 
 import { environment } from "../../../../environments/environment"
 import {RouterLink} from "@angular/router";
@@ -24,7 +24,7 @@ const BACKEND_URL = `${environment.apiUrl}/`
 })
 
 export class CarouselComponent {
-	miniatures$: Miniature[] = []
+	miniatures$: PictureInterface[] = []
 	currentIndex: number = 0
 	currentSlide = 0
 	timerWidth: number = 0

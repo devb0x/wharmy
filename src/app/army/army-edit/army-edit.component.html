@@ -7,10 +7,8 @@
 		</header>
 		
 		<form [formGroup]="armyForm" (submit)="formSubmit()">
-			<app-dropdown>
-				<header class="header">
-					<h2 class="article-title">Description</h2>
-				</header>
+			<app-dropdown [iconUrl]="'../../../assets/icons/game-icons_feather.svg'">
+				<h2 class="dropdown-title">Description</h2>
 				<div class="content">
 					<textarea
 						formControlName="description"
@@ -21,10 +19,8 @@
 				</div>
 			</app-dropdown>
 			
-			<app-dropdown>
-				<header class="header">
-					<h2 class="article-title">Lore</h2>
-				</header>
+			<app-dropdown [iconUrl]="'../../../assets/icons/game-icons_spell-book.svg'">
+				<h2 class="dropdown-title">Lore</h2>
 				<div class="content">
 					<textarea
 						formControlName="lore"
@@ -43,6 +39,8 @@
 	</div>
 	
 	<hr>
+		<app-new-miniature></app-new-miniature>
+	<hr>
 	
 	<app-image-upload
 		*ngIf="army$"
@@ -55,26 +53,26 @@
 	
 	<article *ngIf="army$">
 		<h2>Gallery</h2>
-		<div *ngIf="army$.miniatures && army$.miniatures.length > 0">
+		<div *ngIf="army$.pictures && army$.pictures.length > 0">
 			<h3>Miniatures</h3>
-			<div *ngFor="let miniature of army$.miniatures">
-				<a [href]="miniature.fileUrl" target="_blank">
-					<img [src]="miniature.fileUrl" [alt]="miniature.fileName" style="width: 200px; height: auto;">
+			<div *ngFor="let picture of army$.pictures">
+				<a [href]="picture.fileUrl" target="_blank">
+					<img [src]="picture.fileUrl" [alt]="picture.fileName" style="width: 200px; height: auto;">
 				</a>
-				<span (click)="showDeleteModal(miniature._id)">
+				<span (click)="showDeleteModal(picture._id)">
 					delete
 				</span>
 				<div>
-					<button (click)="setAsThumbnail(miniature._id, armyId)">set as thumbnail</button>
+					<button (click)="setAsThumbnail(picture._id, armyId)">set as thumbnail</button>
 				</div>
 			</div>
 		</div>
 	</article>
 	
 	<app-confirmation-modal
-		*ngIf="miniatureIdToDelete"
+		*ngIf="pictureIdToDelete"
 		[message]="'Are you sure you want to delete this miniature?'"
-		(confirmed)="onDeleteConfirm(miniatureIdToDelete)"
+		(confirmed)="onDeleteConfirm(pictureIdToDelete)"
 		(cancelled)="onDeleteCancel()"
 	>
 	</app-confirmation-modal>

@@ -17,9 +17,9 @@ const armySchema = mongoose.Schema({
 		type: String,
 		required: true
 	},
-	miniatures: [{
+	pictures: [{
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Miniature'
+		ref: 'Picture'
 	}],
 	thumbnailUrl: {
 		type: String,
