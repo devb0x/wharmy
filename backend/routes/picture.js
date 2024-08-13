@@ -1,11 +1,11 @@
 const express = require('express')
 const router = express.Router()
 
-const MiniatureController = require('../controllers/picture')
+const PictureController = require('../controllers/picture')
 
 router.get(
 	'/recent-uploads',
-	MiniatureController.getRecentMiniatures
+	PictureController.getRecentMiniatures
 )
 
 module.exports = router

@@ -6,6 +6,7 @@ const userRoutes = require('./routes/user')
 const armyRoutes = require('./routes/army')
 const uploadRoutes = require('./routes/upload')
 const pictureRoutes = require('./routes/picture')
+const miniatureRoutes = require('./routes/miniature')
 
 const cors = require("cors")
 
@@ -42,6 +43,7 @@ app.options('*', cors())
 
 app.use("/api/user", userRoutes)
 app.use("/api/army", armyRoutes)
+app.use("/api/army", miniatureRoutes)
 app.use("/api", uploadRoutes)
 app.use("/api", pictureRoutes)
 

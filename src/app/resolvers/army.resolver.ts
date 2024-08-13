@@ -12,7 +12,7 @@ export class ArmyResolver implements Resolve<Army | null> {
 	constructor(private armyService: ArmyService) {}
 
 	resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Army | null> {
-		const armyId = route.paramMap.get('id');
+		const armyId = route.paramMap.get('armyId');
 		if (!armyId) {
 			return of(null); // Return observable of null if armyId is not provided
 		}

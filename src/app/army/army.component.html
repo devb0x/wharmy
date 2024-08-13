@@ -33,8 +33,22 @@
 			</div>
 		</app-dropdown>
 		
+		<h3>Miniatures</h3>
+		<div *ngIf="army$.miniatures && army$.miniatures.length > 0">
+			<ul *ngFor="let miniature of army$.miniatures">
+				<li>
+					<a [routerLink]="['miniature', miniature._id]">
+						{{ miniature.name }}
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div *ngIf="army$.miniatures.length === 0">
+			No miniatures yet..
+		</div>
+		
 		<div *ngIf="army$.pictures && army$.pictures.length > 0">
-			<h3>Miniatures</h3>
+			<h3>Gallery</h3>
 			<div *ngFor="let picture of army$.pictures">
 				<a [href]="picture.fileUrl" target="_blank">
 					<img

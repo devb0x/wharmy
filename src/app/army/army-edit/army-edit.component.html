@@ -39,7 +39,19 @@
 	</div>
 	
 	<hr>
-		<app-new-miniature></app-new-miniature>
+	
+	<app-new-miniature
+		[armyId]="armyId"
+		(miniatureAdded)="onMiniatureAdded()"
+	></app-new-miniature>
+	
+	<div *ngIf="army$">
+		<div *ngFor="let miniature of army$.miniatures">
+			<app-dropdown>
+				<h2 class="dropdown-title">{{ miniature.name }}</h2>
+			</app-dropdown>
+		</div>
+	</div>
 	<hr>
 	
 	<app-image-upload
@@ -54,7 +66,6 @@
 	<article *ngIf="army$">
 		<h2>Gallery</h2>
 		<div *ngIf="army$.pictures && army$.pictures.length > 0">
-			<h3>Miniatures</h3>
 			<div *ngFor="let picture of army$.pictures">
 				<a [href]="picture.fileUrl" target="_blank">
 					<img [src]="picture.fileUrl" [alt]="picture.fileName" style="width: 200px; height: auto;">

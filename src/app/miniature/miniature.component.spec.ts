@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NewMiniatureComponent } from './new-miniature.component';
+import { MiniatureComponent } from './miniature.component';
 
-describe('NewMiniatureComponent', () => {
-  let component: NewMiniatureComponent;
-  let fixture: ComponentFixture<NewMiniatureComponent>;
+describe('MiniatureComponent', () => {
+  let component: MiniatureComponent;
+  let fixture: ComponentFixture<MiniatureComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NewMiniatureComponent]
+      imports: [MiniatureComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(NewMiniatureComponent);
+    fixture = TestBed.createComponent(MiniatureComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

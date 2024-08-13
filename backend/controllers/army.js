@@ -1,5 +1,5 @@
 const Army = require('../models/army')
-const Miniature = require("../models/picture")
+const Picture = require("../models/picture")
 
 exports.createNewArmy = (req, res, next) => {
 	const army = new Army({
@@ -32,7 +32,6 @@ exports.getUserArmies = (req, res, next) => {
 	Army
 		.find({ownerId: ownerId})
 		.then(armies => {
-			console.log(armies)
 			if (armies && armies.length > 0) {
 				res.status(200).json(armies)
 			} else {
@@ -47,7 +46,7 @@ exports.getUserArmies = (req, res, next) => {
 }
 
 exports.getArmy = (req, res, next) => {
-	const id = req.params.id
+	const id = req.params.armyId
 
 	Army
 		.findById(id).populate('pictures')
@@ -72,7 +71,7 @@ exports.updateArmy = (req, res, next) => {
 	}
 
 	Army
-		.updateOne({_id: req.params.id}, updatedData)
+		.updateOne({_id: req.params.armyId}, updatedData)
 		.then(result => {
 			if (result.modifiedCount > 0) {
 				res.status(200).json({ message: 'Army document updated successfully' })
@@ -86,10 +85,26 @@ exports.updateArmy = (req, res, next) => {
 		})
 }
 
+exports.addMiniatureToTheArmy = async (req, res, next) => {
+
+	try {
+		await Army.findByIdAndUpdate(
+			{_id: req.params.id},
+			{ $push: { miniatures: req.body } }
+		)
+			.then(updateArmy => {
+				res.status(200).json(updateArmy)
+			})
+	} catch (error) {
+		console.error('Error adding miniature', error)
+	}
+
+}
+
 exports.updateThumbnail = async (req, res, next) => {
-	const miniature = await Miniature.findById(req.body.thumbnail)
+	const picture = await Picture.findById(req.body.thumbnail)
 	const thumbnailUrl = {
-		thumbnailUrl: miniature.fileUrl
+		thumbnailUrl: picture.fileUrl
 	}
 
 	Army
@@ -106,3 +121,4 @@ exports.updateThumbnail = async (req, res, next) => {
 			res.status(500).json({ message: 'Internal server error' })
 		})
 }
+

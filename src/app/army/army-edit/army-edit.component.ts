@@ -8,7 +8,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {ImageUploadComponent} from "./image-upload/image-upload.component";
 import {ConfirmationModalComponent} from "../../layout/confirmation-modal/confirmation-modal.component";
-import {NewMiniatureComponent} from "../../dashboard/new-miniature/new-miniature.component";
+import {NewMiniatureComponent} from "../../miniature/new-miniature/new-miniature.component";
 
 
 const BACKEND_URL = `${environment.apiUrl}/army/`
@@ -192,5 +192,9 @@ export class ArmyEditComponent {
 					console.log(error)
 				}
 			)
+	}
+
+	onMiniatureAdded() {
+		this.fetchArmyData()
 	}
 }

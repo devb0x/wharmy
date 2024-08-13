@@ -18,7 +18,10 @@ export class ArmyService {
 		const token = localStorage.getItem("token")
 		const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-		return this.http.get<any>(BACKEND_URL + `/armies?userId=${userId}`, { headers })
+		return this.http.get<any>(
+			BACKEND_URL + `/armies?userId=${userId}`,
+			{ headers }
+		)
 	}
 
 	getArmy(id: string): Observable<any> {
@@ -26,6 +29,14 @@ export class ArmyService {
 			throw new Error("army Id is required")
 		}
 
-		return this.http.get<any>(BACKEND_URL + `/${id}`)
+		return this.http.get<any>(
+			BACKEND_URL + `/${id}`
+		)
+	}
+
+	getMiniature(armyId: string, miniatureId: string): Observable<any> {
+		return this.http.get<any>(
+			BACKEND_URL + `/${armyId}/miniature/${miniatureId}`
+		)
 	}
 }

@@ -3,6 +3,7 @@ const router = express.Router()
 
 const checkAuth = require('../middleware/check-auth')
 const ArmyController = require('../controllers/army')
+const MiniatureController = require('../controllers/miniature')
 
 router.post(
 	"/new-army",
@@ -17,14 +18,26 @@ router.get(
 )
 
 router.get(
-	"/:id",
+	"/:armyId",
 	ArmyController.getArmy
 )
 
+/**
+ * route for editing army
+ */
 router.put(
-	"/edit/:id",
+	"/edit/:armyId",
 	checkAuth,
 	ArmyController.updateArmy
+)
+
+/**
+ * route for adding miniature
+ */
+router.put(
+	"/edit/add-miniature/:id",
+	checkAuth,
+	ArmyController.addMiniatureToTheArmy
 )
 
 router.put(

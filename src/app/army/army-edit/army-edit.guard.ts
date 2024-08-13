@@ -27,7 +27,7 @@ export class ArmyEditGuard implements CanActivate {
 
 		this.authService.getAuthStatusListener()
 
-		const armyId = next.paramMap.get('id');
+		const armyId = next.paramMap.get('armyId');
 		if (!armyId) {
 			console.log('404')
 

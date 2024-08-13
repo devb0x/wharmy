@@ -12,34 +12,10 @@ import { ArmyEditComponent } from "./army/army-edit/army-edit.component"
 
 import { SandboxComponent } from "./sandbox/sandbox.component"
 import {ArmyResolver} from "./resolvers/army.resolver";
-import {AppComponent} from "./app.component";
-import * as path from "path";
+
 import {HomepageComponent} from "./homepage/homepage.component";
-//
-// export const routes: Routes = [
-// 	{
-// 		path: 'login',
-// 		component: LoginComponent
-// 	},
-// 	{
-// 		path: 'register',
-// 		component: RegisterComponent
-// 	},
-// 	{
-// 		path: 'dashboard',
-// 		component: DashboardComponent,
-// 		canActivate: [AuthGuard],
-// 		},
-// 	{
-// 		path: 'dashboard/new-collection',
-// 		component: NewCollectionComponent,
-// 		canActivate: [AuthGuard],
-// 	},
-// 	{
-// 		path: 'sandbox',
-// 		component: SandboxComponent
-// 	}
-// ]
+import {MiniatureComponent} from "./miniature/miniature.component";
+
 export const routes: Routes = [
 	{
 		path: '',
@@ -69,11 +45,20 @@ export const routes: Routes = [
 		]
 	},
 	{
-		path: 'army/:id',
-		component: ArmyComponent
+		path: 'army/:armyId',
+		children: [
+			{
+				path: '',
+				component: ArmyComponent
+			},
+			{
+				path: 'miniature/:miniatureId',
+				component: MiniatureComponent
+			}
+		],
 	},
 	{
-		path:'army/edit/:id',
+		path: 'army/edit/:armyId',
 		component: ArmyEditComponent,
 		canActivate: [AuthGuard, ArmyEditGuard],
 		resolve: { armyData: ArmyResolver }

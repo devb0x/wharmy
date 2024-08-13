@@ -1,5 +1,5 @@
-import {Component, Input} from '@angular/core';
-import {ParamMap, Route, Router, RouterLink} from "@angular/router";
+import {Component, Input, Output} from '@angular/core';
+import {ActivatedRoute, ParamMap, Route, Router, RouterLink} from "@angular/router";
 import {switchMap} from "rxjs";
 import {ArmyService} from "../dashboard/army-list/army.service";
 import {HttpErrorResponse} from "@angular/common/http";
@@ -25,19 +25,21 @@ import {ImageUploadComponent} from "./army-edit/image-upload/image-upload.compon
 export class ArmyComponent {
 	constructor(
 		private router: Router,
-		private armyService: ArmyService
+		private armyService: ArmyService,
+		private route: ActivatedRoute
 	) {}
 
-	@Input() id = ''
+	@Input() armyId = ''
 
 	army$: Army | null = null
 	editLink: boolean = false
 
 	ngOnInit() {
 		const userId = localStorage.getItem("userId")
-		if (this.id) {
+
+		if (this.armyId) {
 			this.armyService
-				.getArmy(this.id)
+				.getArmy(this.armyId)
 				.subscribe(
 					(army: any) => {
 						this.army$ = army
@@ -55,4 +57,5 @@ export class ArmyComponent {
 		}
 
 	}
+
 }
