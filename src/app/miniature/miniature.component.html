@@ -1,9 +1,53 @@
-<p>miniature component:</p>
 <div *ngIf="miniature">
-	<div>
-		{{miniature._id}}
+	<header class="army-header">
+		<h1 class="army-title">{{ army.name }}</h1>
+		<div>
+			<span class="army-category">{{ army.category }} - </span>
+			<span class="army-subcategory">{{ army.subCategory }}</span>
+		</div>
+		<span>Owner: {{ army.ownerId }}</span>
+		<div>
+			<a routerLink="/army/{{armyId}}">Back to army</a>
+		</div>
+	</header>
+	
+	<div *ngIf="miniature">
+		<h2 class="miniature-title">{{ miniature.name }}</h2>
+		<div>
+			<a routerLink="/army/{{armyId}}/miniature/edit/{{miniatureId}}">Edit</a>
+		</div>
+		<div *ngFor="let step of miniature.steps" class="miniature-step">
+			<h3 class="miniature-step__title"><span>{{ step.number }} - </span>{{ step.title }}</h3>
+<!--			<div *ngIf="step.paintsUsed && step.paintsUsed.length === 0">-->
+<!--				<h4 class="step-title">Paints Used</h4>-->
+<!--				<ul *ngFor="let paint of miniature.paintsUsed">-->
+<!--					<li>{{ paint?.name}}</li>-->
+<!--				</ul>-->
+<!--			</div>-->
+
+<!--			<div *ngFor="let picture of army$.pictures">-->
+<!--				<a [href]="picture.fileUrl" target="_blank">-->
+<!--					<img-->
+<!--						[src]="picture.fileUrl"-->
+<!--						[alt]="picture.fileName"-->
+<!--						class="miniature-img"-->
+<!--					>-->
+<!--				</a>-->
+<!--			</div>-->
+			
+			<div *ngFor="let picture of step.pictures">
+				<img [src]="picture.fileUrl" alt="some img" class="miniature-step__img">
+			</div>
+			<div>
+				<h4 class="step-title">Paints Used</h4>
+				<ul>
+					<li>paint name</li>
+					<li>paint name 2</li>
+					<li>paint name 3</li>
+				</ul>
+			</div>
+			<div class="step-description">{{ step.description }}</div>
+		</div>
 	</div>
-	<div>
-		{{ miniature.name }}
-	</div>
+	
 </div>

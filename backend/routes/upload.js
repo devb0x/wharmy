@@ -13,10 +13,23 @@ router.post(
 	UploadController.upload
 )
 
+router.post(
+	"/uploadToMiniature",
+	checkAuth,
+	upload.array('files'),
+	UploadController.uploadToMiniature
+)
+
 router.delete(
-	"/delete/:miniatureId",
+	"/delete/:pictureId",
 	checkAuth,
 	UploadController.delete
+)
+
+router.delete(
+	"/deleteFromMiniature/:armyId/:miniatureId/:stepIndex/:pictureId",
+	checkAuth,
+	UploadController.deleteFromMiniature
 )
 
 module.exports = router

@@ -1,7 +1,7 @@
 import { PictureInterface } from "./picture.interface"
 import { MiniatureInterface } from "./miniature.interface"
 
-export interface Army {
+export interface ArmyInterface {
 	_id: string
 	ownerId: string
 	name: string

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core'
 import { NgIf } from "@angular/common"
 import { RouterLink } from "@angular/router"
 
-import { Army } from "../../../models/army.interface"
+import { ArmyInterface } from "../../../models/army.interface"
 
 @Component({
 	selector: 'app-army-card',
@@ -15,5 +15,5 @@ import { Army } from "../../../models/army.interface"
 	styleUrl: './army-card.component.css',
 })
 export class ArmyCardComponent {
-	@Input() army: Army | undefined
+	@Input() army: ArmyInterface | undefined
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router"
-import {Army} from "../../models/army.interface";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router"
+import {ArmyInterface} from "../../models/army.interface";
 import {Location, NgIf, NgFor } from "@angular/common";
 import {DropdownComponent} from "../../layout/dropdown/dropdown.component";
 import {FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
@@ -9,6 +9,7 @@ import {environment} from "../../../environments/environment";
 import {ImageUploadComponent} from "./image-upload/image-upload.component";
 import {ConfirmationModalComponent} from "../../layout/confirmation-modal/confirmation-modal.component";
 import {NewMiniatureComponent} from "../../miniature/new-miniature/new-miniature.component";
+import {MiniatureInterface} from "../../models/miniature.interface";
 
 
 const BACKEND_URL = `${environment.apiUrl}/army/`
@@ -21,6 +22,7 @@ const BACKEND_URL = `${environment.apiUrl}/army/`
 		DropdownComponent,
 		NgIf,
 		NgFor,
+		RouterLink,
 		ImageUploadComponent,
 		ConfirmationModalComponent,
 		NewMiniatureComponent
@@ -30,14 +32,13 @@ const BACKEND_URL = `${environment.apiUrl}/army/`
 })
 export class ArmyEditComponent {
 	armyId!: string
-	army$: Army | null = null
+	army$: ArmyInterface | null = null
 	armyForm!: FormGroup
 
 	selectedFile: File | null = null
-	pictureIdToDelete: string | null = null;
+	pictureIdToDelete: string | null = null
 
 	constructor(
-		// private cdr: ChangeDetectorRef,
 		private router: Router,
 		private route: ActivatedRoute,
 		private location: Location,
@@ -48,6 +49,7 @@ export class ArmyEditComponent {
 			description: [this.army$?.description || ''],
 			lore: [this.army$?.lore || '']
 		});
+
 	}
 
 	ngOnInit(): void {
@@ -118,7 +120,7 @@ export class ArmyEditComponent {
 		const token = localStorage.getItem('token');
 		const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-		this.http.get<Army>(`${BACKEND_URL}${id}`, { headers }).subscribe(
+		this.http.get<ArmyInterface>(`${BACKEND_URL}${id}`, { headers }).subscribe(
 			response => {
 				this.army$ = response;
 			},
@@ -128,21 +130,32 @@ export class ArmyEditComponent {
 		);
 	}
 
-	onDeleteSubmit(miniatureId: string): void {
+	onDeleteSubmit(pictureId: string): void {
 		const token = localStorage.getItem("token")
 		const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`)
 
 		this.http
 			.delete(
-				`${environment.apiUrl}/delete/${miniatureId}`,
+				`${environment.apiUrl}/delete/${pictureId}`,
 				{ headers }
 			)
 			.subscribe(
 				response => {
 					console.log('Deletion success', response)
 					if (this.army$) {
+						const pictureToDelete = this.army$.pictures.find(picture => picture._id === pictureId)
+						// if (pictureToDelete) {
+						// 	if (pictureToDelete.fileUrl === this.army$.thumbnailUrl) {
+						// 		console.log("same url")
+						// 		this.army$.thumbnailUrl = ""
+						// 		this.setAsThumbnail(this.army$._id, "")
+						// 	}
+						// }
+
 						this.army$.pictures = this.army$.pictures
-							.filter(miniature => miniature._id !== miniatureId)
+							.filter(picture => picture._id !== pictureId)
+
+						this.army$ = { ...this.army$ }
 					}
 				},
 				error => {
@@ -153,14 +166,14 @@ export class ArmyEditComponent {
 		this.pictureIdToDelete = null
 	}
 
-	showDeleteModal(miniatureId: string): void {
-		this.pictureIdToDelete = miniatureId;
+	showDeleteModal(pictureId: string): void {
+		this.pictureIdToDelete = pictureId;
 	}
 	onDeleteCancel(): void {
 		this.pictureIdToDelete = null;
 	}
-	onDeleteConfirm(miniatureId: string): void {
-		this.onDeleteSubmit(miniatureId)
+	onDeleteConfirm(pictureId: string): void {
+		this.onDeleteSubmit(pictureId)
 	}
 
 	// unused function (was display 'undefined' instead of the image picture

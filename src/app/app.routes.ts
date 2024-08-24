@@ -15,6 +15,9 @@ import {ArmyResolver} from "./resolvers/army.resolver";
 
 import {HomepageComponent} from "./homepage/homepage.component";
 import {MiniatureComponent} from "./miniature/miniature.component";
+import {MiniatureEditComponent} from "./miniature/miniature-edit/miniature-edit.component";
+import {MiniatureResolver} from "./resolvers/miniature.resolver";
+import {MiniatureStepEditComponent} from "./miniature/miniature-step-edit/miniature-step-edit.component";
 
 export const routes: Routes = [
 	{
@@ -53,7 +56,30 @@ export const routes: Routes = [
 			},
 			{
 				path: 'miniature/:miniatureId',
-				component: MiniatureComponent
+				component: MiniatureComponent,
+				resolve: {
+					miniatureData: MiniatureResolver,
+					armyData: ArmyResolver
+				}
+			},
+			{
+				path: 'miniature/edit/:miniatureId',
+				component: MiniatureEditComponent,
+				canActivate: [AuthGuard, ArmyEditGuard],
+				resolve: {
+					miniatureData: MiniatureResolver,
+					armyData: ArmyResolver
+				}
+			},
+			{
+				path: 'miniature/edit/:miniatureId/edit-step/:stepNumber',
+				component: MiniatureStepEditComponent,
+				canActivate: [AuthGuard, ArmyEditGuard],
+				resolve: {
+					miniatureData: MiniatureResolver,
+					armyData: ArmyResolver
+				},
+				runGuardsAndResolvers: 'always'
 			}
 		],
 	},
@@ -76,3 +102,5 @@ export const routes: Routes = [
 		redirectTo: '/404',
 	}
 ];
+
+

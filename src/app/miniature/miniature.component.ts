@@ -1,49 +1,44 @@
 import {Component} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 
 import {ArmyService} from "../dashboard/army-list/army.service";
 import { MiniatureService } from "./miniature.service"
-import {NgIf} from "@angular/common";
+import {NgIf, NgFor} from "@angular/common";
+import {MiniatureInterface} from "../models/miniature.interface";
+import {ArmyInterface} from "../models/army.interface";
 
 @Component({
 	selector: 'app-miniature',
 	standalone: true,
 	imports: [
-		NgIf
+		NgIf,
+		NgFor,
+		RouterLink
 	],
 	templateUrl: './miniature.component.html',
 	styleUrl: './miniature.component.css'
 })
 export class MiniatureComponent {
-	miniature!: any
+	miniature!: MiniatureInterface
+	army!: ArmyInterface
+	armyId!: string
+	miniatureId!: string
 
 	constructor(
 		private armyService: ArmyService,
 		private miniatureService: MiniatureService,
 		private route: ActivatedRoute,
-		private router: Router
 	) {}
 
 	ngOnInit() {
-		const armyId = this.route.snapshot.paramMap.get('armyId')
-		const miniatureId = this.route.snapshot.paramMap.get('miniatureId')
+		this.armyId = this.route.snapshot.paramMap.get('armyId')!
+		this.miniatureId = this.route.snapshot.paramMap.get('miniatureId')!
 
-		if (armyId && miniatureId) {
-			this.armyService
-				.getMiniature(armyId, miniatureId)
-				.subscribe(
-					(miniatureData: any) => {
-						this.miniature = miniatureData
-					},
-					(error) => {
-						this.router.navigate(['not-found']).then(() => {
-							console.log('Error fetching miniature data', error)
-						})
-					}
-				)
-		} else {
-			console.error('Army Id or Miniature Id is missing')
-		}
+		this.route.data.subscribe(data => {
+			this.miniature = data['miniatureData']
+			this.army = data['armyData']
+		})
+		console.log(this.miniature)
 	}
 
 }

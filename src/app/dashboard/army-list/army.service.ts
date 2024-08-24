@@ -7,8 +7,7 @@ const BACKEND_URL = `${environment.apiUrl}/army`
 
 @Injectable({ providedIn: 'root'})
 export class ArmyService {
-	constructor(private http: HttpClient) {
-	}
+	constructor(private http: HttpClient) {}
 
 	getUserArmies(userId: string): Observable<any> {
 		if (!userId) {

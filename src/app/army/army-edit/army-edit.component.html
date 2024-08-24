@@ -45,11 +45,20 @@
 		(miniatureAdded)="onMiniatureAdded()"
 	></app-new-miniature>
 	
+
+	<h3>Miniatures</h3>
 	<div *ngIf="army$">
-		<div *ngFor="let miniature of army$.miniatures">
-			<app-dropdown>
-				<h2 class="dropdown-title">{{ miniature.name }}</h2>
-			</app-dropdown>
+		<div *ngIf="army$.miniatures && army$.miniatures.length > 0">
+			<ul *ngFor="let miniature of army$.miniatures">
+				<li>
+					<a routerLink="/army/{{armyId}}/miniature/edit/{{miniature._id}}">
+						{{ miniature.name }}
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div *ngIf="army$.miniatures.length === 0">
+			No miniatures yet..
 		</div>
 	</div>
 	<hr>
@@ -58,6 +67,7 @@
 		*ngIf="army$"
 		[armyId]="army$._id"
 		(fileUploaded)="fetchArmyData()"
+		[actionType]="'army'"
 	>
 	</app-image-upload>
 	
@@ -82,7 +92,7 @@
 	
 	<app-confirmation-modal
 		*ngIf="pictureIdToDelete"
-		[message]="'Are you sure you want to delete this miniature?'"
+		[message]="'Are you sure you want to delete this picture?'"
 		(confirmed)="onDeleteConfirm(pictureIdToDelete)"
 		(cancelled)="onDeleteCancel()"
 	>

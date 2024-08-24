@@ -1,7 +1,3 @@
-.army-container {
-	/*outline: 1px solid black;*/
-}
-
 .army-header {
 	display: flex;
 	flex-direction: column;
@@ -19,13 +15,8 @@ header > span {
 	color: rgba(0, 0, 0, 0.5);
 }
 
-.article-title {
-	font-weight: 600;
-	/*font-style: 24px;*/
-}
-
-.miniature-img {
-	width: 100%;
-	max-width: 580px;
-	height: auto;
+.step-form {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
 }

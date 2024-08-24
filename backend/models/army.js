@@ -3,14 +3,16 @@ const mongoose = require('mongoose')
 // Define the schema for a single step
 const stepSchema = new mongoose.Schema({
 	number: { type: Number, required: true },
-	value: { type: String, required: true },
+	title: { type: String, required: true },
+	description: { type: String, required: true },
+	paintsUsed: [{ type: String }],
 	pictures: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Picture' }]
 });
 
 // Define the schema for a single miniature
 const miniatureSchema = new mongoose.Schema({
-	ownerId: { type: String, required: true },
-	armyId: { type: String, required: true },
+	ownerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+	armyId: { type: mongoose.Schema.Types.ObjectId, ref: 'Army', required: true },
 	name: { type: String, required: true },
 	steps: [stepSchema]
 });

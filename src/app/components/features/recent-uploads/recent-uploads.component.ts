@@ -30,7 +30,6 @@ export class RecentUploadsComponent {
 			.subscribe(
 				(data: any) => {
 					this.miniatures$ = data
-					console.log('miniatures from recent uploads: ', this.miniatures$)
 				},
 				(error: HttpErrorResponse) => {
 					console.error(error)

@@ -37,7 +37,11 @@ export class ImageUploadComponent {
 	@ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 	@Output() fileUploaded = new EventEmitter<Picture[]>() // Emit the array of new miniatures
 	@Input() armyId!: string
-	selectedFiles: File[] = [];
+	@Input() miniatureId!: string
+	@Input() stepNumber!: number
+	@Input() actionType!: string
+
+	selectedFiles: File[] = []
 
 	constructor(private http: HttpClient) {}
 
@@ -53,8 +57,17 @@ export class ImageUploadComponent {
 			this.fileInput.nativeElement.value = ''; // Reset the value of the file input
 		}
 	}
-
 	uploadFile(): void {
+		if (this.actionType === 'miniature') {
+			this.uploadFileToMiniature()
+		} else if (this.actionType === 'army') {
+			this.uploadFileToArmy()
+		} else {
+			console.error('Unknown action type')
+		}
+	}
+
+	uploadFileToArmy(): void {
 		const token = localStorage.getItem("token")
 		const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`)
 
@@ -70,6 +83,34 @@ export class ImageUploadComponent {
 				.subscribe(
 					response => {
 						console.log('File uploaded ended', response)
+						if (response.data && response.data.length > 0) {
+							this.fileUploaded.emit(response.data)
+						}
+						this.selectedFiles = []
+						this.resetFileInput()
+					},
+					error => console.error('File upload failed', error)
+				)
+		}
+	}
+
+	uploadFileToMiniature(): void {
+		const token = localStorage.getItem("token")
+		const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`)
+
+		if (this.selectedFiles.length > 0) {
+			const formData = new FormData();
+			this.selectedFiles.forEach(file => {
+				formData.append('files', file, file.name); // Append each file to the form data
+			});
+			formData.append('armyId', this.armyId)
+			formData.append('miniatureId', this.miniatureId)
+			formData.append('stepNumber', this.stepNumber.toString())
+
+			this.http.post<UploadResponse>(BACKEND_URL + `uploadToMiniature`, formData, { headers })
+				.subscribe(
+					response => {
+						console.log('Miniature file uploaded ended', response)
 						if (response.data && response.data.length > 0) {
 							this.fileUploaded.emit(response.data)
 						}

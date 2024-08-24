@@ -4,7 +4,7 @@ import {Observable, of, throwError} from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import {AuthService} from "../../auth/auth.service";
 import {ArmyService} from "../../dashboard/army-list/army.service";
-import {Army} from "../../models/army.interface";
+import {ArmyInterface} from "../../models/army.interface";
 
 @Injectable({
 	providedIn: 'root'
@@ -35,7 +35,7 @@ export class ArmyEditGuard implements CanActivate {
 		}
 
 		return this.armyService.getArmy(armyId).pipe(
-			map((army: Army) => {
+			map((army: ArmyInterface) => {
 				if (!army) {
 					return this.router.createUrlTree(['/404']);
 				}

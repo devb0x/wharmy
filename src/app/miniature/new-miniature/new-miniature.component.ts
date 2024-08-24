@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core'
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms"
 import {HttpClient, HttpHeaders} from "@angular/common/http"
 import {environment} from "../../../environments/environment";
+import {MiniatureInterface} from "../../models/miniature.interface";
 
 const BACKEND_URL = `${environment.apiUrl}/army/`
 
@@ -46,8 +47,10 @@ export class NewMiniatureComponent {
 	addMiniatureToTheArmy(miniatureName: string) {
 		const armyId = this.armyId
 
-		const newMiniature = {
-			name: miniatureName
+		const newMiniature: MiniatureInterface = {
+			name: miniatureName,
+			steps: [],
+			paintsUsed: []
 		}
 
 		const token = localStorage.getItem("token")

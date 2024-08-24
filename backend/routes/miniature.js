@@ -8,4 +8,14 @@ router.get(
 	MiniatureController.getMiniature
 )
 
+router.post(
+	"/:armyId/miniature/edit/:miniatureId",
+	MiniatureController.addStepToMiniature
+)
+
+router.put(
+	"/:armyId/miniature/edit/:miniatureId/edit-step/:stepNumber",
+	MiniatureController.editStepToMiniature
+)
+
 module.exports = router

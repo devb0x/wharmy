@@ -86,39 +86,60 @@ exports.updateArmy = (req, res, next) => {
 }
 
 exports.addMiniatureToTheArmy = async (req, res, next) => {
+	const { armyId } = req.params.id
+	const { name } = req.body
+	const userId = req.userData._id
 
-	try {
-		await Army.findByIdAndUpdate(
-			{_id: req.params.id},
-			{ $push: { miniatures: req.body } }
-		)
-			.then(updateArmy => {
-				res.status(200).json(updateArmy)
-			})
-	} catch (error) {
-		console.error('Error adding miniature', error)
+	const newMiniature = {
+		name: name,
+		ownerId: userId,
+		armyId: armyId,
+		steps: [],
 	}
 
+	try {
+		const updateArmy = await Army.findByIdAndUpdate(
+			{_id: req.params.id},
+			{ $push: { miniatures: newMiniature } },
+			{ new: true }
+		)
+		res.status(200).json(updateArmy)
+	} catch (error) {
+		console.error('Error adding miniature', error)
+		res.status(500).json({ error: 'Failed to add miniature to the army'})
+	}
 }
 
 exports.updateThumbnail = async (req, res, next) => {
-	const picture = await Picture.findById(req.body.thumbnail)
-	const thumbnailUrl = {
-		thumbnailUrl: picture.fileUrl
-	}
+	// Extract the thumbnail ID from the request body
+	const { thumbnail } = req.body;
 
-	Army
-		.updateOne({_id: req.params.id}, thumbnailUrl)
-		.then(result => {
-			if (result.modifiedCount > 0) {
-				res.status(200).json({ message: 'Army document updated successfully' })
+	let thumbnailUrl = { thumbnailUrl: '' };
+
+	if (thumbnail) {
+		try {
+			const picture = await Picture.findById(thumbnail);
+			if (picture) {
+				// If picture is found, set the new thumbnail URL
+				thumbnailUrl = { thumbnailUrl: picture.fileUrl };
 			} else {
-				res.status(404).json({ message: 'No army document was updated' })
+				// If picture is not found, return a 404 error
+				return res.status(404).json({ message: 'Picture not found' });
 			}
-		})
-		.catch(error => {
-			console.error('Error updating army document:', error)
-			res.status(500).json({ message: 'Internal server error' })
-		})
-}
 
+			// Update the Army document with the new thumbnail URL
+			const result = await Army.updateOne({ _id: req.params.id }, thumbnailUrl);
+
+			if (result.modifiedCount > 0) {
+				res.status(200).json({ message: 'Army document updated successfully' });
+			} else {
+				res.status(404).json({ message: 'No army document was updated' });
+			}
+		} catch (error) {
+			console.error('Error updating army document:', error);
+			res.status(500).json({ message: 'Internal server error' });
+		}
+	} else {
+		res.status(400).json({ message: 'Thumbnail ID is required' });
+	}
+};

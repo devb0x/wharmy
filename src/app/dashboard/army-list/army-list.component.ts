@@ -6,7 +6,7 @@ import { ArmyCardComponent } from "./army-card/army-card.component"
 import {HttpErrorResponse} from "@angular/common/http";
 import {NgFor} from "@angular/common";
 
-import { Army } from '../../models/army.interface'
+import { ArmyInterface } from '../../models/army.interface'
 
 @Component({
 	selector: 'app-army-list',
@@ -20,7 +20,7 @@ import { Army } from '../../models/army.interface'
 })
 export class ArmyListComponent {
 	constructor(private armyService: ArmyService) {}
-	armies: Army[] = []
+	armies: ArmyInterface[] = []
 
 	ngOnInit() {
 		const userId: string | null = localStorage.getItem('userId')
@@ -32,7 +32,6 @@ export class ArmyListComponent {
 			.subscribe(
 				(armies: any) => {
 					this.armies = armies
-					console.log(this.armies)
 				},
 				(error: HttpErrorResponse) => {
 					console.error(error)

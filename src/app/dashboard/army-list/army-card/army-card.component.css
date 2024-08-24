@@ -7,11 +7,6 @@
 	margin-bottom: 32px;
 }
 
-.card-thumbnail {
-	background-color: #cbb489;
-	min-height: 167px;
-	height: 167px;
-}
 .card-thumbnail > img {
 	object-fit: cover;
 	display: flex;
