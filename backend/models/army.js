@@ -1,11 +1,17 @@
 const mongoose = require('mongoose')
 
+const paintSchema = new mongoose.Schema({
+	type: String,
+	brand: String,
+	name: String
+});
+
 // Define the schema for a single step
 const stepSchema = new mongoose.Schema({
 	number: { type: Number, required: true },
 	title: { type: String, required: true },
 	description: { type: String, required: true },
-	paintsUsed: [{ type: String }],
+	paintsUsed: [paintSchema],
 	pictures: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Picture' }]
 });
 
@@ -14,6 +20,7 @@ const miniatureSchema = new mongoose.Schema({
 	ownerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
 	armyId: { type: mongoose.Schema.Types.ObjectId, ref: 'Army', required: true },
 	name: { type: String, required: true },
+	thumbnailUrl: { type: String, default: '' },
 	steps: [stepSchema]
 });
 

@@ -11,6 +11,7 @@
 				<a
 					routerLink="/army/edit/{{army$._id}}"
 					[state]="{armyData: army$}"
+					class="btn-link"
 				>edit army</a>
 			</div>
 		</header>
@@ -36,8 +37,8 @@
 		<h3>Miniatures</h3>
 		<div *ngIf="army$.miniatures && army$.miniatures.length > 0">
 			<ul *ngFor="let miniature of army$.miniatures">
-				<li>
-					<a [routerLink]="['miniature', miniature._id]">
+				<li class="miniatures-list">
+					<a [routerLink]="['miniature', miniature._id]" class="miniatures-list__item-link">
 						{{ miniature.name }}
 					</a>
 				</li>

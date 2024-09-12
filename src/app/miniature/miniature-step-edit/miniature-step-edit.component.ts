@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {NgFor, NgIf} from "@angular/common";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
@@ -10,9 +10,8 @@ import {environment} from "../../../environments/environment";
 
 import {ImageUploadComponent} from "../../army/army-edit/image-upload/image-upload.component";
 import {ConfirmationModalComponent} from "../../layout/confirmation-modal/confirmation-modal.component";
-import {MiniatureResolver} from "../../resolvers/miniature.resolver";
-import {ArmyResolver} from "../../resolvers/army.resolver";
-// import {MiniatureService} from "../miniature.service";
+import {PaintSelectComponent} from "../../components/features/paint-select/paint-select.component";
+import {PaintInterface} from "../../models/paint.interface";
 
 const BACKEND_URL = `${environment.apiUrl}/army/`
 
@@ -23,27 +22,30 @@ const BACKEND_URL = `${environment.apiUrl}/army/`
 		ReactiveFormsModule,
 		ImageUploadComponent,
 		ConfirmationModalComponent,
+		PaintSelectComponent,
 		NgIf,
 		NgFor
 	],
 	templateUrl: './miniature-step-edit.component.html',
-	styleUrl: '../miniature.component.css'
+	styleUrls: [
+		'../miniature.component.css',
+		'./miniature-step-edit.component.css'
+	]
 })
 export class MiniatureStepEditComponent {
 	miniature!: MiniatureInterface
 	army!: ArmyInterface
 	stepForm!: FormGroup
 	stepIndex!: number
+	stepNumber!: number
 	pictureIdToDelete: string | null = null
+	selectedPaints: PaintInterface[] = []
 
 	constructor(
 		private router: Router,
 		private route: ActivatedRoute,
 		private formBuilder: FormBuilder,
 		private http: HttpClient,
-		private miniatureResolver: MiniatureResolver,
-		private armyResolver: ArmyResolver
-		// private miniatureService: MiniatureService
 	) {}
 
 	ngOnInit() {
@@ -53,35 +55,62 @@ export class MiniatureStepEditComponent {
 		})
 		this.route.params.subscribe(params => {
 			this.stepIndex = +this.route.snapshot.params['stepNumber'] - 1
+			this.stepNumber = +this.route.snapshot.params['stepNumber']
 
 			if (this.stepIndex < this.miniature.steps.length) {
 				this.stepForm = this.formBuilder.group({
-					number: this.stepIndex,
+					number: this.stepNumber,
 					title: this.miniature.steps[this.stepIndex].title,
 					description: this.miniature.steps[this.stepIndex].description,
-					paintUsed: [],
-					pictures: []
+					// paintsUsed: this.selectedPaints,
+					// paintsUsed: this.miniature.steps[this.stepIndex].paintsUsed,
+					// pictures: []
 				})
+				this.selectedPaints = this.miniature.steps[this.stepIndex].paintsUsed
 			} else {
 				this.router
 					.navigate([`/army/${this.army._id}/miniature/edit/${this.miniature._id}`])
 					.then(() => console.error('Invalid step number, redirecting..'))
 			}
 		})
-		console.log(this.miniature)
+		console.log('miniature = ', this.miniature)
+	}
+
+	handlePaintSelected(paint: PaintInterface) {
+		const isPaintAlreadySelected = this.selectedPaints.some(
+			(selectedPaint) => selectedPaint.type === paint.type &&
+				selectedPaint.brand === paint.brand &&
+				selectedPaint.name === paint.name
+		)
+		if (isPaintAlreadySelected) {
+			console.log('paint exists already', paint)
+			return
+		}
+		// Update the selectedPaints array
+		this.selectedPaints.push(paint);
+		console.log('Selected paints updated:', this.selectedPaints);
+	}
+
+	handlePaintRemoved(paint: { type: string; name: string }) {
+		// Update the selectedPaints array by removing the paint
+		this.selectedPaints = this.selectedPaints.filter(p => p.type !== paint.type || p.name !== paint.name);
+		console.log('Selected paints updated after removal:', this.selectedPaints);
 	}
 
 	formStepSubmit() {
-		console.log('editing step form submit')
-
 		const token = localStorage.getItem("token")
 		const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`)
 
-		const stepData = this.stepForm.value
+		const stepData = {
+			...this.stepForm.value,
+			paintsUsed: this.selectedPaints
+		}
+
+		console.log(stepData)
 
 		this.http
 			.put(
-				BACKEND_URL + `${this.army._id}/miniature/edit/${this.miniature._id}/edit-step/${this.stepIndex}`,
+				BACKEND_URL + `${this.army._id}/miniature/edit/${this.miniature._id}/edit-step/${this.stepNumber}`,
 				stepData,
 				{ headers }
 			)
@@ -89,6 +118,7 @@ export class MiniatureStepEditComponent {
 				response => {
 					console.log('Miniature steps edited', response)
 					this.stepForm.reset()
+					this.fetchData()
 					 // Fetch data again after the step is added
 				},
 				error => {

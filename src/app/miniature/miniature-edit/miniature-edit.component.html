@@ -12,12 +12,14 @@
 	<h2>{{ miniature.name }}</h2>
 	<div *ngIf="!displayForm">
 		<button
+			class="btn-link btn-cancel"
 			type="button"
 			(click)="backToMiniaturePage()"
 		>
 			Back to miniature
 		</button>
 		<button
+			class="btn-link"
 			type="button"
 			(click)="displayFormStep()"
 		>
@@ -38,12 +40,14 @@
 			<button
 				[disabled]="stepForm.invalid"
 				type="submit"
+				class="btn-link btn-confirm"
 			>
 				Create Step
 			</button>
 			<button
 				type="button"
 				(click)="displayForm = false"
+				class="btn-link btn-cancel"
 			>
 				Cancel
 			</button>
@@ -65,30 +69,36 @@
 		</div>
 		
 		<div *ngFor="let step of miniature.steps" class="miniature-step">
-			<div>
+			<header>
 				<h3 class="miniature-step__title"><span>{{ step.number }} - </span>{{ step.title }}</h3>
 				<div>
-					<a [routerLink]="['edit-step', step.number]" [relativeTo]="route">Edit step</a>
+					<a [routerLink]="['edit-step', step.number]" [relativeTo]="route" class="btn-link">Edit step</a>
 				</div>
-			</div>
-			<!--			<div *ngIf="step.paintsUsed && step.paintsUsed.length === 0">-->
-			<!--				<h4 class="step-title">Paints Used</h4>-->
-			<!--				<ul *ngFor="let paint of miniature.paintsUsed">-->
-			<!--					<li>{{ paint?.name}}</li>-->
-			<!--				</ul>-->
-			<!--			</div>-->
+			</header>
 			<div *ngFor="let picture of step.pictures">
 				<img [src]="picture.fileUrl" alt="some img" class="miniature-step__img">
 			</div>
 			<div>
 				<h4 class="step-title">Paints Used</h4>
-				<ul>
-					<li>paint name</li>
-					<li>paint name 2</li>
+				<div *ngIf="step.paintsUsed.length < 1">
+					There is no paint listed yet..
+				</div>
+				<ul *ngFor="let paint of step.paintsUsed">
+					<li>{{ paint.name }} - {{ paint.type }}</li>
 				</ul>
 			</div>
 			<div class="step-description">{{ step.description }}</div>
-			<app-divider></app-divider>
+		</div>
+	</div>
+	
+	<hr>
+	<div>
+		<h4>Gallery</h4>
+		<div *ngFor="let step of miniature.steps">
+			<div *ngFor="let picture of step.pictures">
+				<img [src]="picture.fileUrl" alt="some img" class="miniature-gallery__img">
+				<button (click)="setAsThumbnail(picture._id, army._id, miniature._id)">set as thumbnail</button>
+			</div>
 		</div>
 	</div>
 </div>

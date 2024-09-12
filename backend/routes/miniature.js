@@ -18,4 +18,9 @@ router.put(
 	MiniatureController.editStepToMiniature
 )
 
+router.put(
+	"/:armyId/miniature/update-thumbnail/:miniatureId",
+	MiniatureController.updateThumbnail
+)
+
 module.exports = router

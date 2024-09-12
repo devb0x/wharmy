@@ -1,8 +1,7 @@
 <div>
-	editing step number {{ stepIndex + 1 }}
+	<h1>Editing step {{ stepIndex + 1 }}</h1>
 </div>
 
-<hr>
 <form *ngIf="stepForm" [formGroup]="stepForm" (submit)="formStepSubmit()" class="step-form">
 	<label for="title">
 		Step Title
@@ -12,24 +11,28 @@
 		Description
 	</label>
 	<textarea formControlName="description" id="description" required></textarea>
-	<button
-		[disabled]="stepForm.invalid"
-		type="submit"
-	>
-		Edit Step
-	</button>
-	<button
-		type="button"
-		(click)="onCancel()"
-	>
-		Cancel
-	</button>
+	<div class="step-form__btn-wrapper">
+		<button
+			class="btn-link btn-cancel"
+			type="button"
+			(click)="onCancel()"
+		>
+			Cancel
+		</button>
+		<button
+			[disabled]="stepForm.invalid"
+			class="btn-link btn-confirm"
+			type="submit"
+		>
+			Update
+		</button>
+	</div>
 </form>
 
-<div>
+<div class="miniature-step__wrapper-images">
 	<div *ngFor="let picture of miniature.steps[stepIndex].pictures">
 		<img [src]="picture?.fileUrl" alt="img not found" class="miniature-step__img">
-		<button (click)="showDeleteModal(picture._id)">delete</button>
+		<button (click)="showDeleteModal(picture._id)" class="btn-delete">delete</button>
 	</div>
 </div>
 
@@ -41,6 +44,30 @@
 		[stepNumber]="stepIndex"
 		(fileUploaded)="fetchData()"
 	></app-image-upload>
+</div>
+
+<div>
+	<h4 class="step-title">Paints Used</h4>
+	<div *ngIf="miniature.steps[stepIndex].paintsUsed.length < 1">
+		There is no paint listed yet..
+	</div>
+<!--	I can also use selectedPaints for dynamic update value -->
+	<ul *ngFor="let paint of miniature.steps[stepIndex].paintsUsed">
+		<li>
+			<button (click)="handlePaintRemoved(paint)">
+				delete
+			</button>
+			{{ paint.name }} - {{ paint.type }}
+		</li>
+	</ul>
+</div>
+
+<div>
+	<app-paint-select
+		[selectedPaints]="selectedPaints"
+		(paintSelected)="handlePaintSelected($event)"
+		(paintRemoved)="handlePaintRemoved($event)"
+	></app-paint-select>
 </div>
 
 <app-confirmation-modal

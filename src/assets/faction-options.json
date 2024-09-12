@@ -13,3 +13,10 @@
 		{ "key":  "evil", "value":  "Evil" }
 	]
 }
+
+//const productNames = document.querySelectorAll('[data-testid="product-card-name"]');
+//
+//// Loop through the selected elements and retrieve their text content
+//productNames.forEach(product => {
+//console.log(product.textContent); // or any other action you want to perform
+//});

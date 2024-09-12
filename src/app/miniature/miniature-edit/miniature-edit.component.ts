@@ -130,4 +130,30 @@ export class MiniatureEditComponent {
 	backToMiniaturePage() {
 		return this.router.navigate([`/army/${this.army._id}/miniature/${this.miniature._id}`])
 	}
+
+	setAsThumbnail(pictureId: any, armyId: string, miniatureId: any) {
+		console.log('pictureId: ',pictureId)
+		console.log('armyID: ',armyId)
+		console.log('miniatureId: ',miniatureId)
+		const thumbnail: string = miniatureId
+		//
+		const token = localStorage.getItem("token")
+		const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`)
+		//
+		this.http
+			.put(
+				BACKEND_URL + `${this.army._id}/miniature/update-thumbnail/${this.miniature._id}`,
+				{ pictureId, armyId, miniatureId },
+				{ headers }
+			)
+			.subscribe(
+				response => {
+					console.log('Set as thumbnail success', response)
+				},
+				error => {
+					console.log(error)
+				}
+			)
+	}
+
 }

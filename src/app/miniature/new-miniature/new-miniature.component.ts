@@ -50,7 +50,7 @@ export class NewMiniatureComponent {
 		const newMiniature: MiniatureInterface = {
 			name: miniatureName,
 			steps: [],
-			paintsUsed: []
+			// paintsUsed: []
 		}
 
 		const token = localStorage.getItem("token")

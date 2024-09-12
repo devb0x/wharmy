@@ -273,13 +273,7 @@ exports.deleteFromMiniature = async (req, res) => {
 	}
 
 	try {
-		if (!pictureId || !armyId || !miniatureId || typeof stepIndex === 'undefined') {
-			return res.status(400).json({
-				message: 'Invalid parameters'
-			});
-		}
-
-		// Delete picture from the Picture collection
+				// Delete picture from the Picture collection
 		const picture = await Picture.findByIdAndDelete(pictureId);
 		if (!picture) {
 			return res.status(404).json({ message: 'Picture not found' });

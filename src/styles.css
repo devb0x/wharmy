@@ -54,5 +54,58 @@ main {
 	font-weight: 600;
 }
 
+/*
+ style for button
+*/
+
+.btn {
+
+}
+.btn-link {
+	color: black;
+	font-size: 12px;
+	background-color: var(--lightOrange);
+	padding: 4px 8px;
+	display: inline-block;
+	border: 1px solid var(--darkOrange);
+	border-radius: 4px;
+	text-decoration: none;
+	text-transform: capitalize;
+	letter-spacing: .1px;
+	cursor: pointer;
+}
+.btn-link:hover {
+	background-color: var(--lightOrangeHover);
+	transition: .2s ease-in-out;
+}
+.btn-cancel {
+	background-color: var(--lightOrangeHover);
+}
+.btn-cancel:hover {
+	color: white;
+	background-color: var(--darkOrange);
+}
+.btn-confirm {
+
+}
+.btn-confirm:hover {
+
+}
+.btn-delete {
+	font-size: 12px;
+	display: inline-block;
+	border: 1px solid var(--darkOrange);
+	background-color: var(--lightOrangeHover);
+	text-transform: capitalize;
+	letter-spacing: .1px;
+	cursor: pointer;
+	padding: 4px 8px;
+	border-radius: 4px;
+}
+.btn-delete:hover {
+	color: white;
+	background-color: var(--darkOrange);
+}
+
 
 

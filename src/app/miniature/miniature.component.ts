@@ -23,6 +23,7 @@ export class MiniatureComponent {
 	army!: ArmyInterface
 	armyId!: string
 	miniatureId!: string
+	editLink: boolean = false
 
 	constructor(
 		private armyService: ArmyService,
@@ -31,6 +32,8 @@ export class MiniatureComponent {
 	) {}
 
 	ngOnInit() {
+		const userId = localStorage.getItem("userId")
+
 		this.armyId = this.route.snapshot.paramMap.get('armyId')!
 		this.miniatureId = this.route.snapshot.paramMap.get('miniatureId')!
 
@@ -38,6 +41,9 @@ export class MiniatureComponent {
 			this.miniature = data['miniatureData']
 			this.army = data['armyData']
 		})
+		if (this.army.ownerId === userId) {
+			this.editLink = true
+		}
 		console.log(this.miniature)
 	}
 
