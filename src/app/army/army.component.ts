@@ -7,6 +7,7 @@ import {ArmyInterface} from "../models/army.interface";
 
 import { DropdownComponent } from "../layout/dropdown/dropdown.component"
 import {ImageUploadComponent} from "./army-edit/image-upload/image-upload.component";
+import {MiniatureCardComponent} from "../miniature/miniature-card/miniature-card.component";
 
 @Component({
 	selector: 'app-army',
@@ -16,7 +17,8 @@ import {ImageUploadComponent} from "./army-edit/image-upload/image-upload.compon
 		NgFor,
 		DropdownComponent,
 		RouterLink,
-		ImageUploadComponent
+		ImageUploadComponent,
+		MiniatureCardComponent
 	],
 	templateUrl: './army.component.html',
 	styleUrl: './army.component.css'

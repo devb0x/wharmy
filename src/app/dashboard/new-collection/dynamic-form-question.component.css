@@ -109,3 +109,38 @@ option[default] {
 	margin-top: -10px;
 	font-style: italic;
 }
+
+/* card options */
+.card-selection {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+.card-option {
+	padding: 12px;
+	border: 1px solid var(--lightOrange);
+	border-radius: 4px;
+	display: flex;
+	/*justify-content: space-around;*/
+	align-items: center;
+	cursor: pointer;
+}
+.card-option > .card-image {
+	filter: grayscale(.9);
+}
+.card-option:hover, .card-option.selected {
+	border-color: var(--darkOrange);
+	background-color: var(--lightOrange);
+}
+.card-option:hover > .card-image, .card-option.selected > .card-image {
+	filter: grayscale(0);
+}
+
+.card-option.selected > p {
+	font-weight: 600;
+}
+
+.card-image {
+	height: 50px;
+	/*margin-inline: auto;*/
+}

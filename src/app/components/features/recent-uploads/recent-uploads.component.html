@@ -8,10 +8,10 @@
 	>
 		<img
 			*ngFor="let miniature of miniatures$; let i = index"
-			class="picture"
 			[attr.data-index]="i"
 			[src]="miniature.fileUrl"
 			[alt]="miniature.fileName"
+			class="picture"
 		>
 	</div>
 </section>

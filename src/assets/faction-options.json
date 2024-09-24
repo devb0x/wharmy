@@ -1,22 +1,237 @@
 {
-	"age of sigmar": [
-		{ "key": "stormcast_eternals", "value": "Stormcast Eternals" },
-		{ "key": "nighthaunt", "value": "Nighthaunt" },
-		{ "key": "nighthaunt 2", "value": "Nighthaunt 2" }
+	"age_of_sigmar": [
+		{
+			"key": "cities_of_sigmar",
+			"value": "Cities of Sigmar",
+			"logo": "assets/factions-icons/cities_of_sigmar.svg",
+			"alliance": "order",
+			"units": [
+				"Freeguild Guard",
+				"Greatswords",
+				"Freeguild Crossbowmen",
+				"Demigryph Knights",
+				"Hellstorm Rocket Battery",
+				"Celestial Hurricanum",
+				"Luminark of Hysh",
+				"Steam Tank",
+				"Battlemage",
+				"Sorceress",
+				"Freeguild General",
+				"Flagellants",
+				"Black Guard",
+				"Ironbreakers",
+				"Iron Drakes",
+				"Gyrocopter"
+			]
+		},
+		{
+			"key": "daughters_of_khaine",
+			"value": "Daughters of Khaine",
+			"logo": "assets/factions-icons/daughters_of_khaine.svg",
+			"alliance": "order",
+			"units": [
+				"Witch Aelves",
+				"Hag Queen",
+				"Sisters of Slaughter",
+				"Blood Sisters",
+				"Blood Stalkers",
+				"Morathi",
+				"Cauldron of Blood",
+				"Khinerai Heartrenders",
+				"Khinerai Lifetakers",
+				"Melusai Ironscale",
+				"Avatar of Khaine",
+				"Shadowstalkers",
+				"The Shadow Queen",
+				"Doomfire Warlocks"
+			]
+		},
+		{
+			"key": "fyreslayers",
+			"value": "Fyreslayers",
+			"logo": "assets/factions-icons/fyreslayers.svg",
+			"faction": "order",
+			"units": [
+				"Vulkite Berzerkers",
+				"Hearthguard Berzerkers",
+				"Magmadroth",
+				"Auric Runesmiter",
+				"Auric Runemaster",
+				"Auric Runeson",
+				"Hearthguard Auric",
+				"Grimwrath Berzerker",
+				"Runefather",
+				"Doomseeker",
+				"Zharrgrim Priest",
+				"Runeson on Magmadroth",
+				"Battlesmith",
+				"Lords of the Lodge"
+			]
+		},
+		{
+			"key": "idoneth_deepkin",
+			"value": "Idoneth Deepkin",
+			"logo": "assets/factions-icons/idoneth_deepkin.svg",
+			"faction": "order",
+			"units": [
+				"Namarti Thralls",
+				"Namarti Reavers",
+				"Akelian Allopex",
+				"Akelian Leviadon",
+				"Lotann Warden of the Soul Ledgers",
+				"Isharann Tidecaster",
+				"Isharann Soulrender",
+				"Isharann Soulscryer",
+				"Akelian King",
+				"Eidolon of Mathlann",
+				"Morrsarr Guard",
+				"Ishlaen Guard",
+				"Volturnos, High King of the Deep"
+			]
+		},
+		{
+			"key": "kharadron_overlords",
+			"value": "Kharadron Overlords",
+			"logo": "assets/factions-icons/kharadron_overlords.svg",
+			"alliance": "order",
+			"units": [
+				"Arkanaut Company",
+				"Endrinriggers",
+				"Skywardens",
+				"Grundstok Thunderers",
+				"Aether-Khemist",
+				"Endrinmaster",
+				"Brokk Grungsson",
+				"Grundstok Gunhauler",
+				"Ironclad",
+				"Frigate",
+				"Aetheric Navigator",
+				"Arkanaut Admiral",
+				"Skyriggers"
+			]
+		},
+		{
+			"key": "lumineth_realm_lords",
+			"value": "Lumineth Realm-Lords",
+			"logo": "assets/factions-icons/lumineth_realmlords.svg",
+			"alliance": "order",
+			"units": [
+				"Vanari Auralan Wardens",
+				"Vanari Auralan Sentinels",
+				"Vanari Dawnriders",
+				"Scinari Cathallar",
+				"Alarith Stoneguard",
+				"Alarith Spirit of the Mountain",
+				"Lyrior Uthralle",
+				"Teclis",
+				"Eltharion",
+				"Vanari Bladelords",
+				"Scinari Loreseeker",
+				"Severith, Lord of the Seventh Wind",
+				"Ellania and Ellathor"
+			]
+		},
+		{
+			"key": "seraphon",
+			"value": "Seraphon",
+			"logo": "assets/factions-icons/seraphon.svg",
+			"alliance": "order",
+			"units": [
+				"Saurus Warriors",
+				"Saurus Knights",
+				"Skinks",
+				"Stegadon",
+				"Bastiladon",
+				"Engine of the Gods",
+				"Kroxigor",
+				"Saurus Oldblood",
+				"Skink Starpriest",
+				"Lord Kroak",
+				"Terradon Riders",
+				"Ripperdactyl Riders",
+				"Slann Starmaster",
+				"Razordon Hunting Pack"
+			]
+		},
+		{
+			"key": "stormcast_eternals",
+			"value": "Stormcast Eternals",
+			"logo": "assets/factions-icons/stormcast_eternals.svg",
+			"alliance": "order",
+			"units": [
+				"Liberators",
+				"Judicators",
+				"Retributors",
+				"Prosecutors",
+				"Vanguard-Hunters",
+				"Vanguard-Raptors",
+				"Evocators",
+				"Sequitors",
+				"Dracothian Guard",
+				"Celestar Ballista",
+				"Knight-Incantor",
+				"Lord-Arcanum",
+				"Lord-Celestant",
+				"Gryph-Hounds",
+				"Aetherwings",
+				"Stormdrake Guard",
+				"Yndrasta, the Celestial Spear",
+				"Annihilators"
+			]
+		},
+		{
+			"key": "sylvaneth",
+			"value": "Sylvaneth",
+			"logo": "assets/factions-icons/sylvaneth.svg",
+			"alliance": "order",
+			"units": [
+				"Dryads",
+				"Treelord",
+				"Branchwych",
+				"Kurnoth Hunters",
+				"Alarielle the Everqueen",
+				"Tree-Revenants",
+				"Spite-Revenants",
+				"Drycha Hamadreth",
+				"Spirit of Durthu",
+				"Branchwraith",
+				"Arch-Revenant",
+				"Gossamid Archers",
+				"Warsong Revenant",
+				"Spiteswarm Hive"
+			]
+		},
+		{
+			"key": "blades_of_khorne",
+			"value": "Blades of Khorne",
+			"logo": "assets/factions-icons/cities_of_sigmar.svg",
+			"alliance": "chaos",
+			"units": [
+				"Freeguild Guard",
+				"Greatswords",
+				"Freeguild Crossbowmen",
+				"Demigryph Knights",
+				"Hellstorm Rocket Battery",
+				"Celestial Hurricanum",
+				"Luminark of Hysh",
+				"Steam Tank",
+				"Battlemage",
+				"Sorceress",
+				"Freeguild General",
+				"Flagellants",
+				"Black Guard",
+				"Ironbreakers",
+				"Iron Drakes",
+				"Gyrocopter"
+			]
+		}
 	],
-	"warhammer 40k": [
+	"warhammer_40k": [
 		{ "key": "space_marine", "value": "Space Marine" },
 		{ "key": "orks", "value": "Orks" }
 	],
 	"middle-earth": [
-		{ "key":  "good", "value":  "Good" },
-		{ "key":  "evil", "value":  "Evil" }
+		{ "key": "good", "value": "Good" },
+		{ "key": "evil", "value": "Evil" }
 	]
 }
-
-//const productNames = document.querySelectorAll('[data-testid="product-card-name"]');
-//
-//// Loop through the selected elements and retrieve their text content
-//productNames.forEach(product => {
-//console.log(product.textContent); // or any other action you want to perform
-//});

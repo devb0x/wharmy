@@ -1,11 +1,12 @@
 import { Injectable } from "@angular/core"
 import { HttpClient } from "@angular/common/http"
 
+import {map, Observable, of} from "rxjs"
+
 import { QuestionBase } from "./question-base"
 import { DropdownQuestion } from "./question-dropdown"
 import { TextboxQuestion } from "./question-textbox"
-
-import {map, Observable, of} from "rxjs"
+import {CardSelectionQuestion} from "./question-cardselection";
 
 interface FactionOption {
 	key: string;
@@ -23,20 +24,29 @@ export class QuestionService {
 
 		const questions: QuestionBase<string>[] = [
 
-			new DropdownQuestion({
+			new CardSelectionQuestion({
 				key: 'category',
 				label: 'Category',
 				options: [
-					{key: 'age of sigmar', value: 'Age of Sigmar'},
-					{key: 'warhammer 40K', value: 'Warhammer 40K'},
-					{key: 'middle-earth', value: 'Middle-Earth'}
+					{key: 'age_of_sigmar', value: 'Age of Sigmar', logo: 'assets/logos/AoS-logo.webp'},
+					{key: 'warhammer_40K', value: 'Warhammer 40K', logo: 'assets/logos/40k-logo.webp'},
+					// {key: 'middle-earth', value: 'Middle-Earth', logo: ''}
 				],
 				required: true,
 				order: 1,
 				step: 1
 			}),
 
-			new DropdownQuestion({
+			// new DropdownQuestion({
+			// 	key: 'subCategory',
+			// 	label: 'Faction',
+			// 	options: [],
+			// 	required: true,
+			// 	order: 2,
+			// 	step: 2
+			// }),
+
+			new CardSelectionQuestion({
 				key: 'subCategory',
 				label: 'Faction',
 				options: [],
@@ -63,8 +73,9 @@ export class QuestionService {
 		return this.http.get<{ [key: string]: FactionOption[] }>('../../assets/faction-options.json')
 			.pipe(
 				map(options => {
-					const lowercaseCategory = category.toLowerCase();
-					return options[lowercaseCategory] || [];
+					// remove the space by _ for matching the JSON data
+					const formattedCategory = category.replace(/\s+/g, '_').toLowerCase();
+					return options[formattedCategory] || [];
 				})
 			)
 	}

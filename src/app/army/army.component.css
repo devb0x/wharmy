@@ -25,7 +25,12 @@ header > span {
 }
 
 .miniatures-list {
-	list-style: circle;
+	list-style: none;
+	padding: 0;
+}
+
+.miniatures-list > li {
+	margin-bottom: 1rem;
 }
 
 .miniatures-list__item-link {

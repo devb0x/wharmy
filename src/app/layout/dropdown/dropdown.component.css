@@ -1,5 +1,5 @@
 .dropdown {
-	margin-bottom: 16px;
+	margin-bottom: 40px;
 }
 
 .dropdown-header {
@@ -12,7 +12,7 @@
 	padding: 8px;
 	cursor: pointer;
 	height: 32px;
-	margin-bottom: 24px;
+	margin-bottom: 18px;
 }
 
 
@@ -38,5 +38,6 @@
 	max-height: fit-content;
 	height: auto;
 	width: auto;
+	line-height: 1.4
 }
 

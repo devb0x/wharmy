@@ -5,7 +5,7 @@
 		<div *ngFor="let question of questions" class="form-row">
 			<div *ngIf="step === question.step">
 				<div>
-					<app-question [question]="question" [form]="form" />
+					<app-question [question]="question" [form]="form" [filteredOptions]="filteredOptions"/>
 				</div>
 			</div>
 		</div>

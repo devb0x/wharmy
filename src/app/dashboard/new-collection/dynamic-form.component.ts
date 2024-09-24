@@ -9,6 +9,7 @@ import {DynamicFormQuestionComponent} from "./dynamic-form-question.component";
 import {QuestionService} from "./question.service";
 import {DropdownQuestion} from "./question-dropdown";
 import {DashboardService} from "../dashboard.service";
+import {CardSelectionQuestion} from "./question-cardselection";
 
 @Component({
 	standalone: true,
@@ -32,6 +33,9 @@ export class DynamicFormComponent implements OnInit {
 	submitted: boolean = false
 	isLoading: boolean = false
 
+	filteredOptions: any[] = [];
+
+
 	constructor(
 		private qcs: QuestionControlService,
 		private questionService: QuestionService,
@@ -43,6 +47,12 @@ export class DynamicFormComponent implements OnInit {
 		this.questionService.getQuestions().subscribe(questions => {
 			this.questions = questions
 			this.form = this.qcs.toFormGroup(this.questions as QuestionBase<string>[])
+
+			// const factionQuestion = this.questions.find(q => q.key === 'subCategory');
+			// if (factionQuestion) {
+				// this.filteredOptions = factionQuestion.options.filter(opt => opt.alliance === 'chaos');
+			// }
+				// this.filteredOptions = factionQuestion.options.filter(opt => console.log(opt));
 
 			const categoryControl = this.form.get('category');
 
@@ -63,7 +73,7 @@ export class DynamicFormComponent implements OnInit {
 		this.questionService.getFactionOptions(category).subscribe(
 			options => {
 				if (this.questions) {
-					const factionQuestion = this.questions.find(q => q.key === 'subCategory') as DropdownQuestion;
+					const factionQuestion = this.questions.find(q => q.key === 'subCategory') as CardSelectionQuestion;
 					factionQuestion.options = options;
 					factionControl.setValue(''); // Reset factionControl value
 				}

@@ -43,3 +43,9 @@
 	text-align: justify;
 	margin: 0;
 }
+
+@media (min-width: 1025px) {
+	.steps-wrapper {
+		flex-direction: row;
+	}
+}

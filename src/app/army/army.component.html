@@ -35,15 +35,14 @@
 		</app-dropdown>
 		
 		<h3>Miniatures</h3>
-		<div *ngIf="army$.miniatures && army$.miniatures.length > 0">
-			<ul *ngFor="let miniature of army$.miniatures">
-				<li class="miniatures-list">
-					<a [routerLink]="['miniature', miniature._id]" class="miniatures-list__item-link">
-						{{ miniature.name }}
-					</a>
-				</li>
-			</ul>
-		</div>
+		<ul *ngIf="army$.miniatures && army$.miniatures.length > 0" class="miniatures-list">
+			<li  *ngFor="let miniature of army$.miniatures">
+				<app-miniature-card
+					[link]="['miniature', miniature._id || 'default']"
+					[miniature]="miniature">
+				</app-miniature-card>
+			</li>
+		</ul>
 		<div *ngIf="army$.miniatures.length === 0">
 			No miniatures yet..
 		</div>
