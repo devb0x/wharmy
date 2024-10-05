@@ -1,3 +1,5 @@
+const mongoose = require("mongoose")
+
 const s3 = require('../config/aws-config')
 const Army = require('../models/army')
 const Picture = require('../models/picture')
@@ -219,7 +221,8 @@ exports.uploadToMiniature = async (req, res) => {
 				// Create a new file record
 				const newPicture = new Picture({
 					ownerId: ownerId,
-					armyId: armyId,
+					armyId: new mongoose.Types.ObjectId(req.body.armyId),
+					miniatureId: new mongoose.Types.ObjectId(req.body.miniatureId),
 					fileName: fileName,
 					fileUrl: data.Location, // S3 URL of the uploaded file
 					uploadDate: new Date()

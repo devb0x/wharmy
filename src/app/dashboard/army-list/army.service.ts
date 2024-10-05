@@ -38,4 +38,27 @@ export class ArmyService {
 			BACKEND_URL + `/${armyId}/miniature/${miniatureId}`
 		)
 	}
+
+	deleteArmy(armyId: string): Observable<any> {
+		console.log('delete army called in armyService', armyId)
+		console.log('Full delete URL:', BACKEND_URL + `/delete/${armyId}`);
+
+		const token = localStorage.getItem("token")
+		const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+		return this.http.delete<any>(
+			BACKEND_URL + `/delete/${armyId}`,
+			{ headers }
+		)
+	}
+
+	deleteMiniature(armyId: string, miniatureId: string): Observable<any> {
+		const token = localStorage.getItem("token")
+		const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+		return this.http.delete<any>(
+			BACKEND_URL + `/delete/${armyId}/miniature/${miniatureId}`,
+			{ headers }
+		)
+	}
 }

@@ -9,7 +9,7 @@ import {Observable} from "rxjs";
 import {RouterLink} from "@angular/router";
 
 @Component({
-	selector: 'app-new-collection',
+	selector: 'app-new-army',
 	standalone: true,
 	imports: [
 		RouterLink,
@@ -23,7 +23,7 @@ import {RouterLink} from "@angular/router";
   // `,
 	providers: [QuestionService],
 	templateUrl: './new-collection.component.html',
-	styleUrl: './new-collection.component.css'
+	// styleUrl: './new-army.component.css'
 })
 export class NewCollectionComponent {
 	questions$: Observable<QuestionBase<any>[]>

@@ -27,6 +27,29 @@ export class DynamicFormQuestionComponent {
 		}
 	}
 
+	// ngOnInit() {
+	// 	if (this.question.options) {
+	// 		const alliances = ['order', 'chaos', 'destruction', 'death'];
+	//
+	// 		// Loop over alliances and filter the options dynamically
+	// 		this.allianceDropdowns = alliances.map(alliance => {
+	// 			return {
+	// 				title: alliance.charAt(0).toUpperCase() + alliance.slice(1),  // Capitalize the title
+	// 				options: this.question.options.filter(opt => opt.alliance === alliance)
+	// 			};
+	// 		});
+	// 	}
+	// }
+
+	// ngOnInit() {
+	// 	if (this.question.options) {
+	// 		// Use dynamic filtering logic here
+	// 		this.filteredOptions = this.question.options.filter(opt => opt.alliance === this.selectedAlliance); // selectedAlliance is passed in dynamically
+	// 	}
+	// }
+
+
+
 	get isValid() {
 		return this.form.controls[this.question.key].valid
 	}

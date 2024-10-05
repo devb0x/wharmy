@@ -6,7 +6,8 @@ import { NotFoundComponent } from "./not-found/not-found.component"
 import { LoginComponent } from "./auth/login/login.component"
 import { RegisterComponent } from "./auth/register/register.component"
 import { DashboardComponent } from "./dashboard/dashboard.component"
-import { NewCollectionComponent } from "./dashboard/new-collection/new-collection.component"
+// import { NewCollectionComponent } from "./dashboard/new-collection/new-collection.component"
+import { NewArmyComponent } from "./components/features/new-army/new-army.component"
 import { ArmyComponent } from "./army/army.component"
 import { ArmyEditComponent } from "./army/army-edit/army-edit.component"
 
@@ -42,8 +43,8 @@ export const routes: Routes = [
 				component: DashboardComponent
 			},
 			{
-				path: 'new-collection',
-				component: NewCollectionComponent
+				path: 'new-army',
+				component: NewArmyComponent
 			}
 		]
 	},

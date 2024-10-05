@@ -32,6 +32,24 @@ router.put(
 )
 
 /**
+ * route for delete an army
+ */
+router.delete(
+	"/delete/:armyId",
+	checkAuth,
+	ArmyController.deleteArmy
+)
+
+/**
+ * route for delete a miniature
+ */
+router.delete(
+	"/delete/:armyId/miniature/:miniatureId",
+	checkAuth,
+	ArmyController.deleteMiniature
+)
+
+/**
  * route for adding miniature
  */
 router.put(

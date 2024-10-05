@@ -1,18 +1,21 @@
 import { Component, Input } from '@angular/core'
+import {NgClass} from "@angular/common";
 
 @Component({
 	selector: 'app-dropdown',
 	standalone: true,
-	imports: [],
+	imports: [
+		NgClass
+	],
 	templateUrl: './dropdown.component.html',
 	styleUrl: './dropdown.component.css'
 })
 export class DropdownComponent {
 	@Input() iconUrl: string = '../../../assets/icons/game-icons_spiral-arrow.svg'
+	@Input() collapsed: boolean = false
 
-	clickHandler(event: any) {
-		const parentDiv = event.currentTarget.parentNode as HTMLElement
-		parentDiv.classList.toggle('collapsed')
+	clickHandler() {
+		this.collapsed = !this.collapsed
 	}
 
 }

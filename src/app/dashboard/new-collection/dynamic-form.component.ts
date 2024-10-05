@@ -64,6 +64,40 @@ export class DynamicFormComponent implements OnInit {
 		})
 	}
 
+	// ngOnInit() {
+	// 	this.questionService.getQuestions().subscribe(questions => {
+	// 		this.questions = questions;
+	// 		this.form = this.qcs.toFormGroup(this.questions as QuestionBase<string>[]);
+	//
+	// 		const categoryControl = this.form.get('category');
+	//
+	// 		if (categoryControl) {
+	// 			categoryControl.valueChanges.subscribe(category => {
+	// 				this.updateFactionOptions(category);
+	// 			});
+	// 		}
+	// 	});
+	// }
+
+	// private updateFactionOptions(category: string) {
+	// 	const factionControl = this.form.get('subCategory');
+	// 	if (!factionControl) return; // Exit early if factionControl is null
+	//
+	// 	// Filter options based on alliance
+	// 	this.questionService.getFactionOptions(category).subscribe(options => {
+	// 		if (this.questions) {
+	// 			const factionQuestion = this.questions.find(q => q.key === 'subCategory') as CardSelectionQuestion;
+	//
+	// 			// Define the alliances dynamically (modify alliance logic as needed)
+	// 			factionQuestion.filteredOptions = options.filter(opt => opt.alliance === this.selectedAlliance); // selectedAlliance will change dynamically
+	//
+	// 			factionControl.setValue(''); // Reset the factionControl value
+	// 		}
+	// 	});
+	// }
+
+
+
 	private updateFactionOptions(category: string) {
 		const factionControl = this.form.get('subCategory');
 		if (!factionControl) {

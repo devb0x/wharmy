@@ -1,7 +1,8 @@
 <div
-	class="dropdown collapsed"
+	class="dropdown"
+	[ngClass]="{'collapsed': collapsed}"
 >
-	<div class="dropdown-header" (click)="clickHandler($event)">
+	<div class="dropdown-header" (click)="clickHandler()">
 		<img
 			class="header-icon"
 			[src]="iconUrl"

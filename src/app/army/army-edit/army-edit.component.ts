@@ -46,8 +46,8 @@ export class ArmyEditComponent {
 		private formBuilder: FormBuilder
 	) {
 		this.armyForm = this.formBuilder.group({
-			description: [this.army$?.description || ''],
-			lore: [this.army$?.lore || '']
+			description: [''],
+			lore: ['']
 		});
 
 	}
@@ -57,6 +57,11 @@ export class ArmyEditComponent {
 			this.army$ = data['armyData']; // Access resolved army data
 			if (this.army$ && this.army$._id) {
 				this.armyId = this.army$._id;
+
+				this.armyForm.patchValue({
+					description: this.army$.description || '',
+					lore: this.army$.lore || ''
+				})
 			}
 		});
 		console.log(this.army$)

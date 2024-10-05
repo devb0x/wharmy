@@ -8,6 +8,7 @@ import {ArmyInterface} from "../models/army.interface";
 import { DropdownComponent } from "../layout/dropdown/dropdown.component"
 import {ImageUploadComponent} from "./army-edit/image-upload/image-upload.component";
 import {MiniatureCardComponent} from "../miniature/miniature-card/miniature-card.component";
+import {ConfirmationModalComponent} from "../layout/confirmation-modal/confirmation-modal.component";
 
 @Component({
 	selector: 'app-army',
@@ -18,7 +19,8 @@ import {MiniatureCardComponent} from "../miniature/miniature-card/miniature-card
 		DropdownComponent,
 		RouterLink,
 		ImageUploadComponent,
-		MiniatureCardComponent
+		MiniatureCardComponent,
+		ConfirmationModalComponent
 	],
 	templateUrl: './army.component.html',
 	styleUrl: './army.component.css'
@@ -33,6 +35,8 @@ export class ArmyComponent {
 
 	army$: ArmyInterface | null = null
 	editLink: boolean = false
+	armyIdToDelete: string = this.army$?._id || ''
+	miniatureIdToDelete?: string = '' || undefined
 
 	ngOnInit() {
 		const userId = localStorage.getItem("userId")
@@ -45,6 +49,7 @@ export class ArmyComponent {
 						this.army$ = army
 						if (army.ownerId === userId) {
 							this.editLink = true
+							console.warn(this.army$)
 						}
 					},
 					(error: HttpErrorResponse) => {
@@ -56,5 +61,52 @@ export class ArmyComponent {
 		}
 
 	}
+
+	deleteArmy(armyId: string) {
+		this.armyIdToDelete = armyId
+	}
+
+	deleteMiniature(miniatureId?: string) {
+		this.miniatureIdToDelete = miniatureId
+	}
+
+	onDeleteConfirm(armyId: string) {
+		this.armyService
+			.deleteArmy(armyId)
+			.subscribe(
+				(response) => {
+					console.log('Delete successful', response);
+					this.armyIdToDelete = ''
+					console.log('Reset armyIdToDelete:', this.armyIdToDelete);
+					// setTimeout(() => {
+						this.router.navigate(['/dashboard']);
+					// }, 500);
+				},
+				(error) => {
+					console.log('Error deleting army', error);
+				}
+			);
+	}
+
+	onDeleteMiniatureConfirm(armyId: string, miniatureId: string) {
+		console.log('armyId = ', armyId, 'miniatureId = ', miniatureId)
+		this.armyService
+			.deleteMiniature(armyId, miniatureId)
+			.subscribe(
+				(response) => {
+					console.log('Delete successful', response)
+					this.miniatureIdToDelete = ''
+					this.router.navigate(['/dashboard'])
+				},
+				(error) => {
+					console.log('Error deleting miniature', error)
+				}
+			)
+	}
+
+	onDeleteCancel() {
+		this.armyIdToDelete = ''
+	}
+
 
 }

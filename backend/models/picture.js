@@ -6,8 +6,12 @@ const pictureSchema = new mongoose.Schema({
 		required: true
 	},
 	armyId: {
-		type: String,
+		type: mongoose.Schema.Types.ObjectId,
 		required: true
+	},
+	miniatureId: {
+		type: mongoose.Schema.Types.ObjectId,
+		required: false
 	},
 	fileName: {
 		type: String,
@@ -27,6 +31,11 @@ const pictureSchema = new mongoose.Schema({
 pictureSchema.index(
 	{ ownerId: 1, armyId: 1, fileName: 1 },
 	{ unique: true }
+)
+
+// Add a separate index for querying by armyId
+pictureSchema.index(
+	{ armyId: 1 }
 )
 
 module.exports = mongoose.model("Picture", pictureSchema)

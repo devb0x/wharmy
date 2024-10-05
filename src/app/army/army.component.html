@@ -13,6 +13,7 @@
 					[state]="{armyData: army$}"
 					class="btn-link"
 				>edit army</a>
+				<button type="button" (click)="deleteArmy(army$._id)">Delete</button>
 			</div>
 		</header>
 		
@@ -41,6 +42,9 @@
 					[link]="['miniature', miniature._id || 'default']"
 					[miniature]="miniature">
 				</app-miniature-card>
+				<div>
+					<button (click)="deleteMiniature(miniature._id)">delete miniature</button>
+				</div>
 			</li>
 		</ul>
 		<div *ngIf="army$.miniatures.length === 0">
@@ -61,4 +65,19 @@
 		</div>
 		
 	</div>
+	
+	<app-confirmation-modal
+		*ngIf="armyIdToDelete"
+		[message]="'Are you sure you want to delete this army?'"
+		(confirmed)="onDeleteConfirm(armyIdToDelete)"
+		(cancelled)="onDeleteCancel()"
+	>
+	</app-confirmation-modal>
+	<app-confirmation-modal
+		*ngIf="miniatureIdToDelete"
+		[message]="'Are you sure you want to delete this miniature?'"
+		(confirmed)="onDeleteMiniatureConfirm(armyId, miniatureIdToDelete)"
+		(cancelled)="onDeleteCancel()"
+	>
+	</app-confirmation-modal>
 </section>
