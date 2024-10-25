@@ -10,6 +10,7 @@ import {ImageUploadComponent} from "./image-upload/image-upload.component";
 import {ConfirmationModalComponent} from "../../layout/confirmation-modal/confirmation-modal.component";
 import {NewMiniatureComponent} from "../../miniature/new-miniature/new-miniature.component";
 import {MiniatureInterface} from "../../models/miniature.interface";
+import {ToastService} from "../../services/toast.service";
 
 
 const BACKEND_URL = `${environment.apiUrl}/army/`
@@ -43,7 +44,8 @@ export class ArmyEditComponent {
 		private route: ActivatedRoute,
 		private location: Location,
 		private http: HttpClient,
-		private formBuilder: FormBuilder
+		private formBuilder: FormBuilder,
+		private toastService: ToastService
 	) {
 		this.armyForm = this.formBuilder.group({
 			description: [''],
@@ -101,9 +103,11 @@ export class ArmyEditComponent {
 				(response) => {
 					console.log(response)
 					this.router.navigate([`army/${id}`])
+					this.toastService.showSuccess('Army edited successfully!');
 				},
 				(error) => {
 					console.log(error)
+					this.toastService.showError('Failed to edit the army.');
 				}
 			)
 	}
@@ -174,9 +178,11 @@ export class ArmyEditComponent {
 	showDeleteModal(pictureId: string): void {
 		this.pictureIdToDelete = pictureId;
 	}
+
 	onDeleteCancel(): void {
 		this.pictureIdToDelete = null;
 	}
+
 	onDeleteConfirm(pictureId: string): void {
 		this.onDeleteSubmit(pictureId)
 	}

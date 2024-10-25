@@ -7,6 +7,7 @@ import { AuthService } from "./auth/auth.service";
 
 import {NavbarComponent} from "./layout/navbar/navbar.component";
 import {FooterComponent} from "./layout/footer/footer.component";
+import {ToastComponent} from "./layout/toast/toast.component";
 
 @Component({
 	selector: 'app-root',
@@ -16,7 +17,8 @@ import {FooterComponent} from "./layout/footer/footer.component";
 		RouterOutlet,
 		HttpClientModule,
 		NavbarComponent,
-		FooterComponent
+		FooterComponent,
+		ToastComponent
 	],
 	templateUrl: './app.component.html',
 	styleUrl: './app.component.css'

@@ -1,4 +1,7 @@
-<div>
+<div *ngIf="isLoading">
+	<app-spinner></app-spinner>
+</div>
+<div *ngIf="!isLoading">
 	<app-army-card
 		*ngFor="let army of armies"
 		[army]="army"

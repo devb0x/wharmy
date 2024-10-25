@@ -11,11 +11,19 @@
 					*ngFor="let universe of universes"
 					[imageUrl]="universe.image"
 					[value]="universe.key"
-					(selectionChange)="onUniverseChange(universe.key)">
+					(selectionChange)="onUniverseChange(universe.key)"
+					[selectedValue]="armyForm.get('universe')?.value"
+				>
 				</app-card>
 			</div>
 			
-			<button type="button" (click)="nextStep()">Next</button>
+			<button
+				type="button"
+				(click)="nextStep()"
+				[disabled]="armyForm.get('universe')?.value === ''"
+			>
+				Next
+			</button>
 		</div>
 		
 		<!-- Step 2: Alliance Selection -->
@@ -42,14 +50,27 @@
 			</div>
 			
 			<button type="button" (click)="currentStep = 1">Back</button>
-			<button type="button" (click)="nextStep()">Next</button>
+			<button
+				type="button"
+				(click)="nextStep()"
+				[disabled]="armyForm.get('faction')?.value === ''"
+			>
+				Next
+			</button>
 		</div>
 		
+		<!-- Step 3: Name Selection -->
 		<div *ngIf="currentStep === 3">
 			<label for="name">Name</label>
 			<input type="text" id="name" formControlName="name">
-			<button type="submit" (click)="onSubmit()">submit</button>
 			<button type="button" (click)="currentStep = 2">Back</button>
+			<button
+				type="submit"
+				(click)="onSubmit()"
+				[disabled]="armyForm.get('name')?.invalid"
+			>
+				Submit
+			</button>
 		
 		</div>
 		
