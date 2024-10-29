@@ -25,6 +25,11 @@ router.get(
 	UserController.getUserInformation
 )
 
+router.get(
+	'/search-users',
+	UserController.searchUsers
+)
+
 router.post(
 	'/login',
 	UserController.loginUser

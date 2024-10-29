@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import {NgFor, NgIf} from "@angular/common"
 import { HttpClient, HttpErrorResponse } from "@angular/common/http"
+import { RouterLink } from "@angular/router"
 
 import { environment } from "../../../../environments/environment"
 
@@ -8,13 +9,13 @@ import { PictureInterface } from "../../../models/picture.interface"
 
 const BACKEND_URL = `${environment.apiUrl}/`
 
-
 @Component({
 	selector: 'app-recent-uploads',
 	standalone: true,
 	imports: [
 		NgIf,
-		NgFor
+		NgFor,
+		RouterLink
 	],
 	templateUrl: './recent-uploads.component.html',
 	styleUrl: './recent-uploads.component.css'

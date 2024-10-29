@@ -6,6 +6,8 @@ import { Subscription } from "rxjs"
 
 import { AuthService } from "../../auth/auth.service"
 
+import { SearchBarComponent } from "../search-bar/search-bar.component"
+
 @Component({
 	selector: 'app-navbar',
 	standalone: true,
@@ -13,7 +15,8 @@ import { AuthService } from "../../auth/auth.service"
 		CommonModule,
 		RouterOutlet,
 		RouterLink,
-		RouterLinkActive
+		RouterLinkActive,
+		SearchBarComponent
 	],
 	templateUrl: './navbar.component.html',
 	styleUrl: './navbar.component.css'

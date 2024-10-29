@@ -118,6 +118,21 @@ exports.getUserInformation = async (req, res, next) => {
 	}
 }
 
+exports.searchUsers = async (req, res, next) => {
+	const query = req.query.query
+
+	User
+		.find({ username: { $regex: query, $options: 'i' } })
+		.then(users => {
+			res.status(200).json(users)
+		})
+		.catch(error => {
+			res.status(500).json({
+				message: "Fetching User(s) failed!"
+			})
+		})
+}
+
 /**
  * dummy function delete later
  * @param req

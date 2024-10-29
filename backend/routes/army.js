@@ -3,7 +3,6 @@ const router = express.Router()
 
 const checkAuth = require('../middleware/check-auth')
 const ArmyController = require('../controllers/army')
-const MiniatureController = require('../controllers/miniature')
 
 router.post(
 	"/new-army",
@@ -11,6 +10,25 @@ router.post(
 	ArmyController.createNewArmy
 )
 
+/**
+ * all armies
+ */
+router.get(
+	"/all",
+	ArmyController.getAllArmies
+)
+
+/**
+ * route for search request
+ */
+router.get(
+	"/search-armies",
+	ArmyController.searchArmies
+)
+
+/**
+ * armies for specific user
+ */
 router.get(
 	"/armies",
 	checkAuth,

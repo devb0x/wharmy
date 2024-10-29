@@ -2,7 +2,7 @@ import { Injectable, inject } from "@angular/core"
 import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } from "@angular/router"
 
 import {AuthService} from "./auth.service";
-import {ArmyService} from "../dashboard/army-list/army.service";
+import {ArmyService} from "../pages/dashboard/army-list/army.service";
 
 @Injectable({
 	providedIn: 'root'

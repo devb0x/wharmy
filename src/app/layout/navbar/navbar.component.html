@@ -24,17 +24,24 @@
 				</a>
 			</li>
 			<li>
+				<a routerLink="/armies" routerLinkActive="active" class="link link-border__left">
+					armies
+				</a>
+			</li>
+			<li>
 				<a routerLink="/sandbox" routerLinkActive="active" class="link link-border__left">
 					sandbox
 				</a>
 			</li>
 		</ul>
+		<app-search-bar></app-search-bar>
 	</nav>
 <!--	 mobile navbar -->
 	<div
 		(click)="toggleMobileNav()"
 		class="nav-icon"
 	>
+<!--		span for hamburger icon-->
 		<span></span><span></span><span></span><span></span><span></span><span></span>
 	</div>
 
@@ -51,6 +58,11 @@
 				<li *ngIf="userIsAuth">
 					<a routerLink="/dashboard" routerLinkActive="active" class="link mobile-link" (click)="toggleMobileNav()">
 						dashboard
+					</a>
+				</li>
+				<li>
+					<a routerLink="/armies" routerLinkActive="active" class="link mobile-link" (click)="toggleMobileNav()">
+						armies
 					</a>
 				</li>
 				<li>

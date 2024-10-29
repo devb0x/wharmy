@@ -1,24 +1,26 @@
 import { Routes } from '@angular/router'
 import { AuthGuard } from "./auth/auth.guard"
-import { ArmyEditGuard } from "./army/army-edit/army-edit.guard"
+import { ArmyEditGuard } from "./pages/army/army-edit/army-edit.guard"
 
-import { NotFoundComponent } from "./not-found/not-found.component"
+import { NotFoundComponent } from "./pages/not-found/not-found.component"
 import { LoginComponent } from "./auth/login/login.component"
 import { RegisterComponent } from "./auth/register/register.component"
-import { DashboardComponent } from "./dashboard/dashboard.component"
+import { DashboardComponent } from "./pages/dashboard/dashboard.component"
 // import { NewCollectionComponent } from "./dashboard/new-collection/new-collection.component"
 import { NewArmyComponent } from "./components/features/new-army/new-army.component"
-import { ArmyComponent } from "./army/army.component"
-import { ArmyEditComponent } from "./army/army-edit/army-edit.component"
+import { ArmyComponent } from "./pages/army/army.component"
+import { ArmyEditComponent } from "./pages/army/army-edit/army-edit.component"
 
 import { SandboxComponent } from "./sandbox/sandbox.component"
 import {ArmyResolver} from "./resolvers/army.resolver";
 
-import {HomepageComponent} from "./homepage/homepage.component";
-import {MiniatureComponent} from "./miniature/miniature.component";
-import {MiniatureEditComponent} from "./miniature/miniature-edit/miniature-edit.component";
+import {HomepageComponent} from "./pages/homepage/homepage.component";
+import {MiniatureComponent} from "./pages/miniature/miniature.component";
+import {MiniatureEditComponent} from "./pages/miniature/miniature-edit/miniature-edit.component";
 import {MiniatureResolver} from "./resolvers/miniature.resolver";
-import {MiniatureStepEditComponent} from "./miniature/miniature-step-edit/miniature-step-edit.component";
+import {MiniatureStepEditComponent} from "./pages/miniature/miniature-step-edit/miniature-step-edit.component";
+import {ArmiesComponent} from "./pages/armies/armies.component";
+import {SearchResultsComponent} from "./pages/search-results/search-results.component";
 
 export const routes: Routes = [
 	{
@@ -89,6 +91,14 @@ export const routes: Routes = [
 		component: ArmyEditComponent,
 		canActivate: [AuthGuard, ArmyEditGuard],
 		resolve: { armyData: ArmyResolver }
+	},
+	{
+		path: 'armies',
+		component: ArmiesComponent
+	},
+	{
+		path: 'search-results',
+		component: SearchResultsComponent
 	},
 	{
 		path: 'sandbox',

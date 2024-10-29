@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
-import {NgFor} from "@angular/common";
+import {NgFor, NgIf} from "@angular/common";
+import {RouterLink} from "@angular/router";
 
 @Component({
 	selector: 'app-how-it-works',
 	standalone: true,
 	imports: [
-		NgFor
+		NgFor,
+		NgIf,
+		RouterLink
 	],
 	templateUrl: './how-it-works.component.html',
 	styleUrl: './how-it-works.component.css'
@@ -19,8 +22,11 @@ export class HowItWorksComponent {
 		},
 		{
 			title: 'Showcase Your Armies',
-			description: 'Share your beautifully painted armies with the community.',
-			icon: `../../../assets/icons/game-icons_lovers.svg`
+			description: 'Share your beautifully painted armies with the ',
+			icon: `../../../assets/icons/game-icons_lovers.svg`,
+			link: '/armies',
+			linkText: 'community',
+			dot: '.'
 		},
 		{
 			title: 'Secure Storage',

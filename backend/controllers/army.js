@@ -47,6 +47,38 @@ exports.getUserArmies = (req, res, next) => {
 		})
 }
 
+exports.getAllArmies = (req, res, next) => {
+	Army
+		.find()
+		.then(armies => {
+			if (armies && armies.length > 0) {
+				res.status(200).json(armies)
+			} else {
+				res.status(404).json({ message: 'Armies not found '})
+			}
+		})
+		.catch(error => {
+			res.status(500).json({
+				message: "Fetching Armies failed!"
+			})
+		})
+}
+
+exports.searchArmies = (req, res, next) => {
+	const query = req.query.query
+
+	Army
+		.find({ name: { $regex: query, $options: 'i' } })
+		.then(armies => {
+			res.status(200).json(armies)
+		})
+		.catch(error => {
+			res.status(500).json({
+				message: "Fetching Armies failed!"
+			})
+		})
+}
+
 exports.getArmy = (req, res, next) => {
 	const id = req.params.armyId
 

@@ -5,7 +5,7 @@ import {Router, RouterLink} from "@angular/router";
 import {CardComponent} from "../../../layout/card/card.component";
 import {DropdownComponent} from "../../../layout/dropdown/dropdown.component";
 import {HttpClient} from "@angular/common/http";
-import {DashboardService} from "../../../dashboard/dashboard.service";
+import {DashboardService} from "../../../pages/dashboard/dashboard.service";
 
 @Component({
   selector: 'app-new-army',
