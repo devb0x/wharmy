@@ -11,7 +11,7 @@ import {MiniatureInterface} from "../../../models/miniature.interface";
 		NgIf
 	],
 	templateUrl: './miniature-card.component.html',
-	styleUrl: './miniature-card.component.css'
+	styleUrls: ['./miniature-card.component.css']
 })
 export class MiniatureCardComponent {
 	@Input() link: string[] = []

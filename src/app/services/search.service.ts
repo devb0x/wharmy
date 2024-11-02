@@ -21,6 +21,14 @@ export class SearchService {
 		)
 	}
 
+	searchMiniatures(name: string): Observable<any> {
+		const params = new HttpParams().set('query', name)
+		return this.http.get<any>(
+			BACKEND_URL + '/army/miniature/search-miniatures',
+			{ params }
+		)
+	}
+
 	searchUsers(name: string): Observable<any> {
 		const params = new HttpParams().set('query', name)
 		return this.http.get<any>(

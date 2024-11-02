@@ -1,5 +1,6 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
+// Define the schema for paints used in steps
 const paintSchema = new mongoose.Schema({
 	type: String,
 	brand: String,
@@ -17,50 +18,11 @@ const stepSchema = new mongoose.Schema({
 
 // Define the schema for a single miniature
 const miniatureSchema = new mongoose.Schema({
+	name: { type: String, required: true },
 	ownerId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
 	armyId: { type: mongoose.Schema.Types.ObjectId, ref: 'Army', required: true },
-	name: { type: String, required: true },
 	thumbnailUrl: { type: String, default: '' },
 	steps: [stepSchema]
-});
+}, { timestamps: true });
 
-const armySchema = mongoose.Schema({
-	ownerId: {
-		type: String,
-		required: true
-	},
-	name: {
-		type: String,
-		required: true
-	},
-	category: {
-		type: String,
-		required: true
-	},
-	subCategory: {
-		type: String,
-		required: true
-	},
-	pictures: [{
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Picture'
-	}],
-	miniatures: [{
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Miniature'
-	}],
-	thumbnailUrl: {
-		type: String,
-		default: ''
-	},
-	description: {
-		type: String,
-		default: ''
-	},
-	lore: {
-		type: String,
-		default: ''
-	}
-}, { timestamps: true })
-
-module.exports = mongoose.model("Army", armySchema)
+module.exports = mongoose.model('Miniature', miniatureSchema);

@@ -8,6 +8,11 @@ router.get(
 	MiniatureController.getMiniature
 )
 
+router.get(
+	"/miniature/search-miniatures",
+	MiniatureController.searchMiniatures
+)
+
 router.post(
 	"/:armyId/miniature/edit/:miniatureId",
 	MiniatureController.addStepToMiniature

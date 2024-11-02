@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {Observable, BehaviorSubject, map} from 'rxjs';
+import {Observable, BehaviorSubject, map, forkJoin} from 'rxjs';
 import { ArmyInterface } from '../../models/army.interface';
 import { MiniatureInterface } from '../../models/miniature.interface';
 import { environment } from '../../../environments/environment';
+import {PictureInterface} from "../../models/picture.interface";
 
 const BACKEND_URL = `${environment.apiUrl}/army/`;
 
@@ -28,4 +29,10 @@ export class MiniatureService {
 	getMiniatureObservable(): Observable<MiniatureInterface | null> {
 		return this.miniatureSubject.asObservable();
 	}
+
+	getPicturesByIds(pictureIds: string[]): Observable<PictureInterface[]> {
+		const requests = pictureIds.map(id => this.http.get<PictureInterface>(`${BACKEND_URL}/pictures/${id}`));
+		return forkJoin(requests);
+	}
+
 }

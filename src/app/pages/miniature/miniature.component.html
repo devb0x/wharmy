@@ -18,14 +18,17 @@
 				<a routerLink="/army/{{armyId}}/miniature/edit/{{miniatureId}}" class="btn-link">Edit Miniature</a>
 			</div>
 		</header>
-		<img class="miniature-image" [src]="miniature.thumbnailUrl" [alt]="miniature.name">
+		<img class="miniature-image" [src]="miniature.thumbnailUrl" [alt]="miniature.name" *ngIf="miniature?.thumbnailUrl">
+		
 		<div *ngFor="let step of miniature.steps" class="miniature-step">
 			<h3 class="miniature-step__title"><span>{{ step.number }} - </span>{{ step.title }}</h3>
+			
 			<div class="miniature-step__wrapper-images">
 				<div *ngFor="let picture of step.pictures">
 					<img [src]="picture.fileUrl" [alt]="picture.fileName" class="miniature-step__img">
 				</div>
 			</div>
+			
 			<div>
 				<h4 class="step-title">Paints Used</h4>
 				<div *ngIf="step.paintsUsed.length < 1" style="margin-top: 16px; font-style: italic">
@@ -35,8 +38,8 @@
 					<li *ngFor="let paint of step.paintsUsed">{{ paint.name }} - {{ paint.type }}</li>
 				</ul>
 			</div>
+			
 			<div class="step-description">{{ step.description }}</div>
 		</div>
 	</div>
-	
 </div>

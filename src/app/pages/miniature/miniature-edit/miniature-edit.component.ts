@@ -72,6 +72,7 @@ export class MiniatureEditComponent {
 			this.miniature = data['miniatureData']
 			this.army = data['armyData']
 		})
+		console.log(this.miniature)
 	}
 
 	displayFormStep() {

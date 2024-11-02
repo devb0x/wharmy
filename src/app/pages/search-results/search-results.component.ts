@@ -25,12 +25,14 @@ export class SearchResultsComponent {
 
 				const searchObservables = [
 					this.searchService.searchArmies(query),
+					this.searchService.searchMiniatures(query),
 					this.searchService.searchUsers(query)
 				]
 
 			forkJoin(searchObservables).subscribe(
-				([armies, users]) => {
+				([armies, miniatures ,users]) => {
 					console.log('Armies: ', armies)
+					console.log('Miniatures: ', miniatures)
 					console.log('Users: ', users)
 				},
 				(error) => {
