@@ -1,18 +1,38 @@
-import { Component } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import { Component } from '@angular/core'
+import { NgIf, NgFor } from "@angular/common"
+import {ActivatedRoute, RouterLink} from "@angular/router"
 
-import {forkJoin} from "rxjs";
+import {forkJoin, Observable} from "rxjs"
 
-import {SearchService} from "../../services/search.service";
+import { SearchService } from "../../services/search.service"
+
+import {MiniatureInterface} from "../../models/miniature.interface";
+import {ArmyInterface} from "../../models/army.interface";
+import {UserInterface} from "../../models/user.interface";
+
+import { ArmyCardComponent } from "../dashboard/army-list/army-card/army-card.component";
+import { MiniatureCardComponent } from "../miniature/miniature-card/miniature-card.component";
 
 @Component({
 	selector: 'app-search-results',
 	standalone: true,
-	imports: [],
+	imports: [
+		NgIf,
+		NgFor,
+		RouterLink,
+		ArmyCardComponent,
+		MiniatureCardComponent
+	],
 	templateUrl: './search-results.component.html',
-	styleUrl: './search-results.component.css'
+	styleUrls: [
+		'./search-results.component.css'
+		]
 })
 export class SearchResultsComponent {
+	query = ''
+	armies: ArmyInterface[] = []
+	miniatures: MiniatureInterface[] = []
+	users: UserInterface[] = []
 
 	constructor(
 		private activatedRoute: ActivatedRoute,
@@ -21,7 +41,8 @@ export class SearchResultsComponent {
 
 	ngOnInit() {
 		this.activatedRoute.queryParams.subscribe(params => {
-				const query = params['query']; // Access the 'query' parameter
+			const query = params['query']; // Access the 'query' parameter
+			this.query = query
 
 				const searchObservables = [
 					this.searchService.searchArmies(query),
@@ -30,10 +51,10 @@ export class SearchResultsComponent {
 				]
 
 			forkJoin(searchObservables).subscribe(
-				([armies, miniatures ,users]) => {
-					console.log('Armies: ', armies)
-					console.log('Miniatures: ', miniatures)
-					console.log('Users: ', users)
+				([armies, miniatures, users]) => {
+					this.armies = armies as ArmyInterface[]
+					this.miniatures = miniatures as MiniatureInterface[]
+					this.users = users as UserInterface[]
 				},
 				(error) => {
 					console.error('Error fetching search results:', error);

@@ -1,1 +1,28 @@
-<p>search-results works!</p>
+<div>
+	<header>
+		Results for
+		<span *ngIf="query">{{ query }}</span>
+		<span *ngIf="query === ''">all</span>
+	</header>
+	<div *ngIf="armies.length > 0">
+		<h2>Armies:</h2>
+		<app-army-card
+			*ngFor="let army of armies"
+			[army]="army"
+		></app-army-card>
+	</div>
+	
+	<div *ngFor="let miniature of miniatures">
+		<app-miniature-card
+			[link]="[
+				'/army', miniature.armyId ||'default',
+				'miniature', miniature._id || 'default'
+			]"
+			[miniature]="miniature">
+		</app-miniature-card>
+	</div>
+	
+	<div *ngFor="let user of users">
+		{{ user.username }}
+	</div>
+</div>
