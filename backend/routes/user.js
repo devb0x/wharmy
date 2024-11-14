@@ -15,6 +15,26 @@ router.get(
 )
 
 router.get(
+	'/confirmAccount/:token',
+	UserController.confirmAccount
+)
+
+router.post(
+	'/resend-verification',
+	UserController.sendVerificationLink
+)
+
+router.post(
+	'/sendRetrievePasswordLink',
+	UserController.sendRetrievePasswordLink
+)
+
+router.put(
+	'/updateUserPassword',
+	UserController.updatePassword
+)
+
+router.get(
 	'/usernameTaken',
 	UserController.checkUsernameTaken
 )

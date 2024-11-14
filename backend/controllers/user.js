@@ -1,18 +1,33 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
+const crypto = require('crypto')
+
 const User = require('../models/user')
+const sendVerificationEmail = require("../../src/app/utils/sendVerificationEmail")
+const sendResetPasswordEmail = require("../../src/app/utils/sendResetPasswordEmail")
 
 exports.createUser = (req, res, next) => {
+	const verificationToken = crypto.randomBytes(32).toString('hex'); // Generate token
+	const verificationExpires = Date.now() + 24 * 60 * 60 * 1000; // Token valid for 24 hours
+	// const verificationExpires = Date.now() + 1; // Token expired for dev purpose
+
 	bcrypt.hash(req.body.password, 10)
 		.then(hash => {
 			const user = new User({
 				email: req.body.email,
 				username: req.body.username,
-				password: hash
+				password: hash,
+				isVerified: false,
+				verificationToken,
+				verificationExpires
 			})
 			user.save()
 				.then(result => {
+					sendVerificationEmail(user.email, verificationToken)
+						.catch(err => {
+							console.error('Error sending verification email:', err);
+						});
 					res.status(201).json({
 						message: 'New User created',
 						result: result
@@ -47,6 +62,25 @@ exports.checkUserExists = async (req, res) => {
 	}
 }
 
+exports.confirmAccount = async (req, res, next) => {
+	const { token } = req.params;
+
+	User.findOneAndUpdate(
+		{ verificationToken: token, verificationExpires: { $gt: Date.now() } },
+		{ $set: { isVerified: true }, $unset: { verificationToken: "", verificationExpires: "" } },
+		{ new: true }
+	)
+		.then(user => {
+			if (!user) {
+				return res.status(400).json({ message: 'Verification failed or link expired.' });
+			}
+			res.status(200).json({ message: 'Account verified successfully.' });
+		})
+		.catch(err => {
+			res.status(500).json({ message: 'Internal server error.' });
+		});
+}
+
 exports.checkUsernameTaken = async (req, res) => {
 	try {
 		const { username } = req.query
@@ -73,6 +107,16 @@ exports.loginUser = (req, res, next) => {
 					message: "Login failed"
 				})
 			}
+			// Check if the user's account is verified
+			if (!user.isVerified) {
+				// Send a distinct response for unverified accounts
+				return res.status(403).json({
+					message: "Account not verified. Please verify your account.",
+					action: "verify" // Custom response to guide frontend to verification process
+				});
+			}
+
+			// If account is verified, check password
 			return bcrypt.compare(req.body.password, user.password)
 				.then(result => {
 					if (!result) {
@@ -131,6 +175,105 @@ exports.searchUsers = async (req, res, next) => {
 				message: "Fetching User(s) failed!"
 			})
 		})
+}
+
+exports.sendVerificationLink = async (req, res) => {
+	const { email } = req.body;
+
+	try {
+		// Find the user by email
+		const user = await User.findOne({ email });
+
+		// Check if user exists
+		if (!user) {
+			return res.status(404).json({ message: "User not found" });
+		}
+
+		// Check if the account is already verified
+		if (user.isVerified) {
+			return res.status(400).json({ message: "Account already verified" });
+		}
+
+		// Generate a new verification token and expiration time
+		const verificationToken = crypto.randomBytes(32).toString('hex');
+		const verificationExpires = Date.now() + 24 * 60 * 60 * 1000; // Token valid for 24 hours
+
+		// Update user with new verification token and expiration date
+		user.verificationToken = verificationToken;
+		user.verificationExpires = verificationExpires;
+		await user.save();
+
+		// Send the verification email
+		await sendVerificationEmail(user.email, verificationToken);
+		res.status(200).json({ message: 'Verification link sent' });
+
+	} catch (error) {
+		res.status(500).json({ message: 'Error sending verification link', error: error.message });
+	}
+};
+
+exports.sendRetrievePasswordLink = async (req, res) => {
+	const email = req.body.email;
+
+	try {
+		// Find the user by email
+		const user = await User.findOne({ email });
+
+		if (user) {
+			// Generate a new verification token and expiration time
+			const resetPasswordToken = crypto.randomBytes(32).toString('hex');
+			const resetExpires = Date.now() + 24 * 60 * 60 * 1000; // Token valid for 24 hours
+
+			// Update user with new verification token and expiration date
+			user.resetPasswordToken = resetPasswordToken;
+			user.resetExpires = resetExpires;
+
+			await user.save();
+
+			// Send the verification email
+			await sendResetPasswordEmail(user.email, resetPasswordToken);
+		}
+
+		// Send a unified success response whether the user exists
+		res.status(200).json({ message: 'If an account with this email exists, a reset link has been sent.' });
+
+	} catch (error) {
+		res.status(500).json({ message: 'Error processing request' });
+	}
+}
+
+
+exports.updatePassword = async (req, res) => {
+	const resetPasswordToken = req.body.token
+	const newPassword = req.body.password
+
+	try {
+		const user = await User.findOne({ resetPasswordToken })
+
+		if (!user) {
+			return res.status(200).json({ message: 'Password reset successfully' })
+		}
+
+		if (user.resetExpires < Date.now()) {
+			return res.status(401).json({ message: 'Token expired '})
+		}
+
+		// Hash the new password
+		const hash = await bcrypt.hash(newPassword, 10)
+
+		// Update the user document with new password and clear token/expiration
+		await user.updateOne({
+			password: hash,
+			$unset: { resetPasswordToken: '', resetExpires: ''}
+		});
+
+		return res.status(200).json({
+			message: 'User password updated'
+		});
+	} catch (error) {
+		console.error('Error updating password:', error)
+		res.status(500).json({ message: 'Error updating the User document' })
+	}
 }
 
 /**

@@ -4,6 +4,8 @@
 		"JWT_KEY": "eyJhbGciOiJIUzUxMiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTcxMjA0MDc3NSwiaWF0IjoxNzEyMDQwNzc1fQ.pD8As5EOpjT88-5XP3Tmy-PvGw-Ht_WEsUCvvS1LwRpGWeG57hnveAQvUxUPlh-eqlvdksWARuWzJsbYPhFJ7A",
 		"AWS_ACCESS_KEY_ID": "AKIA5FTZE7J6ARCOAW77",
 		"AWS_SECRET_ACCESS_KEY": "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",
-		"AWS_REGION": "eu-west-3"
+		"AWS_REGION": "eu-west-3",
+		"EMAIL_USERNAME": "wharmy.website@gmail.com",
+		"EMAIL_PASSWORD": "oual rzfb musk slxz"
 	}
 }

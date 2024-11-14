@@ -15,7 +15,7 @@ import {RouterLink} from "@angular/router";
 		RouterLink
 	],
 	templateUrl: './login.component.html',
-	styleUrl: './login.component.css'
+	styleUrls: ['../auth.styles.css']
 })
 export class LoginComponent {
 	isLoading = false

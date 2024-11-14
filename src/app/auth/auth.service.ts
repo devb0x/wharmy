@@ -46,9 +46,15 @@ export class AuthService {
 			.post<{token: string, expiresIn: number, userId: string}>(BACKEND_URL + "login", authData)
 			.pipe(
 				catchError(error => {
-					this.loginError = true
-					// console.error('Login error: ', error)
-					return throwError(error)
+					// Check if error indicates unverified account
+					if (error.status === 403 && error.error?.action === "verify") {
+						// Set a custom message or navigate to verification page
+						this.router.navigate(['/register/verify-account'], { queryParams: { email } }).then(() => {});
+					} else {
+						// For all other errors, show generic login error
+						this.loginError = true;
+					}
+					return throwError(error);
 				})
 			)
 			.subscribe(response => {
@@ -62,7 +68,7 @@ export class AuthService {
 					const now = new Date()
 					const expirationDate = new Date(now.getTime() + expiresInDuration * 1000)
 					this.saveAuthData(this.token, expirationDate, this.userId as string)
-					this.router.navigate(['/dashboard'])
+					this.router.navigate(['/dashboard']).then(() => {})
 				}
 			})
 	}

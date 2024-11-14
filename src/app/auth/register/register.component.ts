@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { NgIf } from "@angular/common"
-import {Subject, Subscription} from "rxjs"
+import { Subscription} from "rxjs"
 
 import {
 	FormGroup,
@@ -9,7 +9,6 @@ import {
 	Validators
 } from "@angular/forms";
 import {AuthService} from "../auth.service";
-import {response} from "express";
 import {RouterLink} from "@angular/router";
 
 @Component({
@@ -24,7 +23,7 @@ import {RouterLink} from "@angular/router";
 		AuthService
 	],
 	templateUrl: './register.component.html',
-	styleUrl: './register.component.css'
+	styleUrls: ['../auth.styles.css']
 })
 
 export class RegisterComponent implements OnInit {
@@ -124,7 +123,6 @@ export class RegisterComponent implements OnInit {
 						})
 				}
 			})
-
 		this.isLoading = false
 	}
 
