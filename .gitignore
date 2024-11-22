@@ -43,3 +43,4 @@ Thumbs.db
 /src/app/sandbox/
 /node_modules
 nodemon.json
+/node_modules/
