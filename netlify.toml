@@ -1,0 +1,7 @@
+[build]
+base = "."
+publish = "dist"
+command = "npm run build"  # Angular build command
+
+[functions]
+directory = "backend"      # Path to backend/serverless functions
