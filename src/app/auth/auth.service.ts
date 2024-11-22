@@ -25,7 +25,7 @@ export class AuthService {
 		this.http
 			.post(BACKEND_URL + "signup", authData)
 			.subscribe({
-				next: () => this.router.navigate(['/']),
+				next: () => this.router.navigate(['/register/verify-account']),
 				error: () => {
 					this.authStatusListener.next(false)
 				}
@@ -46,13 +46,13 @@ export class AuthService {
 			.post<{token: string, expiresIn: number, userId: string}>(BACKEND_URL + "login", authData)
 			.pipe(
 				catchError(error => {
-					// Check if error indicates unverified account
-					if (error.status === 403 && error.error?.action === "verify") {
-						// Set a custom message or navigate to verification page
-						this.router.navigate(['/register/verify-account'], { queryParams: { email } }).then(() => {});
+					console.log(error.error?.reason)
+					if (error.status === 403 && error.error?.reason === "unverified") {
+						this.router.navigate(['/register/verify-account'], { queryParams: { email } });
+					} else if (error.status === 401) { // 401 for incorrect password
+						this.loginError = true
 					} else {
-						// For all other errors, show generic login error
-						this.loginError = true;
+						this.loginError = true
 					}
 					return throwError(error);
 				})

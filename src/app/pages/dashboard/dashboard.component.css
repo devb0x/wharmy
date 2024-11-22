@@ -1,3 +1,11 @@
+.dashboard-container {
+	width: 343px;
+	padding: 0 16px;
+	display: flex;
+	flex-direction: column;
+	margin: auto;
+}
+
 .dashboard-header {
 	margin-block: 42px;
 	display: flex;

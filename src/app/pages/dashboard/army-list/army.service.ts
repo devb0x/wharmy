@@ -23,6 +23,16 @@ export class ArmyService {
 		)
 	}
 
+	getArmyByMemberNumber(memberNumber: string): Observable<any> {
+		if (!memberNumber) {
+			throw new Error("memberNumber is required")
+		}
+
+		return this.http.get<any>(
+			BACKEND_URL + `/armies/${memberNumber}`
+		)
+	}
+
 	getArmy(id: string): Observable<any> {
 		if (!id) {
 			throw new Error("army Id is required")

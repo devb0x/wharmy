@@ -26,7 +26,7 @@ const miniatureSchema = new mongoose.Schema({
 
 const armySchema = mongoose.Schema({
 	ownerId: {
-		type: String,
+		type: mongoose.Schema.Types.ObjectId,
 		required: true
 	},
 	name: {

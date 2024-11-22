@@ -16,8 +16,18 @@ const userSchema = mongoose.Schema({
 		type: String,
 		required: true
 	},
+	createdAt: {
+		type: Date,
+		default: Date.now,
+		required: true
+	},
 	isVerified: {
 		type: Boolean, default: false
+	},
+	memberNumber: {
+		type: String,
+		unique: true,
+		required: true
 	},
 	verificationToken: String,
 	verificationExpires: Date,

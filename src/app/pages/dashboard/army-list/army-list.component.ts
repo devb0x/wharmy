@@ -38,12 +38,12 @@ export class ArmyListComponent {
 			.subscribe(
 				(armies: any) => {
 					this.armies = armies
-					this.isLoading = false
 				},
 				(error: HttpErrorResponse) => {
 					console.error(error)
 					this.isLoading = false
 				}
-		)
+			)
+		this.isLoading = false
 	}
 }

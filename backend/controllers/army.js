@@ -49,6 +49,29 @@ exports.getUserArmies = (req, res, next) => {
 		})
 }
 
+exports.getUserArmiesByNumber = (req, res, next) => {
+	const ownerId = req.params.memberNumber;
+
+	if (!ownerId) {
+		return res.status(400).json({ message: 'Missing ownerId parameter' });
+	}
+
+	Army
+		.find({ownerId: ownerId})
+		.then(armies => {
+			if (armies && armies.length > 0) {
+				res.status(200).json(armies)
+			} else {
+				res.status(404).json({ message: 'Armies not found '})
+			}
+		})
+		.catch(error => {
+			res.status(500).json({
+				message: "Fetching Armies failed!"
+			})
+		})
+}
+
 exports.getAllArmies = (req, res, next) => {
 	Army
 		.find()

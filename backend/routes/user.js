@@ -9,6 +9,11 @@ router.post(
 	UserController.createUser
 )
 
+router.post(
+	'/login',
+	UserController.loginUser
+)
+
 router.get(
 	'/userExist',
 	UserController.checkUserExists
@@ -50,9 +55,9 @@ router.get(
 	UserController.searchUsers
 )
 
-router.post(
-	'/login',
-	UserController.loginUser
+router.get(
+	'/getUserId/:number',
+	UserController.getUserId
 )
 
 router.get(

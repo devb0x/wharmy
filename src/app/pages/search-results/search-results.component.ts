@@ -12,6 +12,7 @@ import {UserInterface} from "../../models/user.interface";
 
 import { ArmyCardComponent } from "../dashboard/army-list/army-card/army-card.component";
 import { MiniatureCardComponent } from "../miniature/miniature-card/miniature-card.component";
+import { UserCardComponent } from "../../layout/user-card/user-card.component";
 
 @Component({
 	selector: 'app-search-results',
@@ -21,7 +22,8 @@ import { MiniatureCardComponent } from "../miniature/miniature-card/miniature-ca
 		NgFor,
 		RouterLink,
 		ArmyCardComponent,
-		MiniatureCardComponent
+		MiniatureCardComponent,
+		UserCardComponent
 	],
 	templateUrl: './search-results.component.html',
 	styleUrls: [
@@ -55,6 +57,7 @@ export class SearchResultsComponent {
 					this.armies = armies as ArmyInterface[]
 					this.miniatures = miniatures as MiniatureInterface[]
 					this.users = users as UserInterface[]
+					console.log(this.users)
 				},
 				(error) => {
 					console.error('Error fetching search results:', error);

@@ -24,6 +24,7 @@ import {ConfirmRegistrationComponent} from "./auth/confirm-registration/confirm-
 import {VerifyAccountComponent} from "./auth/verify-account/verify-account.component";
 import {RetrievePasswordComponent} from "./auth/retrieve-password/retrieve-password.component";
 import {ResetPasswordComponent} from "./auth/reset-password/reset-password.component";
+import {ProfileComponent} from "./pages/profile/profile.component";
 
 export const routes: Routes = [
 	{
@@ -73,6 +74,11 @@ export const routes: Routes = [
 				component: NewArmyComponent
 			}
 		]
+	},
+	{
+		path: 'profile/:memberNumber',
+		component: ProfileComponent,
+		resolve: { armyData: ArmyResolver }
 	},
 	{
 		path: 'army/:armyId',

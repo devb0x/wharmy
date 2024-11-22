@@ -4,13 +4,20 @@ const jwt = require('jsonwebtoken')
 const crypto = require('crypto')
 
 const User = require('../models/user')
+
+const { getNextSequenceValue } = require("../../backend/utils/counterHelper")
 const sendVerificationEmail = require("../../src/app/utils/sendVerificationEmail")
 const sendResetPasswordEmail = require("../../src/app/utils/sendResetPasswordEmail")
 
-exports.createUser = (req, res, next) => {
+exports.createUser = async (req, res, next) => {
 	const verificationToken = crypto.randomBytes(32).toString('hex'); // Generate token
 	const verificationExpires = Date.now() + 24 * 60 * 60 * 1000; // Token valid for 24 hours
-	// const verificationExpires = Date.now() + 1; // Token expired for dev purpose
+
+	/**
+	 * Generate the member Number
+	 * @type {*}
+	 */
+	const memberNumber = await getNextSequenceValue('memberNumber')
 
 	bcrypt.hash(req.body.password, 10)
 		.then(hash => {
@@ -19,6 +26,7 @@ exports.createUser = (req, res, next) => {
 				username: req.body.username,
 				password: hash,
 				isVerified: false,
+				memberNumber,
 				verificationToken,
 				verificationExpires
 			})
@@ -98,20 +106,28 @@ exports.checkUsernameTaken = async (req, res) => {
 	}
 }
 
-exports.loginUser = (req, res, next) => {
+exports.loginUser = async (req, res, next) => {
 	User
 		.findOne({ email: req.body.email })
-		.then(user => {
+		.then(async user => {
 			if (!user) {
 				return res.status(401).json({
 					message: "Login failed"
 				})
 			}
+
+			const isPasswordCorrect = await bcrypt.compare(req.body.password, user.password);
+			if (!isPasswordCorrect) {
+				return res.status(401).json({message: "Incorrect email or password"});
+			}
+
 			// Check if the user's account is verified
+			// reason used in auth service for redirecting the user
 			if (!user.isVerified) {
 				// Send a distinct response for unverified accounts
 				return res.status(403).json({
 					message: "Account not verified. Please verify your account.",
+					reason: "unverified",
 					action: "verify" // Custom response to guide frontend to verification process
 				});
 			}
@@ -135,7 +151,7 @@ exports.loginUser = (req, res, next) => {
 						userId: user._id
 					})
 				})
-			})
+		})
 		.catch(err => {
 			return res.status(500).json({
 				message: "Invalid Authentication Credentials"
@@ -162,20 +178,67 @@ exports.getUserInformation = async (req, res, next) => {
 	}
 }
 
-exports.searchUsers = async (req, res, next) => {
-	const query = req.query.query
+// exports.searchUsers = async (req, res, next) => {
+// 	const query = req.query.query
+//
+// 	User
+// 		.find({ username: { $regex: query, $options: 'i' } })
+// 		.then(users => {
+// 			res.status(200).json(users)
+// 		})
+// 		.catch(error => {
+// 			res.status(500).json({
+// 				message: "Fetching User(s) failed!"
+// 			})
+// 		})
+// }
 
-	User
-		.find({ username: { $regex: query, $options: 'i' } })
-		.then(users => {
-			res.status(200).json(users)
-		})
-		.catch(error => {
-			res.status(500).json({
-				message: "Fetching User(s) failed!"
-			})
-		})
-}
+exports.searchUsers = async (req, res, next) => {
+	const query = req.query.query;
+
+	try {
+		const users = await User.aggregate([
+			{
+				$match: { username: { $regex: query, $options: 'i' } },
+			},
+			{
+				$lookup: {
+					from: 'armies', // Collection name of armies
+					localField: '_id',
+					foreignField: 'ownerId',
+					as: 'userArmies',
+				},
+			},
+			{
+				$lookup: {
+					from: 'miniatures', // Collection name of miniatures
+					localField: '_id',
+					foreignField: 'ownerId',
+					as: 'userMiniatures',
+				},
+			},
+			{
+				$project: {
+					_id: 1,
+					username: 1,
+					memberNumber: 1,
+					armiesCount: { $size: '$userArmies' },
+					miniaturesCount: { $size: '$userMiniatures' },
+				},
+			},
+		]);
+
+		if (users.length === 0) {
+			return res.status(404).json({ message: 'No users found' });
+		}
+
+		res.status(200).json(users);
+	} catch (error) {
+		console.error('Error fetching users:', error);
+		res.status(500).json({ message: 'Fetching User(s) failed!' });
+	}
+};
+
 
 exports.sendVerificationLink = async (req, res) => {
 	const { email } = req.body;
@@ -242,7 +305,6 @@ exports.sendRetrievePasswordLink = async (req, res) => {
 	}
 }
 
-
 exports.updatePassword = async (req, res) => {
 	const resetPasswordToken = req.body.token
 	const newPassword = req.body.password
@@ -275,6 +337,25 @@ exports.updatePassword = async (req, res) => {
 		res.status(500).json({ message: 'Error updating the User document' })
 	}
 }
+
+exports.getUserId = async (req, res, next) => {
+	const { number } = req.params; // Retrieve the member number from the route
+
+	try {
+		// Query the User model to find the user by their memberNumber
+		const user = await User.findOne({ memberNumber: number });
+
+		if (!user) {
+			return res.status(404).json({ message: 'User not found' });  // Return a 404 if the user is not found
+		}
+
+		// If the user is found, return the userId
+		res.status(200).json({ userId: user._id });  // Return the user's _id (or any other field you need)
+	} catch (error) {
+		console.error('Error fetching user:', error);
+		return res.status(500).json({ message: 'Server error' });  // Return 500 on server error
+	}
+};
 
 /**
  * dummy function delete later

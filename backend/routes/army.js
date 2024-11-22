@@ -36,6 +36,11 @@ router.get(
 )
 
 router.get(
+	"/armies/:memberNumber",
+	ArmyController.getUserArmiesByNumber
+)
+
+router.get(
 	"/:armyId",
 	ArmyController.getArmy
 )
