@@ -5,3 +5,8 @@ command = "npm run build"  # Angular build command
 
 [functions]
 directory = "backend"      # Path to backend/serverless functions
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
