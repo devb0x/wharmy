@@ -5,7 +5,7 @@ const crypto = require('crypto')
 
 const User = require('../models/user')
 
-const { getNextSequenceValue } = require("../../backend/utils/counterHelper")
+const { getNextSequenceValue } = require("../utils/counterHelper")
 const sendVerificationEmail = require("../../src/app/utils/sendVerificationEmail")
 const sendResetPasswordEmail = require("../../src/app/utils/sendResetPasswordEmail")
 

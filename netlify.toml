@@ -4,7 +4,7 @@ publish = "dist/wharmy/browser/browser"
 command = "ng build --base-href /wharmy/"  # Angular build command
 
 [functions]
-directory = "backend"      # Path to backend/serverless functions
+directory = "backend"      # Path to api/serverless functions
 
 [[redirects]]
 from = "/"
