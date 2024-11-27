@@ -10,12 +10,19 @@ const miniatureRoutes = require('./routes/miniature')
 
 const cors = require("cors")
 
+// const dbPassword = process.env.MONGO_ATLAS_PW
+const dbPassword = process.env.MONGO_ATLAS_PW;
+const uri = `mongodb+srv://devb0x:${dbPassword}@cluster0.uhohovv.mongodb.net/node-angular?retryWrites=true&w=majority`;
+
 mongoose
-	.connect(`mongodb+srv://devb0x:${process.env.MONGO_ATLAS_PW}@cluster0.uhohovv.mongodb.net/node-angular?retryWrites=true&w=majority&appName=Cluster0`)
+	// .connect(`mongodb+srv://devb0x:${process.env.MONGO_ATLAS_PW}@cluster0.uhohovv.mongodb.net/node-angular?retryWrites=true&w=majority&appName=Cluster0`)
+	// .connect(uri)
+	.connect(`mongodb+srv://devb0x:${dbPassword}@cluster0.uhohovv.mongodb.net/node-angular?retryWrites=true&w=majority&appName=Cluster0`)
 	.then(() => {
 		console.log('Connected to database.')
 	})
-	.catch(() => {
+	.catch((err) => {
+		console.log(err)
 		console.log('Connection failed!')
 	})
 
@@ -23,8 +30,6 @@ const app = express()
 
 app.use(bodyParser.json())
 // app.use(bodyParser.urlencoded({ extended: false }))
-
-
 
 app.use((req, res, next) => {
 	res.setHeader("Access-Control-Allow-Origin", "*")
@@ -41,12 +46,12 @@ app.use((req, res, next) => {
 
 app.options('*', cors())
 
-app.use("/api/user", userRoutes)
-app.use("/api/army", armyRoutes)
-app.use("/api/army", miniatureRoutes)
-app.use("/api", uploadRoutes)
-app.use("/api", pictureRoutes)
+app.use("/backend/user", userRoutes)
+app.use("/backend/army", armyRoutes)
+app.use("/backend/army", miniatureRoutes)
+app.use("/backend", uploadRoutes)
+app.use("/backend", pictureRoutes)
 
-app.get("/api/user/dummy")
+app.get("/backend/user/dummy")
 
 module.exports = app

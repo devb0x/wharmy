@@ -1,4 +1,4 @@
-const app = require('./api/app')
+const app = require('./backend/app')
 const http = require('http')
 
 const port = process.env.PORT || 3000
