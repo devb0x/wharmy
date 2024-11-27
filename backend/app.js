@@ -10,14 +10,8 @@ const miniatureRoutes = require('./routes/miniature')
 
 const cors = require("cors")
 
-// const dbPassword = process.env.MONGO_ATLAS_PW
-const dbPassword = process.env.MONGO_ATLAS_PW;
-const uri = `mongodb+srv://devb0x:${dbPassword}@cluster0.uhohovv.mongodb.net/node-angular?retryWrites=true&w=majority`;
-
 mongoose
-	// .connect(`mongodb+srv://devb0x:${process.env.MONGO_ATLAS_PW}@cluster0.uhohovv.mongodb.net/node-angular?retryWrites=true&w=majority&appName=Cluster0`)
-	// .connect(uri)
-	.connect(`mongodb+srv://devb0x:${dbPassword}@cluster0.uhohovv.mongodb.net/node-angular?retryWrites=true&w=majority&appName=Cluster0`)
+	.connect(`mongodb+srv://devb0x:${process.env.MONGO_ATLAS_PW}@cluster0.uhohovv.mongodb.net/node-angular?retryWrites=true&w=majority&appName=Cluster0`)
 	.then(() => {
 		console.log('Connected to database.')
 	})
