@@ -1,6 +1,9 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require("body-parser")
+const path = require('path');
+const cors = require("cors")
+const app = express()
 
 const userRoutes = require('./routes/user')
 const armyRoutes = require('./routes/army')
@@ -8,7 +11,6 @@ const uploadRoutes = require('./routes/upload')
 const pictureRoutes = require('./routes/picture')
 const miniatureRoutes = require('./routes/miniature')
 
-const cors = require("cors")
 
 mongoose
 	.connect(`mongodb+srv://devb0x:${process.env.MONGO_ATLAS_PW}@cluster0.uhohovv.mongodb.net/node-angular?retryWrites=true&w=majority&appName=Cluster0`)
@@ -20,7 +22,11 @@ mongoose
 		console.log('Connection failed!')
 	})
 
-const app = express()
+app.use(express.static(path.join(__dirname, '../src')));
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname, '../src/index.html'));
+});
+
 
 app.use(bodyParser.json())
 // app.use(bodyParser.urlencoded({ extended: false }))
