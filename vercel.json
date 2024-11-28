@@ -1,17 +1,16 @@
 {
-	"version": 2,
 	"builds": [
 		{
 			"src": "backend/app.js",
 			"use": "@vercel/node"
 		},
 		{
-			"src": "src/*",
+			"src": "dist/wharmy/browser/**/*",
 			"use": "@vercel/static"
 		}
 	],
 	"routes": [
 		{ "src": "/api/(.*)", "dest": "backend/app.js" },
-		{ "src": "/(.*)", "dest": "/src/index.html" }
+		{ "src": "/(.*)", "dest": "dist/wharmy/browser/index.html" }
 	]
 }
